@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="AlleyBrawlers" company="thine mother" webLink="http://fuk.u" view-date="2018-06-05" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.7.2" locale="en_CA">
+    <description><![CDATA[this game is gay lmao]]></description>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Name" width="57" order="0"/>
+        <field id="tpd4" name="Begin date" width="21" order="1"/>
+        <field id="tpd5" name="End date" width="21" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="50" order="0"/>
+        <field id="1" name="Default role" width="50" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+        <date year="2018" month="5" date="21" type="HOLIDAY"/>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="34" name="this entire FRIcKinG project" meeting="false" start="2018-05-22" duration="23" complete="0" expand="true">
+            <task id="0" name="work on main" color="#8cb6ce" meeting="false" start="2018-05-22" duration="21" complete="0" expand="true"/>
+            <task id="2" name="make input classes" color="#8cb6ce" meeting="false" start="2018-05-22" duration="2" complete="0" expand="true"/>
+            <task id="5" name="screen class" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true">
+                <task id="27" name="make screen class" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                <task id="3" name="work on menu" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                <task id="4" name="work on arena" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="6" name="physical class" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true">
+                <task id="28" name="make physical class" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                <task id="8" name="work on characters" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                <task id="7" name="attack system" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true">
+                    <task id="29" name="make attack class" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                    <task id="21" name="light attacks" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                    <task id="22" name="heavy attacks" color="#8cb6ce" meeting="false" start="2018-05-22" duration="1" complete="0" expand="true"/>
+                </task>
+            </task>
+            <task id="18" name="create login system" color="#8cb6ce" meeting="false" start="2018-06-03" duration="1" complete="0" expand="true">
+                <task id="20" name="create leaderboard" color="#8cb6ce" meeting="false" start="2018-06-03" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="35" name="fixing last bugs, brushing up game" color="#8cb6ce" meeting="false" start="2018-06-11" duration="3" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="0" name="nibba 1" function="Default:0" contacts="aa" phone="1"/>
+        <resource id="1" name="nibba 2" function="Default:0" contacts="dicc" phone="2"/>
+    </resources>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd3" order="0" width="199" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="75" visible="true"/>
+        <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd12" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd5" order="2" width="75" visible="true"/>
+        <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd13" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
