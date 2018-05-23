@@ -80,7 +80,7 @@ class GameFrame extends JFrame {
     public void paintComponent(Graphics g) {   
       Image pic = new ImageIcon("background.png").getImage();
       g.setColor(Color.BLUE);
-      g.drawImage(pic,0,0,null);     
+      g.drawImage(pic,0,0,1920,1080,null);     
       setDoubleBuffered(true); 
       g.fillRect((int)x, (int)y, 100, 100); //notice the x,y variables that we control from our animate method      
       
@@ -107,6 +107,7 @@ class GameFrame extends JFrame {
     } //end of keyboard listener
   
   // -----------  Inner class for the keyboard listener - This detects mouse movement & clicks and runs the corresponding methods 
+    //placeholder listeners for later
     private class MyMouseListener implements MouseListener {
    
       public void mouseClicked(MouseEvent e) {
