@@ -9,23 +9,22 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
 
-class Menu extends JFrame { 
+class StartingFrame extends JFrame { 
     
     JFrame thisFrame;
     
     //Constructor - this runs first
-    Menu() { 
+    StartingFrame() { 
         super("Start Screen");
         this.thisFrame = this; //lol  
         
         //configure the window
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        this.setSize(400,700);    
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         this.setResizable (false);
@@ -66,7 +65,7 @@ class Menu extends JFrame {
     
     //Main method starts this application
     public static void main(String[] args) { 
-        new Menu();
+        new StartingFrame();
         
     }
     
