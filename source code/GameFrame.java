@@ -22,7 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-class GameFrameTwo extends JFrame { 
+class GameFrame extends JFrame { 
 
   //class variable (non-static)
    static double x, y;
@@ -30,15 +30,15 @@ class GameFrameTwo extends JFrame {
   
   
   //Constructor - this runs first
-  GameFrameTwo() { 
+  GameFrame() { 
     
     super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width-50,Toolkit.getDefaultToolkit().getScreenSize().height-50);
-    this.setUndecorated(true);  //Set to true to remove title bar
-    this.setBackground(new Color(0, 0, 0, 0));
+    this.setUndecorated(false);  //Set to true to remove title bar
+    this.setBackground(new Color(0, 0, 0, 255));
     
     //Set up the game panel (where we put our graphics)
     gamePanel = new GameAreaPanel();
