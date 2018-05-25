@@ -22,7 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-class GameFrame extends JFrame { 
+class GameFrameTwo extends JFrame { 
 
   //class variable (non-static)
    static double x, y;
@@ -30,15 +30,15 @@ class GameFrame extends JFrame {
   
   
   //Constructor - this runs first
-  GameFrame() { 
+  GameFrameTwo() { 
     
     super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width-50,Toolkit.getDefaultToolkit().getScreenSize().height-50);
-    this.setUndecorated(false);  //Set to true to remove title bar
-    this.setBackground(new Color(0, 0, 0, 255));
+    this.setUndecorated(true);  //Set to true to remove title bar
+    this.setBackground(new Color(0, 0, 0, 0));
     
     //Set up the game panel (where we put our graphics)
     gamePanel = new GameAreaPanel();
@@ -78,7 +78,7 @@ class GameFrame extends JFrame {
   // Inner class for the the game area - This is where all the drawing of the screen occurs
   private class GameAreaPanel extends JPanel {
     public void paintComponent(Graphics g) {   
-      Image pic = new ImageIcon("background.png").getImage();
+      Image pic = new ImageIcon("resources/background.png").getImage();
       g.setColor(Color.BLUE);
       g.drawImage(pic,0,0,1920,1080,null);     
       setDoubleBuffered(true); 

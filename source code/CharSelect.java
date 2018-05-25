@@ -1,5 +1,7 @@
 /** 
- * charSelect.java 
+ * CharSelect.java 
+ * Character selection screen for the Alley Brawlers game
+ * 
 **/
 
 
@@ -10,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
@@ -24,11 +27,17 @@ import javax.swing.border.EmptyBorder;
 class StartingFrameTwo extends JFrame { 
 
   JFrame thisFrame;
-  String picName = "";
+  private String[] selectedCharacter = new String[2];
+  private int selection;
+  JLabel character;
+  
+
   
   //Constructor - this runs first
   StartingFrameTwo() { 
     super("Start Screen");
+    this.selectedCharacter[0] = "char1";
+    this.selectedCharacter[1] = "char2";
     this.thisFrame = this; //lol  
     
     //configure the window
@@ -52,22 +61,22 @@ class StartingFrameTwo extends JFrame {
     mainPanel.setBackground(new Color(0, 0, 0, 0));
     mainPanel.setPreferredSize(new Dimension(1920,1080));
     
-    
+    JPanel charPanel = new JPanel();
+        
     //Create a JButton for the centerPanel
-    ImageIcon sb =new ImageIcon("startbutton.png");
-    ImageIcon arrowPic = new ImageIcon("arrow.png");
+    ImageIcon sb =new ImageIcon("resources/startbutton.png");
+    ImageIcon arrowPic = new ImageIcon("resources/arrow.png");
 
 
     JButton startButton = new JButton(sb);
     startButton.setBackground(new Color(0, 0, 0, 0));
-    startButton.setRolloverIcon(new ImageIcon("startbuttonpressed.png"));
+    startButton.setRolloverIcon(new ImageIcon("resources/startbuttonpressed.png"));
     startButton.setBorder(BorderFactory.createEmptyBorder());
     startButton.setFocusPainted(false);
     startButton.addActionListener(new StartButtonListener());
     
     JButton arrowButton = new JButton(arrowPic);
     arrowButton.setBackground(new Color(0, 0, 0, 0));
-    arrowButton.setRolloverIcon(new ImageIcon("startbuttonpressed.png"));
     arrowButton.setBorder(BorderFactory.createEmptyBorder());
     arrowButton.setFocusPainted(false);
     arrowButton.addActionListener(new ArrowListener());
@@ -77,16 +86,12 @@ class StartingFrameTwo extends JFrame {
     bottomPanel.add(arrowButton);
     bottomPanel.add(startButton);
     
-    this.picName = "char1.jpg";
-    ImageIcon char1Pic = new ImageIcon(picName);
+    ImageIcon char1Pic = new ImageIcon("resources/" + selectedCharacter[selection] + ".jpg");
     
-    JLabel character = new JLabel(char1Pic);
+    character = new JLabel(char1Pic);
     
-    JPanel charPanel = new JPanel();
-    charPanel.setBackground(new Color(0,0,0,0));
     charPanel.add(character);
-   
- 
+    
      //Create a JButton for the centerPanel
     JLabel startLabel = new JLabel("<HTML><big><font color='black'>Welome to some game or something</big></HTML>");
     
@@ -94,7 +99,6 @@ class StartingFrameTwo extends JFrame {
     mainPanel.add(bottomPanel,BorderLayout.EAST);
     mainPanel.add(startLabel,BorderLayout.NORTH);
     mainPanel.add(charPanel,BorderLayout.CENTER);
-    
     decPanel.add(mainPanel);
     //add the main panel to the frame
     this.add(decPanel);
@@ -103,8 +107,8 @@ class StartingFrameTwo extends JFrame {
     this.setVisible(true);
   }
   
-  public void setCharPic(String name) {
-   this.picName = name;
+  public void setCharPic(int n) {
+   this.selection = n;
   }
   
   //INNER CLASS - Overide Paint Component for JPANEL
@@ -116,7 +120,7 @@ class StartingFrameTwo extends JFrame {
     
     public void paintComponent(Graphics g) { 
         super.paintComponent(g);     
-        Image pic = new ImageIcon("charSelectBG.png").getImage();
+        Image pic = new ImageIcon("resources/charSelectBG.png").getImage();
         g.drawImage(pic,0,0,1920,1080,null); 
    }
   
@@ -134,10 +138,17 @@ class StartingFrameTwo extends JFrame {
   }
  
  class ArrowListener implements ActionListener {
+   
    public void actionPerformed(ActionEvent event)  {
-      System.out.println("a");//create a new FunkyFrame (another file that extends JFrame)
-      setCharPic("char2.jpg");
+     if (selection >= selectedCharacter.length) {
+      selection = 0; 
+     } else {
+      selection++; 
+     }
+      System.out.println("a");
+      character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".jpg"));
       thisFrame.repaint();
+      
 
     }
  }
