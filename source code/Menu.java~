@@ -5,16 +5,24 @@
 
 
 //Imports
+import javax.swing.BoxLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Toolkit;
+import java.awt.Color;
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
+import java.awt.Toolkit;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.border.EmptyBorder;
 
 class Menu extends JFrame { 
     
@@ -32,7 +40,7 @@ class Menu extends JFrame {
         
         //Create a Panel for stuff
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(new BoxLayout(mainPanel , BoxLayout.Y_AXIS));
         
         //Create a JButton for the centerPanel
         JButton startButton = new JButton("START");
@@ -41,9 +49,10 @@ class Menu extends JFrame {
         //Create a JButton for the centerPanel
         JLabel startLabel = new JLabel("Welome to some game or something");
         
+        
         //Add all panels to the mainPanel according to border layout
-        mainPanel.add(startButton,BorderLayout.SOUTH);
-        mainPanel.add(startLabel,BorderLayout.CENTER);
+        mainPanel.add(startButton);
+        mainPanel.add(startLabel);
         
         //add the main panel to the frame
         this.add(mainPanel);
@@ -52,17 +61,29 @@ class Menu extends JFrame {
         this.setVisible(true);
     }
     
+    private class DecoratedPanel extends JPanel {
+        
+        DecoratedPanel() {
+            this.setBackground(new Color(0,0,0,0));
+        }
+        
+        public void paintComponent(Graphics g) { 
+            super.paintComponent(g);     
+            Image pic = new ImageIcon( "resources/placeholder.jpg" ).getImage();
+            g.drawImage(pic,0,0,null); 
+        }
+    }
+        
     //This is an inner class that is used to detect a button press
     class StartButtonListener implements ActionListener {  //this is the required class definition
         public void actionPerformed(ActionEvent event)  {  
             System.out.println("Starting new Game");
-            thisFrame.dispose();
+            //thisFrame.dispose();
             new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
             
         }
         
     }
-    
     
     //Main method starts this application
     public static void main(String[] args) { 
