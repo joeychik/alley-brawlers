@@ -1,7 +1,7 @@
 /** 
  * CharSelect.java 
  * Character selection screen for the Alley Brawlers game
- * 
+ * @author Eric Ke
 **/
 
 
@@ -22,22 +22,39 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import javax.swing.border.EmptyBorder;
+import java.util.Scanner;
+import java.io.File;
 
   
-class StartingFrameTwo extends JFrame { 
+class StartingFrameTwo extends JFrame{ 
 
   JFrame thisFrame;
-  private String[] selectedCharacter = new String[2];
+  private String[] selectedCharacter;
   private int selection;
   JLabel character;
   
+  private void readCharList(String filename) throws Exception{
+    int i = 0;
+    File characterList = new File(filename);
+    
+    Scanner fileReader = new Scanner(characterList);
+    selectedCharacter = new String[fileReader.nextInt()];
+    
+    while(fileReader.hasNext()) {
+     selectedCharacter[i] = fileReader.next();
+     i++;
+    }
+  }
 
   
   //Constructor - this runs first
   StartingFrameTwo() { 
     super("Start Screen");
-    this.selectedCharacter[0] = "char1";
-    this.selectedCharacter[1] = "char2";
+    try{
+    readCharList("resources/characters.txt");
+    } catch(Exception e) {
+     System.out.println("get rekt noob"); 
+    }
     this.thisFrame = this; //lol  
     
     //configure the window
