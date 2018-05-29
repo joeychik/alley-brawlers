@@ -5,7 +5,6 @@
 
 
 //Imports
-import javax.swing.BoxLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -14,6 +13,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
 import java.awt.Toolkit;
@@ -26,63 +26,54 @@ import javax.swing.border.EmptyBorder;
 
 class Menu extends JFrame { 
     
-    JFrame thisFrame;
+    private JFrame thisFrame;
+    private static int screenHeight;
+    private static int screenWidth;
     
     //Constructor - this runs first
     Menu() { 
         super("Start Screen");
         
+        screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+        screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        
         //configure the window
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        this.setSize(screenWidth , screenHeight);
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        this.setResizable (false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel , BoxLayout.Y_AXIS));
+        DecoratedPanel mainPanel = new DecoratedPanel();
         
-        //Create a JButton for the centerPanel
-        JButton startButton = new JButton("START");
-        startButton.addActionListener(new StartButtonListener());
-        
-        //Create a JButton for the centerPanel
-        JLabel startLabel = new JLabel("Welome to some game or something");
-        
-        
-        //Add all panels to the mainPanel according to border layout
-        mainPanel.add(startButton);
-        mainPanel.add(startLabel);
+        // add listeners to mainpanel
+        this.addMouseListener(mainPanel);
         
         //add the main panel to the frame
         this.add(mainPanel);
         
         //Start the app
         this.setVisible(true);
+        
+        
     }
     
     private class DecoratedPanel extends JPanel {
-        
-        DecoratedPanel() {
-            this.setBackground(new Color(0,0,0,0));
-        }
-        
         public void paintComponent(Graphics g) { 
-            super.paintComponent(g);     
-            Image pic = new ImageIcon( "resources/placeholder.jpg" ).getImage();
-            g.drawImage(pic,0,0,null); 
+            super.paintComponent(g);
+            Image pic = new ImageIcon("resources/menu.png").getImage();
+            g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
         }
     }
-        
-    //This is an inner class that is used to detect a button press
-    class StartButtonListener implements ActionListener {  //this is the required class definition
-        public void actionPerformed(ActionEvent event)  {  
-            System.out.println("Starting new Game");
-            //thisFrame.dispose();
-            new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
-            
+    
+    private class ClickListener implements MouseListener {
+        public void mousePressed(MouseEvent e) {
+            System.out.println("Mouse pressed; # of clicks: "+ e.getClickCount(), e);
         }
         
+        public void mouseReleased(MouseEvent e) {
+            saySomething("Mouse released; # of clicks: "
+                             + e.getClickCount(), e);
+        }
     }
     
     //Main method starts this application

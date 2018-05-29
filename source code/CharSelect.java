@@ -26,7 +26,7 @@ import java.util.Scanner;
 import java.io.File;
 
   
-class StartingFrameTwo extends JFrame{ 
+class CharSelect extends JFrame{ 
 
   JFrame thisFrame;
   private String[] selectedCharacter;
@@ -48,7 +48,7 @@ class StartingFrameTwo extends JFrame{
 
   
   //Constructor - this runs first
-  StartingFrameTwo() { 
+  CharSelect() { 
     super("Start Screen");
     try{
     readCharList("resources/characters.txt");
@@ -172,7 +172,7 @@ class StartingFrameTwo extends JFrame{
   
   //Main method starts this application
   public static void main(String[] args) { 
-    new StartingFrameTwo();
+    new CharSelect();
 
   }
   
