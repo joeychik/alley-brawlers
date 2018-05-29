@@ -17,6 +17,7 @@ abstract class Physical {
   this.yPos = y;
   this.height = h;
   this.width = w;
+  boundingBox = new Rectangle((int)xPos, (int)yPos, w, h);
  }
   
   
