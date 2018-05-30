@@ -8,9 +8,9 @@
 import java.awt.Rectangle;
 
 abstract class Physical {
- double xPos , yPos;
- int height, width;
- Rectangle boundingBox;
+ private double xPos , yPos;
+ private int height, width;
+ private Rectangle boundingBox;
  
  Physical(int x, int y, int h, int w) {
   this.xPos = x;
