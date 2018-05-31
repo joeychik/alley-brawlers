@@ -27,36 +27,33 @@ class Menu extends JFrame {
     private JFrame thisFrame;
     private static int screenHeight;
     private static int screenWidth;
+    private static double scaleRatio;
     
-    //Constructor - this runs first
     Menu() { 
         super("Start Screen");
         
+        // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        scaleRatio = (double) screenHeight / 1080;
         
-        ClickListener clickListener = new ClickListener();
-        
-        //configure the window
+        // configure the window
         this.setSize(screenWidth , screenHeight);
         this.setResizable(false);
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        BackgroundPanel mainPanel = new BackgroundPanel();
+        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
         mainPanel.setLayout(null);
         
-        MenuButton button1 = new MenuButton("resources/placeholder.jpg");
-        
-        // add listeners to mainpanel
-        button1.addMouseListener(clickListener);
+        StartButton button1 = new StartButton("resources/placeholder.jpg");
         
         //add the main panel to the frame
         this.add(mainPanel);
         mainPanel.add(button1);
         
-        button1.setBounds(screenWidth / 7 , screenHeight / 2 , 400 , 150);
+        button1.setBounds(screenWidth / 2 - (int) (150 * scaleRatio) , screenHeight / 2 - (int) (25 * scaleRatio) , 300 , 50);
         
         //Start the app
         this.setVisible(true);
@@ -64,15 +61,33 @@ class Menu extends JFrame {
         
     }
     
-    private class BackgroundPanel extends JPanel {
+    private class DecoratedPanel extends JPanel {
+        String picAddress;
+        
+        DecoratedPanel(String picAddress) {
+            super();
+            this.picAddress = picAddress;
+        }
+        
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
-            Image pic = new ImageIcon("resources/menu.png").getImage();
+            Image pic = new ImageIcon(picAddress).getImage();
             g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
         }
     }
     
-    private class ClickListener implements MouseListener {        
+    private class StartButton extends DecoratedPanel implements MouseListener {  
+        StartButton(String picAddress) {
+            super(picAddress);
+            addMouseListener(this);
+        }
+        
+        public void paintComponent(Graphics g) { 
+            super.paintComponent(g);
+            Image pic = new ImageIcon(picAddress).getImage();
+            g.drawImage(pic , 0 , 0 , 300 , 50 , null); 
+        }
+        
         public void mousePressed(MouseEvent e) {
             System.out.println("pressed");
         }
@@ -92,22 +107,6 @@ class Menu extends JFrame {
         public void mouseClicked(MouseEvent e) {
             System.out.println("clicked");
             new CharSelect();
-            
-        }
-    }
-    
-    private class MenuButton extends JPanel {
-        
-        String picAddress;
-        
-        MenuButton(String picAddress) {
-            this.picAddress = picAddress;
-        }
-        
-        public void paintComponent(Graphics g) { 
-            super.paintComponent(g);
-            Image pic = new ImageIcon(picAddress).getImage();
-            g.drawImage(pic , 0 , 0 , 400 , 150 , null); 
         }
     }
     
