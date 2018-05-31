@@ -19,6 +19,38 @@ abstract class Physical {
   this.width = w;
   boundingBox = new Rectangle((int)xPos, (int)yPos, w, h);
  }
-  
+ 
+ public double getXPos() {
+  return xPos; 
+ }
+ 
+ public double getYPos() {
+  return yPos; 
+ }
+ 
+ public int getHeight() {
+  return height; 
+ }
+ 
+ public int getWidth() {
+  return width; 
+ }
+ 
+ public Rectangle getBoundingBox() {
+  return boundingBox; 
+ }
+ 
+ public void setXPos(double x) {
+   this.xPos = x;
+ }
+ 
+ public void setYPos(double y) {
+   this.yPos = y;
+ }
+ 
+ public void setBoxPosition(double x, double y) {
+  boundingBox.x=(int)x;
+  boundingBox.y=(int)y;
+ }
   
 }

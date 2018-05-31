@@ -14,6 +14,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;  
 import javax.swing.border.EmptyBorder;
 
+import java.awt.Rectangle;
+
 //Keyboard imports
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -57,8 +59,6 @@ class GameFrameTwo extends JFrame {
     this.setVisible(true);
   
     //Start the game loop in a separate thread
-    Thread t = new Thread(new Runnable() { public void run() { animate(); }}); //start the gameLoop 
-    t.start();
    
   } //End of Constructor
 
@@ -66,9 +66,7 @@ class GameFrameTwo extends JFrame {
   public void animate() { 
     
     while(true){
-      this.x = (Math.random()*1024)+200;  //update coords
-      this.y = (Math.random()*768)+200;
-      try{ Thread.sleep(500);} catch (Exception exc){}  //delay
+      
       this.repaint();
     }    
   }
@@ -77,12 +75,34 @@ class GameFrameTwo extends JFrame {
   
   // Inner class for the the game area - This is where all the drawing of the screen occurs
   private class GameAreaPanel extends JPanel {
-    public void paintComponent(Graphics g) {   
+    Clock clock;
+    PhysicalTest test;
+    Floor ground;
+    
+    GameAreaPanel() {
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.setColor(Color.BLUE);
-      g.drawImage(pic,0,0,1920,1080,null);     
-      setDoubleBuffered(true); 
-      g.fillRect((int)x, (int)y, 100, 100); //notice the x,y variables that we control from our animate method      
+      test = new PhysicalTest(0,0,200,200);//notice the x,y variables that we control from our animate method      
+      ground = new Floor();
+      clock = new Clock(); 
+    }
+    
+    public void paintComponent(Graphics g) { 
+      super.paintComponent(g);
+      setDoubleBuffered(true);
+      clock.update();
+      test.update(clock.getElapsedTime());
+      
+      if (test.getBoundingBox().intersects(ground.getBoundingBox())){
+        test.setXSpeed(0);
+        test.setYSpeed(0);
+        
+      }
+      
+      test.draw(g);
+      ground.draw(g);
+      repaint();
+      
+      System.out.println("a");
       
     }
   }

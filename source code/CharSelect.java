@@ -121,7 +121,7 @@ class CharSelect extends JFrame{
     leftPanel.setBackground(new Color(0, 0, 0, 0));
     leftPanel.add(arrowButton2);
     
-    ImageIcon char1Pic = new ImageIcon("resources/" + selectedCharacter[selection] + ".jpg");
+    ImageIcon char1Pic = new ImageIcon("resources/" + selectedCharacter[selection] + ".png");
     
     character = new JLabel(char1Pic);
     
@@ -168,6 +168,7 @@ class CharSelect extends JFrame{
       System.out.println("Starting new Game");
       thisFrame.dispose();
       new GameFrameTwo(); //create a new FunkyFrame (another file that extends JFrame)
+      thisFrame.dispose();
 
     }
 

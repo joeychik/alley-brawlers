@@ -6,6 +6,8 @@
  */
 
 import java.awt.Rectangle;
+import java.awt.Graphics;
+import java.awt.Color;
 
 class Floor extends Physical {
   
@@ -14,7 +16,12 @@ class Floor extends Physical {
   }
   
   Floor() {
-    super(300, 100, 0, 100000);
+    super(0, 700, 200, 10000);
   }
+  
+  public void draw(Graphics g) { 
+    g.setColor(Color.BLACK); //There are many graphics commands that Java can use
+    g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight()); //notice the y is a variable that we control from our animate method          
+ }
  
 }
