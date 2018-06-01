@@ -12,9 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import javax.swing.SwingUtilities;
 import java.awt.Toolkit;
 import java.awt.Graphics;
@@ -29,27 +27,33 @@ class Menu extends JFrame {
     private JFrame thisFrame;
     private static int screenHeight;
     private static int screenWidth;
+    private static double scaleRatio;
     
-    //Constructor - this runs first
     Menu() { 
         super("Start Screen");
         
+        // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        scaleRatio = (double) screenHeight / 1080;
         
-        //configure the window
+        // configure the window
         this.setSize(screenWidth , screenHeight);
+        this.setResizable(false);
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        DecoratedPanel mainPanel = new DecoratedPanel();
+        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
+        mainPanel.setLayout(null);
         
-        // add listeners to mainpanel
-        this.addMouseListener(mainPanel);
+        StartButton button1 = new StartButton("resources/placeholder.jpg");
         
         //add the main panel to the frame
         this.add(mainPanel);
+        mainPanel.add(button1);
+        
+        button1.setBounds(screenWidth / 2 - (int) (150 * scaleRatio) , screenHeight / 2 - (int) (25 * scaleRatio) , 300 , 50);
         
         //Start the app
         this.setVisible(true);
@@ -58,21 +62,51 @@ class Menu extends JFrame {
     }
     
     private class DecoratedPanel extends JPanel {
+        String picAddress;
+        
+        DecoratedPanel(String picAddress) {
+            super();
+            this.picAddress = picAddress;
+        }
+        
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
-            Image pic = new ImageIcon("resources/menu.png").getImage();
+            Image pic = new ImageIcon(picAddress).getImage();
             g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
         }
     }
     
-    private class ClickListener implements MouseListener {
+    private class StartButton extends DecoratedPanel implements MouseListener {  
+        StartButton(String picAddress) {
+            super(picAddress);
+            addMouseListener(this);
+        }
+        
+        public void paintComponent(Graphics g) { 
+            super.paintComponent(g);
+            Image pic = new ImageIcon(picAddress).getImage();
+            g.drawImage(pic , 0 , 0 , 300 , 50 , null); 
+        }
+        
         public void mousePressed(MouseEvent e) {
-            System.out.println("Mouse pressed; # of clicks: "+ e.getClickCount(), e);
+            System.out.println("pressed");
         }
         
         public void mouseReleased(MouseEvent e) {
-            saySomething("Mouse released; # of clicks: "
-                             + e.getClickCount(), e);
+            System.out.println("released");
+        }
+        
+        public void mouseEntered(MouseEvent e) {
+            System.out.println("entered");
+        }
+        
+        public void mouseExited(MouseEvent e) {
+            System.out.println("exited");
+        }
+        
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("clicked");
+            new CharSelect();
         }
     }
     

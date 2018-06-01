@@ -27,6 +27,8 @@ class Menu extends JFrame {
     private JFrame thisFrame;
     private static int screenHeight;
     private static int screenWidth;
+    private static int buttonHeight;
+    private static int buttonWidth;
     private static double scaleRatio;
     
     Menu() { 
@@ -47,13 +49,19 @@ class Menu extends JFrame {
         DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
         mainPanel.setLayout(null);
         
-        StartButton button1 = new StartButton("resources/placeholder.jpg");
+        StartButton startButton = new StartButton("resources/placeholder.jpg");
+        ExitButton exitButton = new ExitButton("resources/placeholder.jpg");
         
         //add the main panel to the frame
         this.add(mainPanel);
-        mainPanel.add(button1);
+        mainPanel.add(startButton);
+        mainPanel.add(exitButton);
         
-        button1.setBounds(screenWidth / 2 - (int) (150 * scaleRatio) , screenHeight / 2 - (int) (25 * scaleRatio) , 300 , 50);
+        buttonWidth = (int) (600 * scaleRatio);
+        buttonHeight= (int) (100 * scaleRatio);
+        
+        startButton.setBounds(screenWidth / 2 - buttonWidth / 2 , screenHeight / 2 - buttonHeight / 2 , buttonWidth , buttonHeight);
+        exitButton.setBounds(screenWidth / 2 - buttonWidth / 2 , screenHeight / 2 - buttonHeight / 2 + buttonHeight , buttonWidth , buttonHeight);
         
         //Start the app
         this.setVisible(true);
@@ -76,8 +84,8 @@ class Menu extends JFrame {
         }
     }
     
-    private class StartButton extends DecoratedPanel implements MouseListener {  
-        StartButton(String picAddress) {
+    private class MenuButton extends DecoratedPanel implements MouseListener {  
+        MenuButton(String picAddress) {
             super(picAddress);
             addMouseListener(this);
         }
@@ -85,7 +93,7 @@ class Menu extends JFrame {
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
             Image pic = new ImageIcon(picAddress).getImage();
-            g.drawImage(pic , 0 , 0 , 300 , 50 , null); 
+            g.drawImage(pic , 0 , 0 , buttonWidth , buttonHeight , null); 
         }
         
         public void mousePressed(MouseEvent e) {
@@ -106,7 +114,41 @@ class Menu extends JFrame {
         
         public void mouseClicked(MouseEvent e) {
             System.out.println("clicked");
+        }
+    }
+    
+    private class StartButton extends MenuButton {  
+        StartButton(String picAddress) {
+            super(picAddress);
+        }
+        
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("clicked");
             new CharSelect();
+        }
+    }
+    
+    /*
+    private class StartButton extends MenuButton {  
+        StartButton(String picAddress) {
+            super(picAddress);
+        }
+        
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("clicked");
+            new CharSelect();
+        }
+    }
+    */
+    
+    private class ExitButton extends MenuButton {  
+        ExitButton(String picAddress) {
+            super(picAddress);
+        }
+        
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("clicked");
+            System.exit(0);
         }
     }
     
