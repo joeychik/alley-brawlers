@@ -16,7 +16,7 @@ class Floor extends Physical {
   }
   
   Floor() {
-    super(0, 700, 200, 10000);
+    super(0, 980, 100, 10000);
   }
   
   public void draw(Graphics g) { 

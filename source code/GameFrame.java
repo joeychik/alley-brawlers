@@ -29,6 +29,7 @@ class GameFrameTwo extends JFrame {
   //class variable (non-static)
    static double x, y;
    static GameAreaPanel gamePanel;
+   Character player;
   
   
   //Constructor - this runs first
@@ -38,7 +39,7 @@ class GameFrameTwo extends JFrame {
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
-    this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width-50,Toolkit.getDefaultToolkit().getScreenSize().height-50);
+    this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
     this.setUndecorated(true);  //Set to true to remove title bar
     this.setBackground(new Color(0, 0, 0, 0));
     
@@ -55,6 +56,7 @@ class GameFrameTwo extends JFrame {
     this.addMouseListener(mouseListener);
 
     this.requestFocusInWindow(); //make sure the frame has focus   
+    this.player = new Character(0,579,200,100);
     
     this.setVisible(true);
   
@@ -76,12 +78,11 @@ class GameFrameTwo extends JFrame {
   // Inner class for the the game area - This is where all the drawing of the screen occurs
   private class GameAreaPanel extends JPanel {
     Clock clock;
-    PhysicalTest test;
     Floor ground;
     
     GameAreaPanel() {
       Image pic = new ImageIcon("resources/background.png").getImage();
-      test = new PhysicalTest(0,0,200,200);//notice the x,y variables that we control from our animate method      
+      //notice the x,y variables that we control from our animate method      
       ground = new Floor();
       clock = new Clock(); 
     }
@@ -90,19 +91,16 @@ class GameFrameTwo extends JFrame {
       super.paintComponent(g);
       setDoubleBuffered(true);
       clock.update();
-      test.update(clock.getElapsedTime());
+      player.update(clock.getElapsedTime());
       
-      if (test.getBoundingBox().intersects(ground.getBoundingBox())){
-        test.setXSpeed(0);
-        test.setYSpeed(0);
-        
+      if (player.getBoundingBox().intersects(ground.getBoundingBox())){
+        player.setYSpeed(0);
       }
       
-      test.draw(g);
+      player.draw(g);
       ground.draw(g);
       repaint();
       
-      System.out.println("a");
       
     }
   }
@@ -115,14 +113,20 @@ class GameFrameTwo extends JFrame {
 
       public void keyPressed(KeyEvent e) {      
         if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
-          System.out.println("YIKES D KEY!");
-        } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
+          player.moveRight();
+        } else if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
+          player.moveLeft();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
           System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
           System.exit(0);
         } 
       }   
       
       public void keyReleased(KeyEvent e) {
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
+          player.stopMoving();
+        }
       }
     } //end of keyboard listener
   
