@@ -7,21 +7,26 @@
 import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.util.Random;
 
 class Character extends Physical implements Moveable {
   
   private double xSpeed, ySpeed;
-  private int health, maxHealth;
+  private double health;
+  private double attackStrength;
   private double size;
   
   private double jumpStartY;
   private boolean jumping;
   
-  public Character(int x, int y, int h, int w) {
+  public Character(int x,int y,int h, int w) {
    super(x,y,h,w);
-   this.xSpeed = 0;
-   this.ySpeed = 15;
+   Random randNum = new Random();
+   this.health = randNum.nextInt(1000)+1000.0;
+   this.attackStrength = (randNum.nextInt(1000)+1000)/1000;
    this.jumping = false;
+   this.xSpeed = 0;
+   this.ySpeed = 1;
   }
   
   public void update(double elapsedTime){
@@ -39,11 +44,14 @@ class Character extends Physical implements Moveable {
   }
   
   public void jump() {
-    if(jumping == false) {
-      
+    if(!jumping) {
+     this.jumping = true;
      this.jumpStartY = getYPos();
-     this.ySpeed = 14; 
-    } 
+     this.ySpeed = -14;
+     this.setYPos(getYPos() - 500);
+    } else if (jumping) {
+      this.ySpeed += .2;
+    }
   }
   
   public double getXSpeed() {
@@ -76,6 +84,10 @@ class Character extends Physical implements Moveable {
   
   public void setYSpeed(double s) {
    this.ySpeed = s; 
+  }
+  
+  public void setJumping(boolean despacito5ButShrekReleasesItOnSoundcloudAndAlsoOnMyMinecraftServer) { // change this so we dont fail
+    this.jumping = despacito5ButShrekReleasesItOnSoundcloudAndAlsoOnMyMinecraftServer;
   }
   
   public void draw(Graphics g) { //replace with dank sprite later

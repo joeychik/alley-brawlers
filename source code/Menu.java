@@ -7,7 +7,11 @@
 //Imports
 
 import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.SwingUtilities;
 import java.awt.Toolkit;
@@ -15,96 +19,60 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.border.EmptyBorder;
 
 class Menu extends JFrame { 
     
+    private JFrame thisFrame;
     private static int screenHeight;
     private static int screenWidth;
-    private static int buttonHeight;
-    private static int buttonWidth;
-    private static double scaleRatio;
     
+    //Constructor - this runs first
     Menu() { 
         super("Start Screen");
         
-        // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        scaleRatio = (double) screenHeight / 1080;
         
-        // configure the window
+        ClickListener clickListener = new ClickListener();
+        
+        //configure the window
         this.setSize(screenWidth , screenHeight);
         this.setResizable(false);
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
+        BackgroundPanel mainPanel = new BackgroundPanel();
         mainPanel.setLayout(null);
         
-        MenuButton[] menuButtons = new MenuButton[3];
+        MenuButton button1 = new MenuButton("resources/placeholder.jpg");
         
-        menuButtons[0] = new StartButton("resources/start_button.png");
-        menuButtons[1] = new ExitButton("resources/exit_button.png");
-        menuButtons[2] = new InstructionButton("resources/instruction_button.png");
+        // add listeners to mainpanel
+        button1.addMouseListener(clickListener);
         
         //add the main panel to the frame
         this.add(mainPanel);
+        mainPanel.add(button1);
         
-        for (int i = 0; i < 3; i++) {
-            mainPanel.add(menuButtons[i]);
-        }
-        
-        buttonWidth = menuButtons[0].getWidth();
-        buttonHeight = menuButtons[0].getHeight();
-        
-        for (int i = 0; i < 3; i++) {
-            menuButtons[i].setBounds(screenWidth / 2 - buttonWidth / 2 , screenHeight / 2 + buttonHeight * i , buttonWidth , buttonHeight);
-        }
+        button1.setBounds(screenWidth / 7 , screenHeight / 2 , 400 , 150);
         
         //Start the app
         this.setVisible(true);
         
+        
     }
     
-    private class DecoratedPanel extends JPanel {
-        private String picAddress;
-        private Image pic;
-        
-        DecoratedPanel(String picAddress) {
-            super();
-            this.picAddress = picAddress;
-            this.pic = new ImageIcon(picAddress).getImage();
-        }
-        
+    private class BackgroundPanel extends JPanel {
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
-            Image pic = new ImageIcon(picAddress).getImage();
+            Image pic = new ImageIcon("resources/menu.png").getImage();
             g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
         }
-        
-        public Image getImage() {
-            return this.pic;
-        }
     }
     
-    private class MenuButton extends DecoratedPanel implements MouseListener {  
-        private int height;
-        private int width;
-        
-        MenuButton(String picAddress) {
-            super(picAddress);
-            addMouseListener(this);
-            height = (int) (scaleRatio * this.getImage().getHeight(null));
-            width = (int) (scaleRatio * this.getImage().getWidth(null));
-            System.out.println(height + ", " + width);
-        }
-        
-        public void paintComponent(Graphics g) { 
-            super.paintComponent(g);
-            g.drawImage(this.getImage() , 0 , 0 , this.width , this.height , null); 
-        }
-        
+    private class ClickListener implements MouseListener {        
         public void mousePressed(MouseEvent e) {
             System.out.println("pressed");
         }
@@ -123,47 +91,23 @@ class Menu extends JFrame {
         
         public void mouseClicked(MouseEvent e) {
             System.out.println("clicked");
-        }
-        
-        public int getHeight() {
-            return this.height;
-        }
-        
-        public int getWidth() {
-            return this.width;
-        }
-    }
-    
-    private class StartButton extends MenuButton {  
-        StartButton(String picAddress) {
-            super(picAddress);
-        }
-        
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
             new CharSelect();
+            
         }
     }
     
-    private class InstructionButton extends MenuButton {  
-        InstructionButton(String picAddress) {
-            super(picAddress);
+    private class MenuButton extends JPanel {
+        
+        String picAddress;
+        
+        MenuButton(String picAddress) {
+            this.picAddress = picAddress;
         }
         
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
-            new InstructionScreen();
-        }
-    }
-    
-    private class ExitButton extends MenuButton {  
-        ExitButton(String picAddress) {
-            super(picAddress);
-        }
-        
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
-            System.exit(0);
+        public void paintComponent(Graphics g) { 
+            super.paintComponent(g);
+            Image pic = new ImageIcon(picAddress).getImage();
+            g.drawImage(pic , 0 , 0 , 400 , 150 , null); 
         }
     }
     
