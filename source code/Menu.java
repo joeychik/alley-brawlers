@@ -39,14 +39,14 @@ class Menu extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
+        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu/menu.png");
         mainPanel.setLayout(null);
         
         MenuButton[] menuButtons = new MenuButton[3];
         
-        menuButtons[0] = new StartButton("resources/start_button.png");
-        menuButtons[1] = new ExitButton("resources/exit_button.png");
-        menuButtons[2] = new InstructionButton("resources/instruction_button.png");
+        menuButtons[0] = new StartButton("resources/menu/start_button.png");
+        menuButtons[1] = new InstructionButton("resources/menu/instruction_button.png");
+        menuButtons[2] = new ExitButton("resources/menu/exit_button.png");
         
         //add the main panel to the frame
         this.add(mainPanel);
