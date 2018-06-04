@@ -26,7 +26,7 @@ class Character extends Physical implements Moveable {
    this.attackStrength = (randNum.nextInt(1000)+1000)/1000;
    this.jumping = false;
    this.xSpeed = 0;
-   this.ySpeed = 1;
+   this.ySpeed = 2;
   }
   
   public void update(double elapsedTime){
@@ -37,6 +37,10 @@ class Character extends Physical implements Moveable {
     setXPos(0); 
    } else if (getXPos() > 1920-getWidth()) {
      setXPos(1920-getWidth()); 
+   } 
+   
+   if(jumping) {
+    this.ySpeed += 40*elapsedTime; 
    }
    
    setBoxPosition(getXPos(), getYPos());
@@ -48,10 +52,8 @@ class Character extends Physical implements Moveable {
      this.jumping = true;
      this.jumpStartY = getYPos();
      this.ySpeed = -14;
-     this.setYPos(getYPos() - 500);
-    } else if (jumping) {
-      this.ySpeed += .2;
-    }
+     this.setYPos(getYPos() - 1);
+    } 
   }
   
   public double getXSpeed() {
