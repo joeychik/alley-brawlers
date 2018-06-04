@@ -29,6 +29,7 @@ class GameFrameTwo extends JFrame {
   //class variable (non-static)
    static double x, y;
    static GameAreaPanel gamePanel;
+   Floor ground;
    Character player;
   
   
@@ -78,7 +79,6 @@ class GameFrameTwo extends JFrame {
   // Inner class for the the game area - This is where all the drawing of the screen occurs
   private class GameAreaPanel extends JPanel {
     Clock clock;
-    Floor ground;
     
     GameAreaPanel() {
       Image pic = new ImageIcon("resources/background.png").getImage();
@@ -95,6 +95,7 @@ class GameFrameTwo extends JFrame {
       
       if (player.getBoundingBox().intersects(ground.getBoundingBox())){
         player.setYSpeed(0);
+        player.setJumping(false);
       }
       
       player.draw(g);
@@ -107,8 +108,13 @@ class GameFrameTwo extends JFrame {
   
   // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
     private class MyKeyListener implements KeyListener {
-  
-      public void keyTyped(KeyEvent e) {  
+      
+      public void keyTyped(KeyEvent e) {
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  //If 'D' is pressed
+          if (player.getBoundingBox().intersects(ground.getBoundingBox())){
+            player.jump();
+          }
+        }
       }
 
       public void keyPressed(KeyEvent e) {      
