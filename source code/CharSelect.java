@@ -1,7 +1,7 @@
 /** 
  * CharSelect.java 
  * Character selection screen for the Alley Brawlers game
- * @author Eric Ke
+ * @author Eric Ke, Joey Chik
 **/
 
 
@@ -60,7 +60,7 @@ class CharSelect extends JFrame{
     try{
     readCharList("resources/characters.txt");
     } catch(Exception e) {
-     System.out.println("get rekt noob"); 
+     System.out.println("Error reading character list"); 
     }
     this.thisFrame = this; //lol  
     

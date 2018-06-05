@@ -24,7 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-class GameFrame extends JFrame { 
+class GameFrameTwo extends JFrame { 
 
   //class variable (non-static)
    static double x, y;
@@ -34,9 +34,9 @@ class GameFrame extends JFrame {
   
   
   //Constructor - this runs first
-  GameFrame() { 
+  GameFrameTwo() { 
     
-    super("Alley Brawlers");  
+    super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
@@ -147,9 +147,12 @@ class GameFrame extends JFrame {
       }   
       
       public void keyReleased(KeyEvent e) {
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //stop player 1
           player.stopMoving();
+        } if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT) {  //stop player 2
+          player2.stopMoving();
         }
+        
       }
     } //end of keyboard listener
   

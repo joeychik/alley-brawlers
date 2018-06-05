@@ -1,7 +1,7 @@
 /*
  * Character.java
  * Characters in the game that fight each other and stuff
- * 
+ * @author Eric Ke, Joey Chik
  */
 
 import java.awt.Toolkit;
@@ -18,12 +18,15 @@ class Character extends Physical implements Moveable {
   
   private double jumpStartY;
   private boolean jumping;
+  private boolean attacking = false;
+  private double attackRemainingTime = 0;
+  
   
   public Character(int x,int y,int h, int w) {
    super(x,y,h,w);
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
-   this.attackStrength = (randNum.nextInt(1000)+1000)/1000;
+   this.attackStrength = (randNum.nextInt(500)+1500)/1000;
    this.jumping = false;
    this.xSpeed = 0;
    this.ySpeed = 2;
@@ -54,6 +57,10 @@ class Character extends Physical implements Moveable {
      this.ySpeed = -14;
      this.setYPos(getYPos() - 1);
     } 
+  }
+  
+  public void attack(double n) {
+   this.attackTimeRemaining = n; 
   }
   
   public double getXSpeed() {
