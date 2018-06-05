@@ -30,7 +30,7 @@ class GameFrame extends JFrame {
    static double x, y;
    static GameAreaPanel gamePanel;
    Floor ground;
-   Character player;
+   Character player, player2;
   
   
   //Constructor - this runs first
@@ -58,6 +58,7 @@ class GameFrame extends JFrame {
 
     this.requestFocusInWindow(); //make sure the frame has focus   
     this.player = new Character(0,579,200,100);
+    this.player2 = new Character(1600, 579,200,100);
     
     this.setVisible(true);
   
@@ -92,13 +93,19 @@ class GameFrame extends JFrame {
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
+      player2.update(clock.getElapsedTime());
       
       if (player.getBoundingBox().intersects(ground.getBoundingBox())){
         player.setYSpeed(0);
         player.setJumping(false);
       }
+      if (player2.getBoundingBox().intersects(ground.getBoundingBox())){
+        player2.setYSpeed(0);
+        player2.setJumping(false);
+      }
       
       player.draw(g);
+      player2.draw(g);
       ground.draw(g);
       repaint();
       
@@ -110,23 +117,33 @@ class GameFrame extends JFrame {
     private class MyKeyListener implements KeyListener {
       
       public void keyTyped(KeyEvent e) {
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  //If 'D' is pressed
-          if (player.getBoundingBox().intersects(ground.getBoundingBox())){
-            player.jump();
-          }
-        }
+        
       }
 
       public void keyPressed(KeyEvent e) {      
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
+          player2.moveRight();
+        } 
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {  //If 'D' is pressed
+          player2.moveLeft();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP) {  //If 'D' is pressed
+          player2.jump();
+        }
+        
         if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
           player.moveRight();
-        } else if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
+        } 
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
           player.moveLeft();
         }
-        else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
           System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
           System.exit(0);
-        } 
+        }
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  //If 'D' is pressed
+            player.jump();
+        }
       }   
       
       public void keyReleased(KeyEvent e) {
