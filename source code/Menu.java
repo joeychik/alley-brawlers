@@ -97,7 +97,7 @@ class Menu extends JFrame {
             addMouseListener(this);
             height = (int) (scaleRatio * this.getImage().getHeight(null));
             width = (int) (scaleRatio * this.getImage().getWidth(null));
-            System.out.println(height + ", " + width);
+            this.setOpaque(false);
         }
         
         public void paintComponent(Graphics g) { 

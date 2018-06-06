@@ -39,21 +39,19 @@ class Menu extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create a Panel for stuff
-        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu.png");
+        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu/menu.png");
         mainPanel.setLayout(null);
         
         MenuButton[] menuButtons = new MenuButton[3];
         
-        menuButtons[0] = new StartButton("resources/start_button.png");
-        menuButtons[1] = new ExitButton("resources/exit_button.png");
-        menuButtons[2] = new InstructionButton("resources/instruction_button.png");
+        menuButtons[0] = new StartButton("resources/menu/start_button.png");
+        menuButtons[1] = new InstructionButton("resources/menu/instruction_button.png");
+        menuButtons[2] = new ExitButton("resources/menu/exit_button.png");
         
         //add the main panel to the frame
         this.add(mainPanel);
-        StartButton button1 = new StartButton("resources/start_button.png");
-        mainPanel.add(button1);
         
-        /*for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             mainPanel.add(menuButtons[i]);
         }
         
@@ -62,7 +60,7 @@ class Menu extends JFrame {
         
         for (int i = 0; i < 3; i++) {
             menuButtons[i].setBounds(screenWidth / 2 - buttonWidth / 2 , screenHeight / 2 + buttonHeight * i , buttonWidth , buttonHeight);
-        }*/
+        }
         
         //Start the app
         this.setVisible(true);
@@ -97,8 +95,9 @@ class Menu extends JFrame {
         MenuButton(String picAddress) {
             super(picAddress);
             addMouseListener(this);
-            height = (int) scaleRatio * this.getImage().getHeight(null);
-            width = (int) scaleRatio * this.getImage().getWidth(null);
+            height = (int) (scaleRatio * this.getImage().getHeight(null));
+            width = (int) (scaleRatio * this.getImage().getWidth(null));
+            System.out.println(height + ", " + width);
         }
         
         public void paintComponent(Graphics g) { 
@@ -173,5 +172,4 @@ class Menu extends JFrame {
         new Menu();
         
     }
-    
 }
