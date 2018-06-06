@@ -15,21 +15,26 @@ class Character extends Physical implements Moveable {
   private double health;
   private double attackStrength;
   private double size;
+  private char facing;
   
   private double jumpStartY;
   private boolean jumping;
   private boolean attacking = false;
   private double attackRemainingTime = 0;
   
+  private Attack[] attackList = new Attack[3];
   
-  public Character(int x,int y,int h, int w) {
+  
+  public Character(int x,int y,int h, int w, char facing) {
    super(x,y,h,w);
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
-   this.attackStrength = (randNum.nextInt(500)+1500)/1000;
+   this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = false;
    this.xSpeed = 0;
    this.ySpeed = 2;
+   this.facing = facing;
+   this.attackList[0] = new MeleeAttack(attackStrength);
   }
   
   public void update(double elapsedTime){
@@ -46,6 +51,19 @@ class Character extends Physical implements Moveable {
     this.ySpeed += 40*elapsedTime; 
    }
    
+   if(attacking) {
+    this.xSpeed = 0;
+    if (attackRemainingTime > 0) {
+      this.attacking = true;
+      this.attackRemainingTime -= 100*elapsedTime; 
+      for(int i = 0; i > attackList.length; i++) {
+       attackList[i].removeRectangle(); 
+      }
+    } else {
+      attacking = false;
+    }
+   }
+   
    setBoxPosition(getXPos(), getYPos());
    //System.out.println(elapsedTime*10+"\n");
   }
@@ -59,8 +77,14 @@ class Character extends Physical implements Moveable {
     } 
   }
   
-  public void attack(double n) {
-   this.attackTimeRemaining = n; 
+  public void attack(int n, Character c) {
+    if(facing == 'r') {
+      attackList[n].useAttack(c, (int)getXPos(), (int)getYPos());
+    } else {
+      attackList[n].useAttack(c, (int)getXPos()-attackList[n].getWidth(), (int)getYPos()-attackList[n].getHeight());
+    }
+   attackRemainingTime = attackList[n].getDuration();
+   attacking = true;
   }
   
   public double getXSpeed() {
@@ -95,8 +119,20 @@ class Character extends Physical implements Moveable {
    this.ySpeed = s; 
   }
   
-  public void setJumping(boolean despacito5ButShrekReleasesItOnSoundcloudAndAlsoOnMyMinecraftServer) { // change this so we dont fail
-    this.jumping = despacito5ButShrekReleasesItOnSoundcloudAndAlsoOnMyMinecraftServer;
+  public void setDirection(char direction) {
+   this.facing = direction; 
+  }
+  
+  public void setJumping(boolean jump) { // change this so we dont fail
+    this.jumping = jump;
+  }
+  
+  public boolean getAttacking() {
+   return this.attacking; 
+  }
+  
+  public double getHealth() {
+   return this.health; 
   }
   
   public void draw(Graphics g) { //replace with dank sprite later

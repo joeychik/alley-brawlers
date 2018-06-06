@@ -57,8 +57,8 @@ class GameFrameTwo extends JFrame {
     this.addMouseListener(mouseListener);
 
     this.requestFocusInWindow(); //make sure the frame has focus   
-    this.player = new Character(0,579,200,100);
-    this.player2 = new Character(1600, 579,200,100);
+    this.player = new Character(0,579,200,100, 'r');
+    this.player2 = new Character(1600, 579,200,100, 'l');
     
     this.setVisible(true);
   
@@ -120,30 +120,39 @@ class GameFrameTwo extends JFrame {
         
       }
 
-      public void keyPressed(KeyEvent e) {      
+      public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
           player2.moveRight();
+          player.setDirection('r');
         } 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {  //If 'D' is pressed
           player2.moveLeft();
+          player.setDirection('l');
         }
         if (e.getKeyCode() == KeyEvent.VK_UP) {  //If 'D' is pressed
           player2.jump();
         }
-        
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
-          player.moveRight();
-        } 
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
-          player.moveLeft();
+        if (!player.getAttacking()) {
+          if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
+            player.moveRight();
+            player.setDirection('r');
+          } 
+          if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //If 'D' is pressed
+            player.moveLeft();
+            player.setDirection('l');
+          }
+          if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  //If 'D' is pressed
+            player.jump();
+          }
+           if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  //If 'D' is pressed
+            player.attack(0, player2);
+            System.out.println(player2.getHealth());
+          }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
-          System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
-          System.exit(0);
-        }
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  //If 'D' is pressed
-            player.jump();
-        }
+            System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
+            System.exit(0);
+          }
       }   
       
       public void keyReleased(KeyEvent e) {

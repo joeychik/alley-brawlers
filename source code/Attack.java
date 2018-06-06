@@ -14,10 +14,11 @@ abstract class Attack {
   private double duration;
   private int height, width;
   private boolean damageDealt = false;
+  private  Rectangle attackBox;
   
  
-  Attack(double damage, double time, int h, int w) {
-    this.damage = damage;
+  Attack(double damage, double time, int h, int w, double multiplier) {
+    this.damage = damage*multiplier;
     this.duration = time;
     this.height = h;
     this.width = w;
@@ -27,7 +28,28 @@ abstract class Attack {
     return duration; 
   }
   
+  public double getDamage() {
+   return damage; 
+  }
   
+  public void setDamageDealt(boolean d) {
+   damageDealt = d; 
+  }
+  
+  public int getHeight() {
+   return height; 
+  }
+  
+  public int getWidth() {
+   return width; 
+  }
+  
+  public void removeRectangle() {
+   attackBox = null; 
+   setDamageDealt(false);
+  }
+  
+  abstract public void useAttack(Character target, int x, int y);
   
   
 }
