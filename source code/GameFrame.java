@@ -36,7 +36,7 @@ class GameFrame extends JFrame {
   //Constructor - this runs first
   GameFrame() { 
     
-    super("My Game");  
+    super("Alley Brawlers");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
