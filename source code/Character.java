@@ -30,9 +30,9 @@ class Character extends Physical implements Moveable {
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
-   this.jumping = false;
+   this.jumping = true;
    this.xSpeed = 0;
-   this.ySpeed = 2;
+   this.ySpeed = 0;
    this.facing = facing;
    this.attackList[0] = new MeleeAttack(attackStrength);
   }
@@ -81,7 +81,7 @@ class Character extends Physical implements Moveable {
     if(facing == 'r') {
       attackList[n].useAttack(c, (int)getXPos(), (int)getYPos());
     } else {
-      attackList[n].useAttack(c, (int)getXPos()-attackList[n].getWidth(), (int)getYPos()-attackList[n].getHeight());
+      attackList[n].useAttack(c, (int)getXPos()-attackList[n].getWidth(), (int)getYPos());
     }
    attackRemainingTime = attackList[n].getDuration();
    attacking = true;
