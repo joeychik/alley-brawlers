@@ -24,7 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-class GameFrameTwo extends JFrame { 
+class GameFrame extends JFrame { 
 
   //class variable (non-static)
    static double x, y;
@@ -34,7 +34,7 @@ class GameFrameTwo extends JFrame {
   
   
   //Constructor - this runs first
-  GameFrameTwo() { 
+  GameFrame() { 
     
     super("My Game");  
     // Set the frame to full screen 
@@ -57,8 +57,8 @@ class GameFrameTwo extends JFrame {
     this.addMouseListener(mouseListener);
 
     this.requestFocusInWindow(); //make sure the frame has focus   
-    this.player = new Character(0,579,200,100, 'r');
-    this.player2 = new Character(1600, 579,200,100, 'l');
+    this.player = new Character(0,579,200,100, 'r', "resources/characters/lisa.png");
+    this.player2 = new Character(1600, 579,200,100, 'l', "resources/characters/pikachu.png");
     
     this.setVisible(true);
   
