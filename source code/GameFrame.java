@@ -33,7 +33,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-class GameFrameTwo extends JFrame { 
+class GameFrame extends JFrame { 
 
   //class variable (non-static)
    static double x, y;
@@ -43,7 +43,7 @@ class GameFrameTwo extends JFrame {
    Character player, player2;
    
   //Constructor - this runs first
-  GameFrameTwo() { 
+  GameFrame() { 
     
     super("My Game");  
     // Set the frame to full screen 
