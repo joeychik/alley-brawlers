@@ -37,6 +37,7 @@ class GameFrame extends JFrame {
 
   //class variable (non-static)
    static double x, y;
+   static double scaleRatio;
    static GameAreaPanel gamePanel;
    
    Floor ground;
@@ -48,8 +49,11 @@ class GameFrame extends JFrame {
     super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.player = new Character(0,579,200,100, 'r', "resources/character/pikachu.png");
-    this.player2 = new Character(1600, 579,200,100, 'l', "resources/character/lisa.png");
+    
+    this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
+    
+    this.player = new Character(0,579,200,100, scaleRatio, 'r', "resources/character/pikachu.png");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/character/lisa.png");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -57,10 +61,7 @@ class GameFrame extends JFrame {
    // this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
     this.setUndecorated(true);  //Set to true to remove title bar
-    this.setBackground(new Color(0, 0, 0, 0));
-    
-    
-    
+    this.setBackground(new Color(0, 0, 0, 0));    
     
     //Set up the game panel (where we put our graphics)
     
@@ -100,13 +101,13 @@ class GameFrame extends JFrame {
     GameAreaPanel() {
       Image pic = new ImageIcon("resources/background.png").getImage();
       //notice the x,y variables that we control from our animate method      
-      ground = new Floor();
+      ground = new Floor(scaleRatio);
       clock = new Clock(); 
     }
     
     public void paintComponent(Graphics g) {
       
-      Font font = new Font("Arial", Font.PLAIN, 48);
+      Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g);
       setDoubleBuffered(true);
       clock.update();
@@ -126,9 +127,9 @@ class GameFrame extends JFrame {
       player2.draw(g);
       g.setFont(font);
       g.setColor(Color.RED);
-      g.drawString("HP: " + String.valueOf((int)player.getHealth()), 10, 100);
+      g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
       g.setColor(Color.RED);
-      g.drawString("HP: " + String.valueOf((int)player2.getHealth()), 1700, 100);
+      g.drawString("HP: " + String.valueOf((int)player2.getHealth()), (int)(scaleRatio * 1700), (int)(scaleRatio * 100));
       ground.draw(g);
       repaint();
       

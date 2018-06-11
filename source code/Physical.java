@@ -11,12 +11,14 @@ abstract class Physical {
  private double xPos , yPos;
  private int height, width;
  private Rectangle boundingBox;
+ static double scaleRatio;
  
- Physical(int x, int y, int h, int w) {
-  this.xPos = x;
-  this.yPos = y;
-  this.height = h;
-  this.width = w;
+ Physical(int x, int y, int h, int w, double scaleRatio) {
+  this.xPos = scaleRatio * x;
+  this.yPos = scaleRatio * y;
+  this.height = (int) (scaleRatio * h);
+  this.width = (int) (scaleRatio * w);
+  this.scaleRatio = scaleRatio;
   boundingBox = new Rectangle((int)xPos, (int)yPos, w, h);
  }
  
