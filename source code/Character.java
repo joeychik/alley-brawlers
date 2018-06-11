@@ -31,6 +31,7 @@ class Character extends Physical implements Moveable {
   
   public Character(int x,int y,int h, int w, double scaleRatio, char facing, String spriteAddress) {
    super(x,y,h,w,scaleRatio);
+   System.out.println("character");
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
    this.sprite = new ImageIcon(spriteAddress).getImage();
@@ -145,9 +146,10 @@ class Character extends Physical implements Moveable {
   }
   
   public void draw(Graphics g) { //replace with dank sprite later
-    g.setColor(Color.BLUE); //There are many graphics commands that Java can use
+    g.setColor(Color.BLUE);
     g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight());
-    //g.drawImage(sprite, getXPos(), getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method          
+    //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
+    g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method          
  }
   
 }
