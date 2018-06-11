@@ -13,6 +13,7 @@ class Floor extends Physical {
   
   Floor(int x, int y, int h, int w, double scaleRatio) {
     super(x, y, h, w, scaleRatio);
+    System.out.println((int)getXPos() + ", " + (int)getYPos() + ", " + getWidth() + ", " + getHeight());
   }
   
   Floor(double scaleRatio) {

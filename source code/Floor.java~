@@ -11,12 +11,12 @@ import java.awt.Color;
 
 class Floor extends Physical {
   
-  Floor(int x, int y, int h, int w) {
-    super(x, y, h, w);
+  Floor(int x, int y, int h, int w, double scaleRatio) {
+    super(x, y, h, w, scaleRatio);
   }
   
-  Floor() {
-    super(0, 980, 100, 10000);
+  Floor(double scaleRatio) {
+    super(0, 980, 100, 10000, scaleRatio);
   }
   
   public void draw(Graphics g) { 

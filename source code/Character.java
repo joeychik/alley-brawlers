@@ -49,8 +49,8 @@ class Character extends Physical implements Moveable {
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    if(getXPos() < 0) {
     setXPos(0); 
-   } else if (getXPos() > (scaleRatio * 1920)-getWidth()) {
-     setXPos(1920-getWidth()); 
+   } else if (getXPos() > (scaleRatio * 1800)-getWidth()) {
+     setXPos(scaleRatio * 1800 - getWidth()); 
    } 
    
    if(getYPos() > 880) {
@@ -147,7 +147,7 @@ class Character extends Physical implements Moveable {
   
   public void draw(Graphics g) { //replace with dank sprite later
     g.setColor(Color.BLUE);
-    g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight());
+    //g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight());
     //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
     g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method          
  }
