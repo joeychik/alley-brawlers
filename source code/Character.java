@@ -7,7 +7,9 @@
 import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Image;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 class Character extends Physical implements Moveable {
   
@@ -16,6 +18,7 @@ class Character extends Physical implements Moveable {
   private double attackStrength;
   private double size;
   private char facing;
+  private Image sprite;
   
   private double jumpStartY;
   private boolean jumping;
@@ -25,10 +28,11 @@ class Character extends Physical implements Moveable {
   private Attack[] attackList = new Attack[3];
   
   
-  public Character(int x,int y,int h, int w, char facing) {
+  public Character(int x,int y,int h, int w, char facing, String spriteAddress) {
    super(x,y,h,w);
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
+   this.sprite = new ImageIcon(spriteAddress).getImage();
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
@@ -141,7 +145,7 @@ class Character extends Physical implements Moveable {
   
   public void draw(Graphics g) { //replace with dank sprite later
     g.setColor(Color.BLUE); //There are many graphics commands that Java can use
-    g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight()); //notice the y is a variable that we control from our animate method          
+    g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method          
  }
   
 }

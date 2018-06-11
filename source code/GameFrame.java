@@ -48,8 +48,8 @@ class GameFrame extends JFrame {
     super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.player = new Character(0,579,200,100, 'r');
-    this.player2 = new Character(1600, 579,200,100, 'l');
+    this.player = new Character(0,579,200,100, 'r', "resources/character/pikachu.png");
+    this.player2 = new Character(1600, 579,200,100, 'l', "resources/character/lisa.png");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
