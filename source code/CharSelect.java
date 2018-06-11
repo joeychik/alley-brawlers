@@ -167,7 +167,7 @@ class CharSelect extends JFrame{
     public void actionPerformed(ActionEvent event)  {  
       System.out.println("Starting new Game");
       thisFrame.dispose();
-      new GameFrameTwo(); //create a new FunkyFrame (another file that extends JFrame)
+      new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
       thisFrame.dispose();
 
     }

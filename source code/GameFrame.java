@@ -45,15 +45,14 @@ class GameFrame extends JFrame {
    
   //Constructor - this runs first
   GameFrame() { 
-    
     super("My Game");  
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(0,579,200,100, scaleRatio, 'r', "resources/character/pikachu.png");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/character/lisa.png");
+    this.player = new Character(0,579,200,100, scaleRatio, 'r', "resources/characters/pikachu.png");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa.png");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
