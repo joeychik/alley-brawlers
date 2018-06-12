@@ -19,7 +19,6 @@ class Character extends Physical implements Moveable {
   private double size;
   private char facing;
   private Image sprite;
-  static double scaleRatio;
   
   private double jumpStartY;
   private boolean jumping;
@@ -49,9 +48,9 @@ class Character extends Physical implements Moveable {
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    if(getXPos() < 0) {
     setXPos(0); 
-   } else if (getXPos() > 1920-getWidth()) {
-     setXPos(1920-getWidth()); 
-   } 
+   } else if (getXPos() > scaleRatio * 1920 - getWidth()) {
+     setXPos(scaleRatio * 1920 - getWidth()); 
+   }
    
    if(getYPos() > 880) {
     setXPos(880); 
