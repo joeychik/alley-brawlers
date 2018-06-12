@@ -19,6 +19,9 @@ class Character extends Physical implements Moveable {
   private double size;
   private char facing;
   private Image sprite;
+  private Image[] sprites = new Image[4];
+  
+  
   static double scaleRatio;
   
   private double jumpStartY;
@@ -34,7 +37,11 @@ class Character extends Physical implements Moveable {
    System.out.println("character");
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
-   this.sprite = new ImageIcon(spriteAddress).getImage();
+   this.sprite = new ImageIcon(spriteAddress + ".png").getImage();
+   this.sprites[0] = new ImageIcon(spriteAddress + ".png").getImage();
+   this.sprites[1] = new ImageIcon(spriteAddress + "Left.png").getImage();
+   this.sprites[2] = new ImageIcon(spriteAddress + "Punch.png").getImage();
+   this.sprites[3] = new ImageIcon(spriteAddress + "PunchLeft.png").getImage();
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
@@ -75,7 +82,20 @@ class Character extends Physical implements Moveable {
    }
    
    setBoxPosition(getXPos(), getYPos());
-   //System.out.println(elapsedTime*10+"\n");
+   
+   if (attacking == false) {
+     if (facing == 'r') {
+       this.sprite = this.sprites[0]; 
+     } else {
+       this.sprite = this.sprites[1]; 
+     }
+   } else {
+     if (facing == 'r') {
+       this.sprite = this.sprites[2]; 
+     } else {
+       this.sprite = this.sprites[3]; 
+     }
+   }
   }
   
   public void jump() {

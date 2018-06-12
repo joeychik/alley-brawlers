@@ -51,8 +51,8 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu.png");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa.png");
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -152,11 +152,11 @@ class GameFrame extends JFrame {
         if (!player2.getAttacking()) {
           if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
             player2.moveRight();
-            player.setDirection('r');
+            player2.setDirection('r');
           } 
           if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
             player2.moveLeft();
-            player.setDirection('l');
+            player2.setDirection('l');
           }
           if (e.getKeyCode() == KeyEvent.VK_UP) {  
             player2.jump();
