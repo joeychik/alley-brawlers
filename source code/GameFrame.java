@@ -51,8 +51,8 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(220,579,200,100, scaleRatio, 'r', "resources/characters/pikachu.png");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa.png");
+    this.player = new Character(220,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));

@@ -35,11 +35,11 @@ class Character extends Physical implements Moveable {
    System.out.println("character");
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
-   this.sprite = new ImageIcon(spriteAddress + ".png").getImage();
-   this.sprites[0] = new ImageIcon(spriteAddress + ".png").getImage();
-   this.sprites[1] = new ImageIcon(spriteAddress + "Left.png").getImage();
-   this.sprites[2] = new ImageIcon(spriteAddress + "Punch.png").getImage();
-   this.sprites[3] = new ImageIcon(spriteAddress + "PunchLeft.png").getImage();
+   this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
+   this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
+   this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
+   this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
+   this.sprites[3] = new ImageIcon(spriteAddress + "punchLeft.png").getImage();
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
