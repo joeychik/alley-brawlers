@@ -14,7 +14,7 @@ abstract class Attack {
   private double duration;
   private int height, width;
   private boolean damageDealt = false;
-  private  Rectangle attackBox;
+  private Rectangle attackBox;
   
  
   Attack(double damage, double time, int h, int w, double multiplier) {
@@ -23,6 +23,7 @@ abstract class Attack {
     this.height = h;
     this.width = w;
   }
+ 
   
   public double getDuration() {
     return duration; 

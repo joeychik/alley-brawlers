@@ -17,12 +17,10 @@ class Floor extends Physical {
   }
   
   Floor(double scaleRatio) {
-    super(-10, 980, 150, 1940, scaleRatio);
+    super(0, 980, 100, 10000, scaleRatio);
   }
   
-  public void draw(Graphics g) { 
-    g.setColor(Color.BLACK); //There are many graphics commands that Java can use
-    g.fillRect((int)getXPos(), (int)getYPos(), getWidth(), getHeight()); //notice the y is a variable that we control from our animate method          
+  public void draw(Graphics g) {         
  }
  
 }
