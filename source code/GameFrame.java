@@ -51,8 +51,13 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
+<<<<<<< HEAD
     this.player = new Character(220,579,200,100, scaleRatio, 'r', "resources/characters/pikachu.png");
     this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa.png");
+=======
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
+>>>>>>> d2f996abda892e9b176bfc219abee67da7fb8a2a
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -98,7 +103,6 @@ class GameFrame extends JFrame {
     
     
     GameAreaPanel() {
-      Image pic = new ImageIcon("resources/background.png").getImage();
       //notice the x,y variables that we control from our animate method      
       ground = new Floor(scaleRatio);
       clock = new Clock(); 
@@ -107,7 +111,9 @@ class GameFrame extends JFrame {
     public void paintComponent(Graphics g) {
       
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
-      super.paintComponent(g);
+      super.paintComponent(g); //removed to keep transparent panel
+      Image pic = new ImageIcon("resources/background.png").getImage();
+      g.drawImage(pic,0,0,null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -125,6 +131,10 @@ class GameFrame extends JFrame {
       player.draw(g);
       player2.draw(g);
       g.setFont(font);
+      g.setColor(Color.BLACK);
+      g.fillRect(0,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
+      g.setColor(Color.BLACK);
+      g.fillRect(1620,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
       g.setColor(Color.RED);
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
       g.setColor(Color.RED);
@@ -147,11 +157,11 @@ class GameFrame extends JFrame {
         if (!player2.getAttacking()) {
           if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
             player2.moveRight();
-            player.setDirection('r');
+            player2.setDirection('r');
           } 
           if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
             player2.moveLeft();
-            player.setDirection('l');
+            player2.setDirection('l');
           }
           if (e.getKeyCode() == KeyEvent.VK_UP) {  
             player2.jump();

@@ -19,6 +19,9 @@ class Character extends Physical implements Moveable {
   private double size;
   private char facing;
   private Image sprite;
+<<<<<<< HEAD
+=======
+>>>>>>> d2f996abda892e9b176bfc219abee67da7fb8a2a
   
   private double jumpStartY;
   private boolean jumping;
