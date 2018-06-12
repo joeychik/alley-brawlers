@@ -18,9 +18,8 @@ class Character extends Physical implements Moveable {
   private double attackStrength;
   private double size;
   private char facing;
+  private Image sprite;
   private Image[] sprites = new Image[4];
-  
-  static double scaleRatio;
   
   private double jumpStartY;
   private boolean jumping;
