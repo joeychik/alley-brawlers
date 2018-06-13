@@ -23,6 +23,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.io.File;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.sound.sampled.*;
 
 import java.awt.Rectangle;
 
@@ -48,7 +52,8 @@ class GameFrame extends JFrame {
    
   //Constructor - this runs first
   GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
-    super("My Game");                //               this is how we get the character selection from the players
+    super("My Game"); 
+    this.playMusic("FightForQuiescence.wav");//               this is how we get the character selection from the players
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
@@ -80,21 +85,40 @@ class GameFrame extends JFrame {
     
     this.setVisible(true);
   
-    //Start the game loop in a separate thread
-   
   } //End of Constructor
   
   public static double getScaleRatio() {
    return scaleRatio; 
   }
+  
+  public void playMusic(String filename) {
+     try {
+      File audioFile = new File("resources/sound/" + filename);
+      AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+      DataLine.Info infoThing = new DataLine.Info(Clip.class, audioStream.getFormat());
+      Clip clip = (Clip) AudioSystem.getLine(infoThing);
+      clip.addLineListener(new MusicListener());
+      clip.open(audioStream);
+      clip.start();
+      
+ 
+    }catch (Exception e) {
+      e.printStackTrace();
+       }
+  }
+  
+  class MusicListener implements LineListener {
+    public void update(LineEvent event) {
+      if (event.getType() == LineEvent.Type.STOP) {
+        event.getLine().close(); 
+      }
+    }
+  } 
 
   //the main gameloop - this is where the game state is updated
   public void animate() { 
     
-    while(true){
-      
-      this.repaint();
-    }    
+   
   }
   
   /** --------- INNER CLASSES ------------- **/
@@ -115,7 +139,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
+      g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -145,96 +169,99 @@ class GameFrame extends JFrame {
       repaint();
       
       
+      
     }
   }
   
-  // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
-    private class MyKeyListener implements KeyListener {
-      
-      public void keyTyped(KeyEvent e) {
-        
-      }
-
-      public void keyPressed(KeyEvent e) {
-        if (!player2.getAttacking()) {
-          if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
-            player2.moveRight();
-            player2.setDirection('r');
-          } 
-          if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
-            player2.moveLeft();
-            player2.setDirection('l');
-          }
-          if (e.getKeyCode() == KeyEvent.VK_UP) {  
-            player2.jump();
-          }
-          if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
-            player2.attack(0, player);
-          }
-          if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
-            player2.attack(1, player);
-          }
-          if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
-            player2.attack(2, player);
-          }
-        }
-        if (!player.getAttacking()) {
-          if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
-            player.moveRight();
-            player.setDirection('r');
-          } 
-          if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  
-            player.moveLeft();
-            player.setDirection('l');
-          }
-          if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  
-            player.jump();
-          }
-          if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
-            player.attack(0, player2);
-          }
-           if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
-            player.attack(1, player2);
-          } 
-           if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
-            player.attack(2, player2);
-          }
-        }
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
-            System.exit(0);
-          }
-      }   
-      
-      public void keyReleased(KeyEvent e) {
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //stop player 1
-          player.stopMoving();
-        } if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT) {  //stop player 2
-          player2.stopMoving();
-        }
-        
-      }
-    } //end of keyboard listener
   
-  // -----------  Inner class for the keyboard listener - This detects mouse movement & clicks and runs the corresponding methods 
-    //placeholder listeners for later
-    private class MyMouseListener implements MouseListener {
-   
-      public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse Clicked");
-        System.out.println("X:"+e.getX() + " y:"+e.getY());
-      }
-
-      public void mousePressed(MouseEvent e) {
-      }
-
-      public void mouseReleased(MouseEvent e) {
-      }
-
-      public void mouseEntered(MouseEvent e) {
-      }
-
-      public void mouseExited(MouseEvent e) {
-      }
-    } //end of mouselistener
+  // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
+  private class MyKeyListener implements KeyListener {
     
+    public void keyTyped(KeyEvent e) {
+      
+    }
+    
+    public void keyPressed(KeyEvent e) {
+      if (!player2.getAttacking()) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
+          player2.moveRight();
+          player2.setDirection('r');
+        } 
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {  
+          player2.moveLeft();
+          player2.setDirection('l');
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP) {  
+          player2.jump();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
+          player2.attack(0, player);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
+          player2.attack(1, player);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
+          player2.attack(2, player);
+        }
+      }
+      if (!player.getAttacking()) {
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
+          player.moveRight();
+          player.setDirection('r');
+        } 
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  
+          player.moveLeft();
+          player.setDirection('l');
+        }
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  
+          player.jump();
+        }
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
+          player.attack(0, player2);
+        }
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
+          player.attack(1, player2);
+        } 
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+          player.attack(2, player2);
+        }
+      }
+      if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
+        System.exit(0);
+      }
+    }   
+    
+    public void keyReleased(KeyEvent e) {
+      if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //stop player 1
+        player.stopMoving();
+      } if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT) {  //stop player 2
+        player2.stopMoving();
+      }
+      
+    }
+  } //end of keyboard listener
+  
+  
+  private class MyMouseListener implements MouseListener {
+    
+    public void mouseClicked(MouseEvent e) {
+      System.out.println("Mouse Clicked");
+      System.out.println("X:"+e.getX() + " y:"+e.getY());
+    }
+    
+    public void mousePressed(MouseEvent e) {
+    }
+    
+    public void mouseReleased(MouseEvent e) {
+    }
+    
+    public void mouseEntered(MouseEvent e) {
+    }
+    
+    public void mouseExited(MouseEvent e) {
+    }
+  } //end of mouselistener
+  
+  
+  
 }
