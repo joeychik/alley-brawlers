@@ -21,8 +21,7 @@ class Character extends Physical implements Moveable {
   private Image sprite;
   private Image[] sprites = new Image[4];
   
-  
-  static double scaleRatio;
+  private double scaleRatio;
   
   private boolean jumping;
   private double stunTime = 0;
@@ -34,14 +33,16 @@ class Character extends Physical implements Moveable {
   
   public Character(int x,int y,int h, int w, double scaleRatio, char facing, String spriteAddress) {
    super(x,y,h,w,scaleRatio);
-   System.out.println("character");
    Random randNum = new Random();
+   this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
+
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
    this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
-   this.sprites[3] = new ImageIcon(spriteAddress + "punchleft.png").getImage();
+   this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
+
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
@@ -79,8 +80,8 @@ class Character extends Physical implements Moveable {
    
    if(getXPos() < 0) {
     setXPos(0); 
-   } else if (getXPos() > 1920-getWidth()) {
-     setXPos(1920-getWidth()); 
+   } else if (getXPos() > scaleRatio * 1920-getWidth()) {
+     setXPos(scaleRatio * 1920-getWidth()); 
    } 
    
    if(getYPos() > 880) {
@@ -190,6 +191,7 @@ class Character extends Physical implements Moveable {
    return this.health; 
   }
   
+<<<<<<< HEAD
   public void draw(Graphics g) { 
     //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
     try{
@@ -200,6 +202,10 @@ class Character extends Physical implements Moveable {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}
     
+=======
+  public void draw(Graphics g) { //replace with dank sprite later
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
+>>>>>>> c5a9f99412a9bbe72f1df4a89167c0b34a53cbe5
  }
   
 }

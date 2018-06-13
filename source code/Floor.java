@@ -17,7 +17,7 @@ class Floor extends Physical {
   }
   
   Floor(double scaleRatio) {
-    super(0, 980, 100, 10000, scaleRatio);
+    super(0, 980, 110, 1930, scaleRatio);
   }
   
   public void draw(Graphics g) {         

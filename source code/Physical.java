@@ -18,7 +18,6 @@ abstract class Physical {
   this.yPos = scaleRatio * y;
   this.height = (int) (scaleRatio * h);
   this.width = (int) (scaleRatio * w);
-  System.out.println(this.xPos+", "+this.yPos+", "+this.height+", "+this.width+", "+this.scaleRatio);
   this.scaleRatio = scaleRatio;
   boundingBox = new Rectangle((int)xPos, (int)yPos, w, h);
  }

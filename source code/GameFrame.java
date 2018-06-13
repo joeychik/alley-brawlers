@@ -51,8 +51,8 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -112,7 +112,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.drawImage(pic,0,0,null);     
+      //g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -153,7 +153,7 @@ class GameFrame extends JFrame {
       }
 
       public void keyPressed(KeyEvent e) {
-        if (!player2.getAttacking() && !player2.isStunned()) {
+        if (!player2.getAttacking()) {
           if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
             player2.moveRight();
             player2.setDirection('r');
@@ -166,9 +166,6 @@ class GameFrame extends JFrame {
             player2.jump();
           }
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
-            player2.attack(0, player);
-          }
-          if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
             player2.attack(1, player);
           }
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
@@ -188,9 +185,6 @@ class GameFrame extends JFrame {
             player.jump();
           }
            if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
-            player.attack(0, player2);
-          }
-           if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
             player.attack(1, player2);
           } if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
             player.attack(2, player2);
