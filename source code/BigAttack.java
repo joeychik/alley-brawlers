@@ -1,7 +1,7 @@
 /*
  * BigAttack.java
  * Used by characters to deal damage to other characters
- * Eric Ke
+ * @author Eric Ke
  * 6/5/2018
  */
 
