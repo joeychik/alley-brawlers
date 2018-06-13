@@ -80,6 +80,10 @@ class GameFrame extends JFrame {
     //Start the game loop in a separate thread
    
   } //End of Constructor
+  
+  public static double getScaleRatio() {
+   return scaleRatio; 
+  }
 
   //the main gameloop - this is where the game state is updated
   public void animate() { 
@@ -108,7 +112,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.drawImage(pic,0,0,null);     
+      //g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -164,6 +168,9 @@ class GameFrame extends JFrame {
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
             player2.attack(1, player);
           }
+          if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
+            player2.attack(2, player);
+          }
         }
         if (!player.getAttacking()) {
           if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
@@ -179,6 +186,8 @@ class GameFrame extends JFrame {
           }
            if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
             player.attack(1, player2);
+          } if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+            player.attack(2, player2);
           }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed

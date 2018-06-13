@@ -23,7 +23,6 @@ class Character extends Physical implements Moveable {
   
   private double scaleRatio;
   
-  private double jumpStartY;
   private boolean jumping;
   private double stunTime = 0;
   private boolean attacking = false;
@@ -51,6 +50,7 @@ class Character extends Physical implements Moveable {
    this.facing = facing;
    this.attackList[0] = new MeleeAttack(attackStrength);
    this.attackList[1] = new BigAttack(attackStrength);
+   this.attackList[2] = new ProjectileAttack(attackStrength);
   }
   
   public boolean isStunned() {
@@ -72,6 +72,7 @@ class Character extends Physical implements Moveable {
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    
    ((BigAttack)attackList[1]).update(elapsedTime);
+   ((ProjectileAttack)attackList[2]).update(elapsedTime);
    if (stunTime > 0) {
     xSpeed = 0; 
     stunTime -= 100*elapsedTime;
@@ -123,7 +124,6 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping) {
      this.jumping = true;
-     this.jumpStartY = getYPos();
      this.ySpeed = -14;
      this.setYPos(getYPos() - 1);
     } 
@@ -191,8 +191,15 @@ class Character extends Physical implements Moveable {
    return this.health; 
   }
   
-  public void draw(Graphics g) { //replace with dank sprite later
-    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
- }
-  
+  public void draw(Graphics g) { 
+    //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
+    try{
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
+    } catch (Exception e) {
+    }
+    try {
+    ((ProjectileAttack)attackList[2]).getBall().draw(g);
+    } catch (Exception e) {}
+    
+  }
 }

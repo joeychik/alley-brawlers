@@ -57,6 +57,8 @@ class GameFrame extends JFrame {
     
     this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
     this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -84,6 +86,10 @@ class GameFrame extends JFrame {
     //Start the game loop in a separate thread
    
   } //End of Constructor
+  
+  public static double getScaleRatio() {
+   return scaleRatio; 
+  }
 
   //the main gameloop - this is where the game state is updated
   public void animate() { 
@@ -168,6 +174,9 @@ class GameFrame extends JFrame {
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
             player2.attack(1, player);
           }
+          if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
+            player2.attack(2, player);
+          }
         }
         if (!player.getAttacking()) {
           if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
@@ -183,6 +192,8 @@ class GameFrame extends JFrame {
           }
            if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
             player.attack(1, player2);
+          } if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+            player.attack(2, player2);
           }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
