@@ -12,7 +12,7 @@ class MeleeAttack extends Attack {
   private Rectangle attackBox;
   
   MeleeAttack(double multiplier){
-    super(25, 20,100, 175, multiplier);
+    super(25, 20,100, 100, multiplier);
   }
   
   /**
