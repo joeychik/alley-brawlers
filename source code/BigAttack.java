@@ -27,10 +27,12 @@ class BigAttack extends Attack {
     if (this.cooldown <= 0) {
       setDuration(100); 
       attackBox = new Rectangle(x,y,getWidth(),getHeight());
+      playSound("shatter.wav");
       this.cooldown = 1000;
       if (attackBox.intersects(target.getBoundingBox())) {
         target.changeHealth(-(this.getDamage())); 
         setDamageDealt(true);
+        playSound("bighit.wav");
         target.stun(400);
       }
     } else {

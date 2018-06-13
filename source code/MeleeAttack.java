@@ -17,9 +17,11 @@ class MeleeAttack extends Attack {
   
   public void useAttack(Character target, int x, int y) {
     this.attackBox = new Rectangle(x,y,getWidth(),getHeight());
+    playSound("attackweak.wav");
     
     if (attackBox.intersects(target.getBoundingBox())) {
      target.changeHealth(-(this.getDamage())); 
+     playSound("hitweak.wav");
      setDamageDealt(true);
     }
   }

@@ -48,11 +48,13 @@ class ProjectileAttack extends Attack {
     if (this.cooldown <= 0) {
       setDuration(20); 
       this.cooldown = 200;
+      playSound("egattack.wav");
       ball = new Projectile(x,y,GameFrame.getScaleRatio(), target, this.direction);
       this.startX = x;
     } else {
      setDuration(0); 
     }
   }
+  
   
 }

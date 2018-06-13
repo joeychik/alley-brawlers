@@ -112,6 +112,8 @@ class GameFrame extends JFrame {
        }
   }
   
+
+  
   class MusicListener implements LineListener {
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
@@ -119,6 +121,15 @@ class GameFrame extends JFrame {
         if (clip != null) {
          playMusic("FightForQuiescence.wav"); 
         }
+      }
+    }
+  } 
+  
+  class SoundListener implements LineListener {
+    public void update(LineEvent event) {
+      if (event.getType() == LineEvent.Type.STOP) {
+        event.getLine().close(); 
+        
       }
     }
   } 

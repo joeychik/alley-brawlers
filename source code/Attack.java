@@ -16,6 +16,7 @@ abstract class Attack {
   private boolean damageDealt = false;
   private Rectangle attackBox;
   
+  private SoundPlayer audioPlayer = new SoundPlayer();
  
   Attack(double damage, double time, int h, int w, double multiplier) {
     this.damage = damage*multiplier;
@@ -52,6 +53,10 @@ abstract class Attack {
   public void removeRectangle() {
    this.attackBox = null; 
    this.setDamageDealt(false);
+  }
+  
+  public void playSound(String filename) {
+   audioPlayer.playSound(filename); 
   }
   
   abstract public void useAttack(Character target, int x, int y);
