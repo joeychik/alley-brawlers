@@ -15,6 +15,13 @@ class MeleeAttack extends Attack {
     super(25, 20,100, 175, multiplier);
   }
   
+  /**
+   * useAttack
+   * uses the attack
+   * @param target the character to be targeted
+   * @param x the x coordinate of the attack
+   * @param y the y coordinate of the attack
+   */
   public void useAttack(Character target, int x, int y) {
     this.attackBox = new Rectangle(x,y,getWidth(),getHeight());
     playSound("attackweak.wav");

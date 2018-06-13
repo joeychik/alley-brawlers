@@ -96,6 +96,11 @@ class GameFrame extends JFrame {
    return scaleRatio; 
   }
   
+  /**
+   * playMusic
+   * plays the music for the battle
+   * @param filename the name of the file
+   */
   public void playMusic(String filename) {
      try {
       File audioFile = new File("resources/sound/" + filename);
@@ -113,8 +118,12 @@ class GameFrame extends JFrame {
   }
   
 
-  
   class MusicListener implements LineListener {
+  /**
+   * update
+   * closes the music and restarts it when it finishes
+   * @param event the music event
+   */
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
         event.getLine().close(); 
@@ -125,14 +134,7 @@ class GameFrame extends JFrame {
     }
   } 
   
-  class SoundListener implements LineListener {
-    public void update(LineEvent event) {
-      if (event.getType() == LineEvent.Type.STOP) {
-        event.getLine().close(); 
-        
-      }
-    }
-  } 
+  
 
   
   
@@ -195,6 +197,10 @@ class GameFrame extends JFrame {
     
   }
   
+  /**
+   * endGame
+   * ends the game and opens up the victory screen
+   */
   public void endGame() {
     thisFrame.dispose();
     this.clip.stop();
@@ -206,11 +212,13 @@ class GameFrame extends JFrame {
   
   // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
   private class MyKeyListener implements KeyListener {
-    
     public void keyTyped(KeyEvent e) {
-      
     }
-    
+    /**
+     * keyPressed
+     * makes the players do actions when specific keys are pressed
+     * @param e the key pressed
+     */
     public void keyPressed(KeyEvent e) {
       if (!player2.getAttacking()) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
@@ -261,6 +269,11 @@ class GameFrame extends JFrame {
       }
     }   
     
+    /**
+     * keyReleased
+     * makes the players stop doing stuff when keys are released
+     * @param e the key released
+     */
     public void keyReleased(KeyEvent e) {
       if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //stop player 1
         player.stopMoving();

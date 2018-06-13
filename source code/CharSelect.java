@@ -35,6 +35,10 @@ class CharSelect extends JFrame{
   static double scaleRatio;
   JLabel character;
   
+  /**
+   * readCharList
+   * reads the list of characters from a list
+   */
   private void readCharList(String filename) throws Exception{
     int i = 0;
     File characterList = new File(filename);

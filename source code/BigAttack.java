@@ -19,10 +19,22 @@ class BigAttack extends Attack {
     cooldown = 0;
   }
   
+  /**
+   * update
+   * updates the cooldown
+   * @param elapsedTime amount of time passed
+   */
   public void update(double elapsedTime){
    this.cooldown -= elapsedTime*100; 
   }
   
+  /**
+   * useAttack
+   * uses the attack
+   * @param target the character to be targeted
+   * @param x the x coordinate of the attack
+   * @param y the y coordinate of the attack
+   */
   public void useAttack(Character target, int x, int y) {
     if (this.cooldown <= 0) {
       setDuration(100); 

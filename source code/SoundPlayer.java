@@ -17,6 +17,11 @@ class SoundPlayer {
     
   }
   
+  /**
+   * playSound
+   * plays a sound
+   * @param filename the name of the file to be played
+   */
  public void playSound(String filename) {
      try {
       File audioFile = new File("resources/sound/" + filename);
