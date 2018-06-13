@@ -16,11 +16,15 @@ class Projectile extends Physical implements Moveable {
   private Image sprite;
   Character target;
   
-  Projectile(int x, int y, double scaleRatio, Character target) {
-    super(x,y,(int)(100*scaleRatio), (int)(100*scaleRatio), scaleRatio); 
+  Projectile(int x, int y, double scaleRatio, Character target, char facing) {
+    super(x,y,(int)(75*scaleRatio), (int)(75*scaleRatio), scaleRatio); 
     this.target = target;
     sprite = new ImageIcon("resources/projectile.png").getImage();
-    moveLeft();
+    if (facing == 'l') {
+     moveLeft();
+    } else if (facing == 'r') {
+     moveRight();
+    }
  }
   
   public void update(double elapsedTime) {
