@@ -90,7 +90,7 @@ class Character extends Physical implements Moveable {
    }
    
    if(jumping) {
-    this.ySpeed += 40*elapsedTime; 
+    this.ySpeed += 50*elapsedTime; 
    }
    
       if (attackRemainingTime > 0) {
@@ -125,7 +125,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping) {
      this.jumping = true;
-     this.ySpeed = -14;
+     this.ySpeed = -20;
      this.setYPos(getYPos() - 1);
     } 
   }
@@ -154,7 +154,7 @@ class Character extends Physical implements Moveable {
   
   public void moveRight() {
     if(!isStunned()) {
-      this.xSpeed = 7; 
+      this.xSpeed = 14; 
     }
   }
   
@@ -164,7 +164,7 @@ class Character extends Physical implements Moveable {
   
   public void moveLeft() {
     if(!isStunned()) {
-      this.xSpeed = -7; 
+      this.xSpeed = -14; 
     }
   }
   

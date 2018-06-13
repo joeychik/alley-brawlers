@@ -11,17 +11,21 @@ class ProjectileAttack extends Attack {
   
   private double cooldown;
   private double startX;
-  Projectile ball;
+  private char direction;
+  private Projectile ball;
   
   ProjectileAttack(double multiplier){
     super(25, 20,100, 175, multiplier);
+  }
+  
+  public void setDirection(char d){
+   this.direction = d; 
   }
   
   public void update(double elapsedTime) {
     
     
     if (ball != null) {
-      System.out.println("lmao");
       ball.update(elapsedTime);
       if (ball.collision()) {
         ball.attack(getDamage());
@@ -44,7 +48,7 @@ class ProjectileAttack extends Attack {
     if (this.cooldown <= 0) {
       setDuration(20); 
       this.cooldown = 200;
-      ball = new Projectile(x,y,GameFrame.getScaleRatio(), target);
+      ball = new Projectile(x,y,GameFrame.getScaleRatio(), target, this.direction);
       this.startX = x;
     } else {
      setDuration(0); 
