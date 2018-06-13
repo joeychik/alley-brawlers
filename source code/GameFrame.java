@@ -44,8 +44,9 @@ class GameFrame extends JFrame {
    static double x, y;
    static double scaleRatio;
    static GameAreaPanel gamePanel;
+   Clip clip;
    
-   GameFrame currentGameFrame;
+   GameFrame thisFrame;
    
    Floor ground;
    Character player, player2;
@@ -57,6 +58,7 @@ class GameFrame extends JFrame {
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
+    this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
     this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
@@ -96,10 +98,10 @@ class GameFrame extends JFrame {
       File audioFile = new File("resources/sound/" + filename);
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
       DataLine.Info infoThing = new DataLine.Info(Clip.class, audioStream.getFormat());
-      Clip clip = (Clip) AudioSystem.getLine(infoThing);
-      clip.addLineListener(new MusicListener());
-      clip.open(audioStream);
-      clip.start();
+      this.clip = (Clip) AudioSystem.getLine(infoThing);
+      this.clip.addLineListener(new MusicListener());
+      this.clip.open(audioStream);
+      this.clip.start();
       
  
     }catch (Exception e) {
@@ -111,6 +113,9 @@ class GameFrame extends JFrame {
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
         event.getLine().close(); 
+        if (clip != null) {
+         playMusic("FightForQuiescence.wav"); 
+        }
       }
     }
   } 
@@ -177,7 +182,11 @@ class GameFrame extends JFrame {
   }
   
   public void endGame() {
-    System.exit(0);
+    thisFrame.dispose();
+    this.clip.stop();
+    this.clip.close();
+    this.clip = null;
+    new Menu(); //CHANGE TO VICTORY SCREEN LATER OKAY
   }
   
   

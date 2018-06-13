@@ -155,6 +155,7 @@ class Menu extends JFrame {
         
         public void mouseClicked(MouseEvent e) {
             System.out.println("clicked");
+            thisFrame.dispose();
             new InstructionScreen();
         }
     }
