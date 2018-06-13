@@ -113,7 +113,7 @@ class Character extends Physical implements Moveable {
        this.sprite = this.sprites[1]; 
      }
    } else {
-     if (facing == 'l') {
+     if (facing == 'r') {
        this.sprite = this.sprites[2]; 
      } else {
        this.sprite = this.sprites[3]; 

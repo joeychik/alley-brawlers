@@ -56,7 +56,7 @@ class CharSelect extends JFrame{
   
   //Constructor - this runs first
   CharSelect() { 
-    super("Start Screen");
+    super("Character Selection");
     try{
     readCharList("resources/characters.txt");
     } catch(Exception e) {

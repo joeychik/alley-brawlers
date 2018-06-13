@@ -1,3 +1,9 @@
+/** 
+ * InstructionScreen.java
+ * Window that displays the instructions
+ * @author Eric Ke, Joey Chik
+ **/
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;

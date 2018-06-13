@@ -1,7 +1,8 @@
 /**
-* This template can be used as reference or a starting point
-* for your final summative project
-* @author Mangat
+* GameFrame.java
+* Frame that runs the actual game
+* Based on the template provided by Mr. Mangat
+* @author Eric Ke, Joey Chik
 **/
 
 //Graphics &GUI imports
@@ -46,8 +47,8 @@ class GameFrame extends JFrame {
    Character player, player2;
    
   //Constructor - this runs first
-  GameFrame() { 
-    super("My Game");  
+  GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
+    super("My Game");                //               this is how we get the character selection from the players
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
