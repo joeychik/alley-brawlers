@@ -169,6 +169,9 @@ class GameFrame extends JFrame {
             player2.jump();
           }
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
+            player2.attack(0, player);
+          }
+          if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
             player2.attack(1, player);
           }
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
@@ -187,15 +190,18 @@ class GameFrame extends JFrame {
           if (KeyEvent.getKeyText(e.getKeyCode()).equals("W")) {  
             player.jump();
           }
-           if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
+          if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
+            player.attack(0, player2);
+          }
+           if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
             player.attack(1, player2);
-          } if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+          } 
+           if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
             player.attack(2, player2);
           }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
-            System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
-            currentGameFrame.dispose();
+            System.exit(0);
           }
       }   
       

@@ -73,6 +73,7 @@ class Character extends Physical implements Moveable {
    
    ((BigAttack)attackList[1]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).update(elapsedTime);
+   ((ProjectileAttack)attackList[2]).setDirection(this.facing);
    if (stunTime > 0) {
     xSpeed = 0; 
     stunTime -= 100*elapsedTime;
