@@ -26,7 +26,6 @@ class Projectile extends Physical implements Moveable {
   public void update(double elapsedTime) {
    setXPos(getXPos()+xSpeed*elapsedTime*100);
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
-   setBoxPosition(getXPos(), getYPos());
   }
   
   public void moveRight() {

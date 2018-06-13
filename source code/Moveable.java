@@ -6,7 +6,10 @@
  */
 
 public interface Moveable {
+  
+  
    public void update(double elapsedTime);
-   
+   public void moveLeft();
+   public void moveRight();
    
 }

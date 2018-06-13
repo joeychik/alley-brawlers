@@ -171,6 +171,9 @@ class GameFrame extends JFrame {
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
             player2.attack(1, player);
           }
+          if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
+            player2.attack(2, player);
+          }
         }
         if (!player.getAttacking()) {
           if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
@@ -189,6 +192,8 @@ class GameFrame extends JFrame {
           }
            if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
             player.attack(1, player2);
+          } if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+            player.attack(2, player2);
           }
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
