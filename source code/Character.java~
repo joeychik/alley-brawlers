@@ -73,6 +73,7 @@ class Character extends Physical implements Moveable {
    
    ((BigAttack)attackList[1]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).update(elapsedTime);
+   ((ProjectileAttack)attackList[2]).setDirection(this.facing);
    if (stunTime > 0) {
     xSpeed = 0; 
     stunTime -= 100*elapsedTime;
@@ -89,7 +90,7 @@ class Character extends Physical implements Moveable {
    }
    
    if(jumping) {
-    this.ySpeed += 40*elapsedTime; 
+    this.ySpeed += 50*elapsedTime; 
    }
    
       if (attackRemainingTime > 0) {
@@ -113,7 +114,7 @@ class Character extends Physical implements Moveable {
        this.sprite = this.sprites[1]; 
      }
    } else {
-     if (facing == 'l') {
+     if (facing == 'r') {
        this.sprite = this.sprites[2]; 
      } else {
        this.sprite = this.sprites[3]; 
@@ -124,7 +125,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping) {
      this.jumping = true;
-     this.ySpeed = -14;
+     this.ySpeed = -20;
      this.setYPos(getYPos() - 1);
     } 
   }
@@ -153,7 +154,7 @@ class Character extends Physical implements Moveable {
   
   public void moveRight() {
     if(!isStunned()) {
-      this.xSpeed = 7; 
+      this.xSpeed = 14; 
     }
   }
   
@@ -163,7 +164,7 @@ class Character extends Physical implements Moveable {
   
   public void moveLeft() {
     if(!isStunned()) {
-      this.xSpeed = -7; 
+      this.xSpeed = -14; 
     }
   }
   
@@ -191,21 +192,15 @@ class Character extends Physical implements Moveable {
    return this.health; 
   }
   
-<<<<<<< HEAD
   public void draw(Graphics g) { 
     //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
     try{
-    g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method 
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
     } catch (Exception e) {
     }
     try {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}
     
-=======
-  public void draw(Graphics g) { //replace with dank sprite later
-    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
->>>>>>> c5a9f99412a9bbe72f1df4a89167c0b34a53cbe5
- }
-  
+  }
 }
