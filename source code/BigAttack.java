@@ -15,7 +15,7 @@ class BigAttack extends Attack {
   
   
   BigAttack(double multiplier){
-    super(50, 75,100, 175, multiplier);
+    super(50, 100,100, 175, multiplier);
     cooldown = 0;
   }
   
@@ -25,13 +25,13 @@ class BigAttack extends Attack {
   
   public void useAttack(Character target, int x, int y) {
     if (this.cooldown <= 0) {
-      setDuration(75); 
+      setDuration(100); 
       attackBox = new Rectangle(x,y,getWidth(),getHeight());
-      this.cooldown = 800;
+      this.cooldown = 1000;
       if (attackBox.intersects(target.getBoundingBox())) {
         target.changeHealth(-(this.getDamage())); 
         setDamageDealt(true);
-        target.stun(200);
+        target.stun(400);
       }
     } else {
      setDuration(0); 

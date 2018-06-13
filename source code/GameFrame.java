@@ -150,6 +150,10 @@ class GameFrame extends JFrame {
         player2.setJumping(false);
       }
       
+      if (player.getHealth() <= 0 || player2.getHealth() <= 0) {
+       endGame(); 
+      }
+      
       player.draw(g);
       player2.draw(g);
       g.setFont(font);

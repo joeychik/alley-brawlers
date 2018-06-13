@@ -67,6 +67,7 @@ class Character extends Physical implements Moveable {
   
   public void update(double elapsedTime){
    //update the content
+
     this.facing = this.facing;
    setXPos(getXPos()+xSpeed*elapsedTime*100);
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
@@ -133,11 +134,11 @@ class Character extends Physical implements Moveable {
   public void attack(int n, Character c) {
     if(this.facing == 'r' && !isStunned()) {
       attackList[n].useAttack(c, (int)getXPos()+this.getWidth(), (int)getYPos());
+      this.attackRemainingTime = attackList[n].getDuration();
     } else if (this.facing == 'l' && !isStunned()) {
       attackList[n].useAttack(c, (int)getXPos()-this.attackList[n].getWidth(), (int)getYPos());
+      this.attackRemainingTime = attackList[n].getDuration();
     }
-   
-   this.attackRemainingTime = attackList[n].getDuration();
   }
   
   public double getXSpeed() {

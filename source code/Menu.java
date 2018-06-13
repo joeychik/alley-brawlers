@@ -24,10 +24,11 @@ class Menu extends JFrame {
     private static int buttonHeight;
     private static int buttonWidth;
     private static double scaleRatio;
+    private JFrame thisFrame;
     
     Menu() { 
         super("Start Screen"); // name of window
-        
+        this.thisFrame = this;
         // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -142,6 +143,7 @@ class Menu extends JFrame {
         
         public void mouseClicked(MouseEvent e) {
             System.out.println("clicked");
+            thisFrame.dispose();
             new CharSelect();
         }
     }

@@ -115,11 +115,7 @@ class GameFrame extends JFrame {
     }
   } 
 
-  //the main gameloop - this is where the game state is updated
-  public void animate() { 
-    
-   
-  }
+  
   
   /** --------- INNER CLASSES ------------- **/
   
@@ -171,6 +167,13 @@ class GameFrame extends JFrame {
       
       
     }
+    
+   
+    
+  }
+  
+  public void endGame() {
+    System.exit(0);
   }
   
   
