@@ -51,8 +51,8 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -149,7 +149,7 @@ class GameFrame extends JFrame {
       }
 
       public void keyPressed(KeyEvent e) {
-        if (!player2.getAttacking()) {
+        if (!player2.getAttacking() && !player2.isStunned()) {
           if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
             player2.moveRight();
             player2.setDirection('r');
@@ -162,6 +162,9 @@ class GameFrame extends JFrame {
             player2.jump();
           }
           if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {  
+            player2.attack(0, player);
+          }
+          if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
             player2.attack(1, player);
           }
         }
@@ -178,6 +181,9 @@ class GameFrame extends JFrame {
             player.jump();
           }
            if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
+            player.attack(0, player2);
+          }
+           if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
             player.attack(1, player2);
           }
         }

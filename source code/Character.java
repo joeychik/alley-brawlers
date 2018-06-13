@@ -26,9 +26,9 @@ class Character extends Physical implements Moveable {
   
   private double jumpStartY;
   private boolean jumping;
+  private double stunTime = 0;
   private boolean attacking = false;
   private double attackRemainingTime = 0;
-  private double channelTime = 0;
   
   private Attack[] attackList = new Attack[3];
   
@@ -38,11 +38,11 @@ class Character extends Physical implements Moveable {
    System.out.println("character");
    Random randNum = new Random();
    this.health = randNum.nextInt(1000)+1000.0;
-   this.sprite = new ImageIcon(spriteAddress + ".png").getImage();
-   this.sprites[0] = new ImageIcon(spriteAddress + ".png").getImage();
-   this.sprites[1] = new ImageIcon(spriteAddress + "Left.png").getImage();
-   this.sprites[2] = new ImageIcon(spriteAddress + "Punch.png").getImage();
-   this.sprites[3] = new ImageIcon(spriteAddress + "PunchLeft.png").getImage();
+   this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
+   this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
+   this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
+   this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
+   this.sprites[3] = new ImageIcon(spriteAddress + "punchleft.png").getImage();
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
@@ -52,10 +52,30 @@ class Character extends Physical implements Moveable {
    this.attackList[1] = new BigAttack(attackStrength);
   }
   
+  public boolean isStunned() {
+    if (stunTime > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public void stun(double duration) {
+   stunTime = duration; 
+  }
+  
   public void update(double elapsedTime){
    //update the content
+    this.facing = this.facing;
    setXPos(getXPos()+xSpeed*elapsedTime*100);
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
+   
+   ((BigAttack)attackList[1]).update(elapsedTime);
+   if (stunTime > 0) {
+    xSpeed = 0; 
+    stunTime -= 100*elapsedTime;
+   } 
+   
    if(getXPos() < 0) {
     setXPos(0); 
    } else if (getXPos() > 1920-getWidth()) {
@@ -70,11 +90,9 @@ class Character extends Physical implements Moveable {
     this.ySpeed += 40*elapsedTime; 
    }
    
-   if(attacking) {
-    this.xSpeed = 0;
-      ((BigAttack)attackList[1]).update(elapsedTime);
       if (attackRemainingTime > 0) {
       this.attacking = true;
+      this.xSpeed = 0;
       this.attackRemainingTime -= 100*elapsedTime; 
       for(int i = 0; i > attackList.length; i++) {
        attackList[i].removeRectangle(); 
@@ -82,7 +100,7 @@ class Character extends Physical implements Moveable {
     } else {
       attacking = false;
     }
-   }
+   
    
    setBoxPosition(getXPos(), getYPos());
    
@@ -93,7 +111,7 @@ class Character extends Physical implements Moveable {
        this.sprite = this.sprites[1]; 
      }
    } else {
-     if (facing == 'r') {
+     if (facing == 'l') {
        this.sprite = this.sprites[2]; 
      } else {
        this.sprite = this.sprites[3]; 
@@ -111,17 +129,13 @@ class Character extends Physical implements Moveable {
   }
   
   public void attack(int n, Character c) {
-    if(facing == 'r') {
-      attackList[n].useAttack(c, (int)getXPos(), (int)getYPos());
-    } else {
-      attackList[n].useAttack(c, (int)getXPos()-attackList[n].getWidth(), (int)getYPos());
+    if(this.facing == 'r' && !isStunned()) {
+      attackList[n].useAttack(c, (int)getXPos()+this.getWidth(), (int)getYPos());
+    } else if (this.facing == 'l' && !isStunned()) {
+      attackList[n].useAttack(c, (int)getXPos()-this.attackList[n].getWidth(), (int)getYPos());
     }
    
    this.attackRemainingTime = attackList[n].getDuration();
-   if(attackList[n] instanceof BigAttack) {
-    this.channelTime = BigAttack.getChannelTime();
-   }
-   this.attacking = true;
   }
   
   public double getXSpeed() {
@@ -137,7 +151,9 @@ class Character extends Physical implements Moveable {
   }
   
   public void moveRight() {
-   this.xSpeed = 7; 
+    if(!isStunned()) {
+      this.xSpeed = 7; 
+    }
   }
   
   public void stopMoving() {
@@ -145,7 +161,9 @@ class Character extends Physical implements Moveable {
   }
   
   public void moveLeft() {
-   this.xSpeed = -7; 
+    if(!isStunned()) {
+      this.xSpeed = -7; 
+    }
   }
   
   public void setXSpeed(double s) {

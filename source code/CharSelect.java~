@@ -1,7 +1,7 @@
 /** 
  * CharSelect.java 
  * Character selection screen for the Alley Brawlers game
- * @author Eric Ke
+ * @author Eric Ke, Joey Chik
 **/
 
 
@@ -26,7 +26,7 @@ import java.util.Scanner;
 import java.io.File;
 
   
-class StartingFrameTwo extends JFrame{ 
+class CharSelect extends JFrame{ 
 
   JFrame thisFrame;
   private String[] selectedCharacter;
@@ -37,8 +37,15 @@ class StartingFrameTwo extends JFrame{
     int i = 0;
     File characterList = new File(filename);
     
+    Scanner numReader = new Scanner(characterList);
     Scanner fileReader = new Scanner(characterList);
-    selectedCharacter = new String[fileReader.nextInt()];
+    while(numReader.hasNext()) {
+     numReader.next();
+     i++;
+    }
+    
+    selectedCharacter = new String[i];
+    i=0;
     
     while(fileReader.hasNext()) {
      selectedCharacter[i] = fileReader.next();
@@ -48,12 +55,12 @@ class StartingFrameTwo extends JFrame{
 
   
   //Constructor - this runs first
-  StartingFrameTwo() { 
+  CharSelect() { 
     super("Start Screen");
     try{
     readCharList("resources/characters.txt");
     } catch(Exception e) {
-     System.out.println("get rekt noob"); 
+     System.out.println("Error reading character list"); 
     }
     this.thisFrame = this; //lol  
     
@@ -83,6 +90,7 @@ class StartingFrameTwo extends JFrame{
     //Create a JButton for the centerPanel
     ImageIcon sb =new ImageIcon("resources/startbutton.png");
     ImageIcon arrowPic = new ImageIcon("resources/arrow.png");
+    ImageIcon arrowPicLeft = new ImageIcon("resources/arrow2.png");
 
 
     JButton startButton = new JButton(sb);
@@ -98,12 +106,22 @@ class StartingFrameTwo extends JFrame{
     arrowButton.setFocusPainted(false);
     arrowButton.addActionListener(new ArrowListener());
     
+    JButton arrowButton2 = new JButton(arrowPicLeft);
+    arrowButton2.setBackground(new Color(0, 0, 0, 0));
+    arrowButton2.setBorder(BorderFactory.createEmptyBorder());
+    arrowButton2.setFocusPainted(false);
+    arrowButton2.addActionListener(new LeftArrowListener());
+    
     JPanel bottomPanel = new JPanel();
     bottomPanel.setBackground(new Color(0, 0, 0, 0));
     bottomPanel.add(arrowButton);
     bottomPanel.add(startButton);
     
-    ImageIcon char1Pic = new ImageIcon("resources/" + selectedCharacter[selection] + ".jpg");
+    JPanel leftPanel = new JPanel();
+    leftPanel.setBackground(new Color(0, 0, 0, 0));
+    leftPanel.add(arrowButton2);
+    
+    ImageIcon char1Pic = new ImageIcon("resources/" + selectedCharacter[selection] + ".png");
     
     character = new JLabel(char1Pic);
     
@@ -116,6 +134,7 @@ class StartingFrameTwo extends JFrame{
     mainPanel.add(bottomPanel,BorderLayout.EAST);
     mainPanel.add(startLabel,BorderLayout.NORTH);
     mainPanel.add(charPanel,BorderLayout.CENTER);
+    mainPanel.add(leftPanel,BorderLayout.WEST);
     decPanel.add(mainPanel);
     //add the main panel to the frame
     this.add(decPanel);
@@ -148,7 +167,8 @@ class StartingFrameTwo extends JFrame{
     public void actionPerformed(ActionEvent event)  {  
       System.out.println("Starting new Game");
       thisFrame.dispose();
-      new GameFrameTwo(); //create a new FunkyFrame (another file that extends JFrame)
+      new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
+      thisFrame.dispose();
 
     }
 
@@ -157,22 +177,36 @@ class StartingFrameTwo extends JFrame{
  class ArrowListener implements ActionListener {
    
    public void actionPerformed(ActionEvent event)  {
-     if (selection >= selectedCharacter.length) {
+     if (selection >= selectedCharacter.length-1) {
       selection = 0; 
      } else {
       selection++; 
      }
       System.out.println("a");
-      character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".jpg"));
+      character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".png"));
       thisFrame.repaint();
       
 
     }
  }
+ 
+ class LeftArrowListener implements ActionListener {
+   
+   public void actionPerformed(ActionEvent event)  {
+     if (selection <= 0) {
+      selection = selectedCharacter.length - 1; 
+     } else {
+      selection--; 
+     }
+      System.out.println("a");
+      character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".png"));
+      thisFrame.repaint();
+    }
+ }
   
   //Main method starts this application
   public static void main(String[] args) { 
-    new StartingFrameTwo();
+    new CharSelect();
 
   }
   

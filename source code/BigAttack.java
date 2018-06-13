@@ -10,42 +10,31 @@ import java.awt.Rectangle;
 class BigAttack extends Attack {
   
   private Rectangle attackBox;
-  private double channelDuration;
-  private static double channelTime = 35;
   private Character target;
-  private int x, y;
-  
+  private double cooldown;
   
   
   BigAttack(double multiplier){
-    super(50, 50,100, 300, multiplier);
+    super(50, 75,100, 175, multiplier);
+    cooldown = 0;
   }
   
-  public static double getChannelTime() {
-    return channelTime;
+  public void update(double elapsedTime){
+   this.cooldown -= elapsedTime*100; 
   }
-  
-  public void update(double elapsedTime) {
-    if (channelDuration > 0) {
-     channelDuration -= elapsedTime;
-    } else {
-     this.endAttack(target, x, y); 
-    }
-  }
-  
-  public void endAttack(Character target, int x, int y){
-   attackBox = new Rectangle(x,y,getWidth(),getHeight());
-    
-    if (attackBox.intersects(target.getBoundingBox())) {
-     target.changeHealth(-(this.getDamage())); 
-     setDamageDealt(true);
-    }
-  } 
   
   public void useAttack(Character target, int x, int y) {
-    this.channelDuration = channelTime;
-    this.target = target;
-    this.x = x;
-    this.y = y;
+    if (this.cooldown <= 0) {
+      setDuration(75); 
+      attackBox = new Rectangle(x,y,getWidth(),getHeight());
+      this.cooldown = 800;
+      if (attackBox.intersects(target.getBoundingBox())) {
+        target.changeHealth(-(this.getDamage())); 
+        setDamageDealt(true);
+        target.stun(200);
+      }
+    } else {
+     setDuration(0); 
+    }
   }
 }

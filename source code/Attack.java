@@ -26,28 +26,32 @@ abstract class Attack {
  
   
   public double getDuration() {
-    return duration; 
+    return this.duration; 
   }
   
   public double getDamage() {
-   return damage; 
+   return this.damage; 
   }
   
   public void setDamageDealt(boolean d) {
-   damageDealt = d; 
+   this.damageDealt = d; 
+  }
+  
+  public void setDuration(double time) {
+   this.duration = time; 
   }
   
   public int getHeight() {
-   return height; 
+   return this.height; 
   }
   
   public int getWidth() {
-   return width; 
+   return this.width; 
   }
   
   public void removeRectangle() {
-   attackBox = null; 
-   setDamageDealt(false);
+   this.attackBox = null; 
+   this.setDamageDealt(false);
   }
   
   abstract public void useAttack(Character target, int x, int y);
