@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 class Character extends Physical implements Moveable {
   
   private double xSpeed, ySpeed;
+  private double speedStat;
   private double health;
   private double attackStrength;
   private double size;
@@ -44,6 +45,7 @@ class Character extends Physical implements Moveable {
    this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
 
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
+   this.speedStat = Math.random() + 0.5;
    this.jumping = true;
    this.xSpeed = 0;
    this.ySpeed = 0;
@@ -126,7 +128,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping) {
      this.jumping = true;
-     this.ySpeed = -20;
+     this.ySpeed = -20 * speedStat;
      this.setYPos(getYPos() - 1);
     } 
   }
@@ -155,7 +157,7 @@ class Character extends Physical implements Moveable {
   
   public void moveRight() {
     if(!isStunned()) {
-      this.xSpeed = 14; 
+      this.xSpeed = 14 * speedStat; 
     }
   }
   
@@ -165,7 +167,7 @@ class Character extends Physical implements Moveable {
   
   public void moveLeft() {
     if(!isStunned()) {
-      this.xSpeed = -14; 
+      this.xSpeed = -14 * speedStat; 
     }
   }
   

@@ -46,7 +46,15 @@ class GameFrame extends JFrame {
    static GameAreaPanel gamePanel;
    Clip clip;
    
+<<<<<<< HEAD
    GameFrame thisFrame;
+=======
+   // constants
+   private static int CHARACTER_SIZE_X = 100;
+   private static int CHARACTER_SIZE_Y = CHARACTER_SIZE_X * 2;
+   
+   GameFrame currentGameFrame;
+>>>>>>> 21f2f8342a242c165b9e3c8bba1c425af9bf2a00
    
    Floor ground;
    Character player, player2;
@@ -61,8 +69,8 @@ class GameFrame extends JFrame {
     this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
+    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/");
+    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/");
 
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -140,7 +148,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.drawImage(pic,0,0, null);     
+      g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
