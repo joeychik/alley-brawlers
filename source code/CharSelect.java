@@ -182,7 +182,6 @@ class CharSelect extends JFrame{
      } else {
       selection++; 
      }
-      System.out.println("a");
       character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".png"));
       thisFrame.repaint();
       
@@ -198,7 +197,6 @@ class CharSelect extends JFrame{
      } else {
       selection--; 
      }
-      System.out.println("a");
       character.setIcon(new ImageIcon("resources/" + selectedCharacter[selection] + ".png"));
       thisFrame.repaint();
     }

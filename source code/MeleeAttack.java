@@ -12,11 +12,11 @@ class MeleeAttack extends Attack {
   private Rectangle attackBox;
   
   MeleeAttack(double multiplier){
-    super(25, 20,100, 300, multiplier);
+    super(25, 20,100, 175, multiplier);
   }
   
   public void useAttack(Character target, int x, int y) {
-    attackBox = new Rectangle(x,y,getWidth(),getHeight());
+    this.attackBox = new Rectangle(x,y,getWidth(),getHeight());
     
     if (attackBox.intersects(target.getBoundingBox())) {
      target.changeHealth(-(this.getDamage())); 
