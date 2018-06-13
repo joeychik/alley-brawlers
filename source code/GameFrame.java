@@ -46,15 +46,10 @@ class GameFrame extends JFrame {
    static GameAreaPanel gamePanel;
    Clip clip;
    
-<<<<<<< HEAD
    GameFrame thisFrame;
-=======
    // constants
    private static int CHARACTER_SIZE_X = 100;
    private static int CHARACTER_SIZE_Y = CHARACTER_SIZE_X * 2;
-   
-   GameFrame currentGameFrame;
->>>>>>> 21f2f8342a242c165b9e3c8bba1c425af9bf2a00
    
    Floor ground;
    Character player, player2;
