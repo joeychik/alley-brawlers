@@ -51,8 +51,8 @@ class GameFrame extends JFrame {
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
     
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -112,7 +112,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      //g.drawImage(pic,0,0, null);     
+      g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());

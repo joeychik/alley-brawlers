@@ -191,21 +191,15 @@ class Character extends Physical implements Moveable {
    return this.health; 
   }
   
-<<<<<<< HEAD
   public void draw(Graphics g) { 
     //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
     try{
-    g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method 
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
     } catch (Exception e) {
     }
     try {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}
     
-=======
-  public void draw(Graphics g) { //replace with dank sprite later
-    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
->>>>>>> c5a9f99412a9bbe72f1df4a89167c0b34a53cbe5
- }
-  
+  }
 }
