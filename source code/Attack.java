@@ -20,8 +20,8 @@ abstract class Attack {
   Attack(double damage, double time, int h, int w, double multiplier) {
     this.damage = damage*multiplier;
     this.duration = time;
-    this.height = h;
-    this.width = w;
+    this.height = (int)(GameFrame.getScaleRatio()*h);
+    this.width = (int)(GameFrame.getScaleRatio()*w);
   }
  
   

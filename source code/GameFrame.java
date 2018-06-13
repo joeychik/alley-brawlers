@@ -80,6 +80,10 @@ class GameFrame extends JFrame {
     //Start the game loop in a separate thread
    
   } //End of Constructor
+  
+  public static double getScaleRatio() {
+   return scaleRatio; 
+  }
 
   //the main gameloop - this is where the game state is updated
   public void animate() { 
