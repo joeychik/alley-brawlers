@@ -22,7 +22,8 @@ class InstructionScreen extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        DecoratedPanel mainPanel = new DecoratedPanel("resources/placeholder.jpg");
+        DecoratedPanel mainPanel = new DecoratedPanel("resources/menu/instruction_screen.png");
+        this.add(mainPanel);
         
         this.setVisible(true);
     }

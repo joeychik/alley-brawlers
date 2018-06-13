@@ -40,6 +40,8 @@ class GameFrame extends JFrame {
    static double scaleRatio;
    static GameAreaPanel gamePanel;
    
+   GameFrame currentGameFrame;
+   
    Floor ground;
    Character player, player2;
    
@@ -47,9 +49,11 @@ class GameFrame extends JFrame {
   GameFrame() { 
     super("My Game");  
     // Set the frame to full screen 
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
+    
+    this.currentGameFrame = this;
     
     this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
     this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
@@ -108,7 +112,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      //g.drawImage(pic,0,0, null);     
+      g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -183,7 +187,7 @@ class GameFrame extends JFrame {
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
             System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
-            System.exit(0);
+            currentGameFrame.dispose();
           }
       }   
       
