@@ -21,6 +21,8 @@ class Character extends Physical implements Moveable {
   private Image sprite;
   private Image[] sprites = new Image[4];
   
+  private double scaleRatio;
+  
   private double jumpStartY;
   private boolean jumping;
   private boolean attacking = false;
@@ -31,14 +33,14 @@ class Character extends Physical implements Moveable {
   
   public Character(int x,int y,int h, int w, double scaleRatio, char facing, String spriteAddress) {
    super(x,y,h,w,scaleRatio);
-   System.out.println("character");
    Random randNum = new Random();
+   this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
    this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
-   this.sprites[3] = new ImageIcon(spriteAddress + "punchLeft.png").getImage();
+   this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
@@ -164,7 +166,7 @@ class Character extends Physical implements Moveable {
   
   public void draw(Graphics g) { //replace with dank sprite later
     //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
-    g.drawImage(sprite, (int)getXPos(), (int)getYPos(), getWidth(), getHeight(), null); //notice the y is a variable that we control from our animate method          
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
  }
   
 }
