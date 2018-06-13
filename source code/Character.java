@@ -78,29 +78,35 @@ class Character extends Physical implements Moveable {
    stunTime = duration; 
   }
   
+  /**
+   * update
+   * updates the content
+   * @param elapsedTime amount of time passed
+   */
   public void update(double elapsedTime){
    //update the content
-
-    this.facing = this.facing;
-   setXPos(getXPos()+xSpeed*elapsedTime*100);
+    setXPos(getXPos()+xSpeed*elapsedTime*100);
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    
+   //updates attacks, cooldowns, etc.
    ((BigAttack)attackList[1]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).setDirection(this.facing);
    if (stunTime > 0) {
-    xSpeed = 0; 
+    xSpeed = 0; //stops user from moving when stunned
     stunTime -= 100*elapsedTime;
    } 
    
+   //prevents out of bounds
    if(getXPos() < 0) {
     setXPos(0); 
    } else if (getXPos() > scaleRatio * 1920-getWidth()) {
      setXPos(scaleRatio * 1920-getWidth()); 
    } 
    
-   if(getYPos() > 880) {
-    setXPos(880); 
+   //double check floor
+   if(getYPos() > scaleRatio*880) {
+    setXPos(scaleRatio*880); 
    }
    
    if(jumping) {

@@ -49,6 +49,9 @@ class Projectile extends Physical implements Moveable {
    this.target.changeHealth(-damage);  
   }
   
+  /**
+   * detects whether the projectile has collided with something
+   */
   public boolean collision() {
     if (this.getBoundingBox().intersects(target.getBoundingBox())) {
       return true;
