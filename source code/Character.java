@@ -27,6 +27,7 @@ class Character extends Physical implements Moveable {
   private boolean jumping;
   private boolean attacking = false;
   private double attackRemainingTime = 0;
+  private double channelTime = 0;
   
   private Attack[] attackList = new Attack[3];
   
@@ -36,17 +37,20 @@ class Character extends Physical implements Moveable {
    Random randNum = new Random();
    this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
+
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
    this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
    this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
+
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.jumping = true;
    this.xSpeed = 0;
    this.ySpeed = 0;
    this.facing = facing;
    this.attackList[0] = new MeleeAttack(attackStrength);
+   this.attackList[1] = new BigAttack(attackStrength);
   }
   
   public void update(double elapsedTime){
@@ -55,9 +59,9 @@ class Character extends Physical implements Moveable {
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    if(getXPos() < 0) {
     setXPos(0); 
-   } else if (getXPos() > scaleRatio * 1920 - getWidth()) {
-     setXPos(scaleRatio * 1920 - getWidth()); 
-   }
+   } else if (getXPos() > scaleRatio * 1920-getWidth()) {
+     setXPos(scaleRatio * 1920-getWidth()); 
+   } 
    
    if(getYPos() > 880) {
     setXPos(880); 
@@ -69,7 +73,8 @@ class Character extends Physical implements Moveable {
    
    if(attacking) {
     this.xSpeed = 0;
-    if (attackRemainingTime > 0) {
+      ((BigAttack)attackList[1]).update(elapsedTime);
+      if (attackRemainingTime > 0) {
       this.attacking = true;
       this.attackRemainingTime -= 100*elapsedTime; 
       for(int i = 0; i > attackList.length; i++) {
@@ -112,8 +117,12 @@ class Character extends Physical implements Moveable {
     } else {
       attackList[n].useAttack(c, (int)getXPos()-attackList[n].getWidth(), (int)getYPos());
     }
-   attackRemainingTime = attackList[n].getDuration();
-   attacking = true;
+   
+   this.attackRemainingTime = attackList[n].getDuration();
+   if(attackList[n] instanceof BigAttack) {
+    this.channelTime = BigAttack.getChannelTime();
+   }
+   this.attacking = true;
   }
   
   public double getXSpeed() {
@@ -152,7 +161,7 @@ class Character extends Physical implements Moveable {
    this.facing = direction; 
   }
   
-  public void setJumping(boolean jump) { // change this so we dont fail
+  public void setJumping(boolean jump) { 
     this.jumping = jump;
   }
   
@@ -165,7 +174,6 @@ class Character extends Physical implements Moveable {
   }
   
   public void draw(Graphics g) { //replace with dank sprite later
-    //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
     g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method          
  }
   
