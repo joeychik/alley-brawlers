@@ -1,7 +1,8 @@
 /**
-* This template can be used as reference or a starting point
-* for your final summative project
-* @author Mangat
+* GameFrame.java
+* Frame that runs the actual game
+* Based on the template provided by Mr. Mangat
+* @author Eric Ke, Joey Chik
 **/
 
 //Graphics &GUI imports
@@ -40,20 +41,22 @@ class GameFrame extends JFrame {
    static double scaleRatio;
    static GameAreaPanel gamePanel;
    
+   GameFrame currentGameFrame;
+   
    Floor ground;
    Character player, player2;
    
   //Constructor - this runs first
-  GameFrame() { 
-    super("My Game");  
+  GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
+    super("My Game");                //               this is how we get the character selection from the players
     // Set the frame to full screen 
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu");
-    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa");
-    
+    this.player = new Character(200,579,200,100, scaleRatio, 'r', "resources/characters/pikachu/");
+    this.player2 = new Character(1600,579,200,100, scaleRatio, 'l', "resources/characters/lisa/");
+
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
     
@@ -112,7 +115,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      //g.drawImage(pic,0,0, null);     
+      g.drawImage(pic,0,0, null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
@@ -192,7 +195,7 @@ class GameFrame extends JFrame {
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
             System.out.println("YIKES ESCAPE KEY!"); //close frame & quit
-            System.exit(0);
+            currentGameFrame.dispose();
           }
       }   
       

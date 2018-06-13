@@ -115,7 +115,7 @@ class GameFrame extends JFrame {
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
-      g.drawImage(pic,0,0, null);     
+      g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
       setDoubleBuffered(true);
       clock.update();
       player.update(clock.getElapsedTime());
