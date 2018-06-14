@@ -72,7 +72,7 @@ class CharSelect extends JFrame{
         
         this.screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         this.screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        this.scaleRatio = (double) screenHeight / 1080;
+        this.scaleRatio = (double)screenHeight / 1080;
         
         //configure the window
         this.setSize(this.screenWidth, this.screenHeight);    

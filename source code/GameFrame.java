@@ -80,22 +80,19 @@ class GameFrame extends JFrame {
     //Set up the game panel (where we put our graphics)
     
     this.add(new GameAreaPanel());
-
+    
     
     MyKeyListener keyListener = new MyKeyListener();
     this.addKeyListener(keyListener);
-
-    MyMouseListener mouseListener = new MyMouseListener();
-    this.addMouseListener(mouseListener);
-
+    
     this.requestFocusInWindow(); //make sure the frame has focus   
     
     this.setVisible(true);
-  
+    
   } //End of Constructor
   
   public static double getScaleRatio() {
-   return scaleRatio; 
+    return scaleRatio; 
   }
   
   /**
@@ -237,12 +234,12 @@ class GameFrame extends JFrame {
     clip.stop();
     clip.close();
     clip = null;
-    new VictoryScreen(playerNum); //CHANGE TO VICTORY SCREEN LATER OKAY
+    new VictoryScreen(playerNum); 
   }
   
   
   // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
-  private class MyKeyListener implements KeyListener {
+  class MyKeyListener implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
     /**
