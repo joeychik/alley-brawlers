@@ -162,7 +162,11 @@ class Character extends Physical implements Moveable {
    * @param target the Character being targeted by the attack
    */
   public void attack(int n, Character target) {
-    if(this.facing == 'r' && !isStunned()) {
+    if(attackList[n] instanceof ProjectileAttack && !isStunned()) {
+      attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
+      this.attackRemainingTime = attackList[n].getDuration();
+    }
+      else if(this.facing == 'r' && !isStunned()) {
       attackList[n].useAttack(target, (int)getXPos()+this.getWidth(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     } else if (this.facing == 'l' && !isStunned()) {

@@ -171,8 +171,10 @@ class GameFrame extends JFrame {
         player2.setJumping(false);
       }
       
-      if (player.getHealth() <= 0 || player2.getHealth() <= 0) {
-       endGame(); 
+      if (player.getHealth() <= 0) {
+       endGame((byte)2); 
+      } else if (player2.getHealth() <= 0) {
+       endGame((byte)1); 
       }
       
       player.draw(g);
@@ -186,7 +188,6 @@ class GameFrame extends JFrame {
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
       g.setColor(Color.RED);
       g.drawString("HP: " + String.valueOf((int)player2.getHealth()), (int)(scaleRatio * 1700), (int)(scaleRatio * 100));
-      ground.draw(g);
       repaint();
       
       
@@ -201,12 +202,12 @@ class GameFrame extends JFrame {
    * endGame
    * ends the game and opens up the victory screen
    */
-  public void endGame() {
+  public void endGame(byte playerNum) {
     thisFrame.dispose();
     this.clip.stop();
     this.clip.close();
     this.clip = null;
-    new Menu(); //CHANGE TO VICTORY SCREEN LATER OKAY
+    new VictoryScreen(playerNum); //CHANGE TO VICTORY SCREEN LATER OKAY
   }
   
   
