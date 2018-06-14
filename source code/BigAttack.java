@@ -15,7 +15,7 @@ class BigAttack extends Attack {
   
   
   BigAttack(double multiplier){
-    super(50, 100,100, 175, multiplier);
+    super(50, 100,100, 100, multiplier);
     cooldown = 0;
   }
   
