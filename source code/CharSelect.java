@@ -27,7 +27,23 @@ import java.util.Scanner;
 import java.io.File;
 
 
+<<<<<<< HEAD
 class CharSelect extends JFrame{ 
+=======
+  JFrame thisFrame;
+  private String[] selectedCharacter;
+  private int selection;
+  static double scaleRatio;
+  JLabel character;
+  
+  /**
+   * readCharList
+   * reads the list of characters from a list
+   */
+  private void readCharList(String filename) throws Exception{
+    int i = 0;
+    File characterList = new File(filename);
+>>>>>>> 177e7d706a27f0b2caab6af02bc156d74877e170
     
     JFrame thisFrame;
     private String[] selectedCharacter;
@@ -150,6 +166,7 @@ class CharSelect extends JFrame{
         
     }
     
+<<<<<<< HEAD
     class ArrowListener implements ActionListener {
         
         public void actionPerformed(ActionEvent event)  {
@@ -163,6 +180,26 @@ class CharSelect extends JFrame{
             
             
         }
+=======
+    /**
+     * draws the graphics on the screen
+     * @param g the graphics
+     */
+    public void paintComponent(Graphics g) { 
+        super.paintComponent(g);     
+        Image pic = new ImageIcon("resources/charSelectBG.png").getImage();
+        g.drawImage(pic,0,0, (int)(1920 * scaleRatio), (int)(1080 * scaleRatio),null); 
+   }
+  
+   
+  }
+  //This is an inner class that is used to detect a button press
+ class StartButtonListener implements ActionListener {  //this is the required class definition
+    public void actionPerformed(ActionEvent event)  {  
+      new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
+      thisFrame.dispose();
+
+>>>>>>> 177e7d706a27f0b2caab6af02bc156d74877e170
     }
     
     class LeftArrowListener implements ActionListener {

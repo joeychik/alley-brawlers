@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
@@ -31,6 +32,7 @@ class CharSelect extends JFrame{
   JFrame thisFrame;
   private String[] selectedCharacter;
   private int selection;
+  static double scaleRatio;
   JLabel character;
   
   private void readCharList(String filename) throws Exception{
@@ -58,14 +60,15 @@ class CharSelect extends JFrame{
   CharSelect() { 
     super("Character Selection");
     try{
-    readCharList("resources/characters.txt");
+    readCharList("resources/charSelect/characters.txt");
     } catch(Exception e) {
      System.out.println("Error reading character list"); 
     }
     this.thisFrame = this; //lol  
+    this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
     //configure the window
-    this.setSize(1920,1080);    
+    this.setSize((int)(1920 * scaleRatio), (int)(1080 * scaleRatio));    
     this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
     this.setResizable (false);
@@ -83,19 +86,19 @@ class CharSelect extends JFrame{
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
     mainPanel.setBackground(new Color(0, 0, 0, 0));
-    mainPanel.setPreferredSize(new Dimension(1920,1080));
+    mainPanel.setPreferredSize(new Dimension((int)(scaleRatio * 1920), (int)(scaleRatio * 1080)));
     
     JPanel charPanel = new JPanel();
         
     //Create a JButton for the centerPanel
-    ImageIcon sb =new ImageIcon("resources/startbutton.png");
-    ImageIcon arrowPic = new ImageIcon("resources/arrow.png");
-    ImageIcon arrowPicLeft = new ImageIcon("resources/arrow2.png");
+    ImageIcon sb =new ImageIcon("resources/charSelect/startbutton.png");
+    ImageIcon arrowPic = new ImageIcon("resources/charSelect/arrow.png");
+    ImageIcon arrowPicLeft = new ImageIcon("resources/charSelect/arrow2.png");
 
 
     JButton startButton = new JButton(sb);
     startButton.setBackground(new Color(0, 0, 0, 0));
-    startButton.setRolloverIcon(new ImageIcon("resources/startbuttonpressed.png"));
+    startButton.setRolloverIcon(new ImageIcon("resources/charSelect/startbuttonpressed.png"));
     startButton.setBorder(BorderFactory.createEmptyBorder());
     startButton.setFocusPainted(false);
     startButton.addActionListener(new StartButtonListener());
@@ -157,7 +160,7 @@ class CharSelect extends JFrame{
     public void paintComponent(Graphics g) { 
         super.paintComponent(g);     
         Image pic = new ImageIcon("resources/charSelectBG.png").getImage();
-        g.drawImage(pic,0,0,1920,1080,null); 
+        g.drawImage(pic,0,0, (int)(1920 * scaleRatio), (int)(1080 * scaleRatio),null); 
    }
   
    

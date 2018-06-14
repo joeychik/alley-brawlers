@@ -1,6 +1,7 @@
 /**
 * GameFrame.java
-* Frame that runs the actual game
+* Main game
+* A game where two players control characters to fight each other
 * Based on the template provided by Mr. Mangat
 * @author Eric Ke, Joey Chik
 **/
@@ -44,32 +45,34 @@ class GameFrame extends JFrame {
    static double x, y;
    static double scaleRatio;
    static GameAreaPanel gamePanel;
+   Clip clip; //soundclip for music
    
+   GameFrame thisFrame;
    // constants
    private static int CHARACTER_SIZE_X = 100;
    private static int CHARACTER_SIZE_Y = CHARACTER_SIZE_X * 2;
    
-   GameFrame currentGameFrame;
-   
    Floor ground;
-   Character player, player2;
+   Character player, player2; //players
    
-  //Constructor - this runs first
+   /**
+    * Starts the game
+    */
   GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
     super("My Game"); 
     this.playMusic("FightForQuiescence.wav");//               this is how we get the character selection from the players
     // Set the frame to full screen 
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
+    this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/");
-    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/");
+    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/"); //player 1
+    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/"); //player 2
 
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
     
-   // this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
     this.setUndecorated(true);  //Set to true to remove title bar
     this.setBackground(new Color(0, 0, 0, 0));    
@@ -95,29 +98,43 @@ class GameFrame extends JFrame {
    return scaleRatio; 
   }
   
+  /**
+   * plays the music for the battle
+   * @param filename the name of the file
+   */
   public void playMusic(String filename) {
+    clip = null;
      try {
       File audioFile = new File("resources/sound/" + filename);
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
       DataLine.Info infoThing = new DataLine.Info(Clip.class, audioStream.getFormat());
-      Clip clip = (Clip) AudioSystem.getLine(infoThing);
+      clip = (Clip) AudioSystem.getLine(infoThing);
       clip.addLineListener(new MusicListener());
       clip.open(audioStream);
       clip.start();
-      
  
     }catch (Exception e) {
       e.printStackTrace();
        }
   }
   
+
   class MusicListener implements LineListener {
+  /**
+   * closes the music and restarts it when it finishes
+   * @param event the music event
+   */
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
-        event.getLine().close(); 
+        event.getLine().close();
+        if (clip != null) {
+          playMusic("FightForQuiescence.wav");
+        }
       }
     }
   } 
+  
+  
 
   
   
@@ -127,13 +144,19 @@ class GameFrame extends JFrame {
   private class GameAreaPanel extends JPanel {
     Clock clock;
     
-    
+    /**
+     * creates a floor and a clock
+     */
     GameAreaPanel() {
       //notice the x,y variables that we control from our animate method      
       ground = new Floor(scaleRatio);
       clock = new Clock(); 
     }
     
+    /**
+     * draws the graphics on the screen
+     * @param g the graphics
+     */
     public void paintComponent(Graphics g) {
       
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
@@ -141,10 +164,12 @@ class GameFrame extends JFrame {
       Image pic = new ImageIcon("resources/background.png").getImage();
       g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
       setDoubleBuffered(true);
+      //update things
       clock.update();
       player.update(clock.getElapsedTime());
       player2.update(clock.getElapsedTime());
       
+      //floor collision detection
       if (player.getBoundingBox().intersects(ground.getBoundingBox())){
         player.setYSpeed(0);
         player.setJumping(false);
@@ -154,18 +179,33 @@ class GameFrame extends JFrame {
         player2.setJumping(false);
       }
       
+      //ends game when someone loses
+      if (player.getHealth() <= 0) {
+       endGame((byte)2); 
+      } else if (player2.getHealth() <= 0) {
+       endGame((byte)1); 
+      }
+      
+      //draw players
       player.draw(g);
       player2.draw(g);
       g.setFont(font);
+      
+      //health bars
       g.setColor(Color.BLACK);
       g.fillRect(0,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
+      g.setColor(Color.RED);
+      g.fillRect(0,(int)(scaleRatio*30),(int)((scaleRatio*300)*(player.getHealth()/player.getMaxHealth())),(int)(scaleRatio*100));
       g.setColor(Color.BLACK);
       g.fillRect(1620,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
       g.setColor(Color.RED);
+      g.fillRect(1920-((int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth()))),(int)(scaleRatio*30),(int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth())),(int)(scaleRatio*100));
+      
+      //display player health
+      g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
-      g.setColor(Color.RED);
+      g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player2.getHealth()), (int)(scaleRatio * 1700), (int)(scaleRatio * 100));
-      ground.draw(g);
       repaint();
       
       
@@ -176,18 +216,26 @@ class GameFrame extends JFrame {
     
   }
   
-  public void endGame() {
-    System.exit(0);
+  /**
+   * ends the game and opens up the victory screen
+   */
+  public void endGame(byte playerNum) {
+    thisFrame.dispose();
+    clip.stop();
+    clip.close();
+    clip = null;
+    new VictoryScreen(playerNum); //CHANGE TO VICTORY SCREEN LATER OKAY
   }
   
   
   // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
   private class MyKeyListener implements KeyListener {
-    
     public void keyTyped(KeyEvent e) {
-      
     }
-    
+    /**
+     * makes the players do actions when specific keys are pressed
+     * @param e the key pressed
+     */
     public void keyPressed(KeyEvent e) {
       if (!player2.getAttacking()) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
@@ -238,6 +286,10 @@ class GameFrame extends JFrame {
       }
     }   
     
+    /**
+     * makes the players stop doing stuff when keys are released
+     * @param e the key released
+     */
     public void keyReleased(KeyEvent e) {
       if (KeyEvent.getKeyText(e.getKeyCode()).equals("D") || KeyEvent.getKeyText(e.getKeyCode()).equals("A")) {  //stop player 1
         player.stopMoving();
@@ -252,8 +304,7 @@ class GameFrame extends JFrame {
   private class MyMouseListener implements MouseListener {
     
     public void mouseClicked(MouseEvent e) {
-      System.out.println("Mouse Clicked");
-      System.out.println("X:"+e.getX() + " y:"+e.getY());
+     
     }
     
     public void mousePressed(MouseEvent e) {
