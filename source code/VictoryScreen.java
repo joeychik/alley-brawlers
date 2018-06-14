@@ -17,6 +17,10 @@ class VictoryScreen extends JFrame {
     private JFrame thisFrame;
     private byte playerNum;
     
+    /**
+     * Creates a victory screen
+     * @param playerWin the number of the player that won
+     */
     VictoryScreen(byte playerWin) {
         super("Victory");
         this.playerNum = playerWin;

@@ -14,6 +14,14 @@ abstract class Physical {
  private Rectangle boundingBox;
  static double scaleRatio;
  
+ /**
+  * Constructor for physical objects
+  * @param x the x coordinate
+  * @param y the y coordinate
+  * @param h the height
+  * @param w the width
+  * @param scaleRatio the screen ratio
+  */
  Physical(int x, int y, int h, int w, double scaleRatio) {
   this.xPos = scaleRatio * x;
   this.yPos = scaleRatio * y;

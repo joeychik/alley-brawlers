@@ -185,13 +185,19 @@ class GameFrame extends JFrame {
       player.draw(g);
       player2.draw(g);
       g.setFont(font);
+      
       g.setColor(Color.BLACK);
       g.fillRect(0,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
+      g.setColor(Color.RED);
+      g.fillRect(0,(int)(scaleRatio*30),(int)((scaleRatio*300)*(player.getHealth()/player.getMaxHealth())),(int)(scaleRatio*100));
       g.setColor(Color.BLACK);
       g.fillRect(1620,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
       g.setColor(Color.RED);
+      g.fillRect(1920-((int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth()))),(int)(scaleRatio*30),(int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth())),(int)(scaleRatio*100));
+      
+      g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
-      g.setColor(Color.RED);
+      g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player2.getHealth()), (int)(scaleRatio * 1700), (int)(scaleRatio * 100));
       repaint();
       

@@ -16,7 +16,7 @@ class Character extends Physical implements Moveable {
   
   private double xSpeed, ySpeed;
   private double speedStat;
-  private double health;
+  private double health, maxHealth;
   private double attackStrength;
   private double size;
   private char facing;
@@ -47,6 +47,7 @@ class Character extends Physical implements Moveable {
    Random randNum = new Random();
    this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
+   this.maxHealth = this.health;
 
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
@@ -278,6 +279,14 @@ class Character extends Physical implements Moveable {
    */
   public double getHealth() {
    return this.health; 
+  }
+  
+  /**
+   * gets amount of max health the user has
+   * @return user's max health
+   */
+  public double getMaxHealth() {
+   return this.maxHealth; 
   }
   
   /**
