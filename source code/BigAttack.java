@@ -55,7 +55,7 @@ class BigAttack extends Attack {
         target.changeHealth(-(this.getDamage())); 
         setDamageDealt(true);
         playSound("bighit.wav");
-        target.stun(400);
+        target.stun(250);
       }
     } else {
      setDuration(0); 
