@@ -182,7 +182,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping && !isStunned()) {
      this.jumping = true;
-     this.ySpeed = -20 * speedStat; //boost speed to jump
+     this.ySpeed = -10 * speedStat; //boost speed to jump
      this.setYPos(getYPos() - 1);
     } 
   }

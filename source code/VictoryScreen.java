@@ -42,7 +42,7 @@ class VictoryScreen extends JFrame {
         this.setSize(screenWidth , screenHeight);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         DecoratedPanel mainPanel = new DecoratedPanel();
         this.add(mainPanel);

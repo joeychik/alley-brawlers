@@ -62,7 +62,7 @@ class GameFrame extends JFrame {
     super("My Game"); 
     this.playMusic("FightForQuiescence.wav");//               this is how we get the character selection from the players
     // Set the frame to full screen 
-    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
@@ -311,28 +311,7 @@ class GameFrame extends JFrame {
       }
       
     }
-  } //end of keyboard listener
-  
-  
-  private class MyMouseListener implements MouseListener {
-    
-    public void mouseClicked(MouseEvent e) {
-     
-    }
-    
-    public void mousePressed(MouseEvent e) {
-    }
-    
-    public void mouseReleased(MouseEvent e) {
-    }
-    
-    public void mouseEntered(MouseEvent e) {
-    }
-    
-    public void mouseExited(MouseEvent e) {
-    }
-  } //end of mouselistener
-  
+  } //end of keyboard listener  
   
   
 }

@@ -41,6 +41,7 @@ class InstructionScreen extends JFrame {
         this.setVisible(true);
     }
     
+    
     private class DecoratedPanel extends JPanel {
         String picAddress;
         

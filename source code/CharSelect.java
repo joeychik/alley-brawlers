@@ -101,10 +101,10 @@ class CharSelect extends JFrame{
         startButton.setFocusPainted(false);
         startButton.addActionListener(new StartButtonListener());
         
-        charPanel1 = new CharPanel(this.charList);
+        charPanel1 = new CharPanel(this.charList , KeyEvent.VK_A , KeyEvent.VK_D);
         charPanel1.setBackground(new Color(0, 0, 0, 0));
         
-        charPanel2 = new CharPanel(this.charList);
+        charPanel2 = new CharPanel(this.charList , KeyEvent.VK_LEFT , KeyEvent.VK_RIGHT);
         charPanel2.setBackground(new Color(0, 0, 0, 0));
         
         decPanel.setLayout(null);
@@ -113,6 +113,7 @@ class CharSelect extends JFrame{
         decPanel.add(charPanel2);
         this.add(decPanel);
         this.addKeyListener(new SelectionListener());
+        setFocusable(true);
         
         startButton.setBounds((int) (960 * scaleRatio - sbWidth / 2) , (int) (950 * scaleRatio) , sbWidth , sbHeight);
         charPanel1.setBounds((int) (scaleRatio * 150) , (int) (scaleRatio * 270) , (int) (scaleRatio * 320) , (int) (scaleRatio * 485));
@@ -149,12 +150,15 @@ class CharSelect extends JFrame{
         private Image[] images;
         private int selection;
         private CharPanel charPanel;
+        private int keyCode1 , keyCode2;
         
-        CharPanel(String[] imageString) {
+        CharPanel(String[] imageString , int key1 , int key2) {
             super();
-            this.selection = 2;
+            this.selection = 0;
             this.imageString = imageString;
             this.images = new Image[imageString.length];
+            this.keyCode1 = key1;
+            this.keyCode2 = key2;
             for (int i = 0; i < imageString.length; i++) {
                 images[i] = new ImageIcon("resources/charSelect/" + imageString[i] + ".png").getImage();
             }
@@ -163,13 +167,13 @@ class CharSelect extends JFrame{
         public void update(int keyCode) {
             if (keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_BACK_SPACE) {
                 thisFrame.dispose();
-            } else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+            } else if (keyCode == this.keyCode1) {
                 if (this.selection == this.images.length - 1) {
                     this.selection = 0;
                 } else {
                     this.selection++;
                 }
-            } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+            } else if (keyCode == this.keyCode2) {
                 if (this.selection == 0) {
                     this.selection = this.images.length - 1;
                 } else {
@@ -180,7 +184,10 @@ class CharSelect extends JFrame{
         
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
+            g.setColor(Color.BLACK);
+            g.fillRect(0 , 0 , (int)(320 * scaleRatio) , (int)(475 * scaleRatio));
             g.drawImage(this.images[selection] , 0 , 0 , (int)(320 * scaleRatio) , (int)(475 * scaleRatio) , null); 
+            repaint();
         }
         
         public String getSelection() {
@@ -192,7 +199,6 @@ class CharSelect extends JFrame{
     class StartButtonListener implements ActionListener {  //this is the required class definition
         public void actionPerformed(ActionEvent event)  {  
             System.out.println("Starting new Game");
-            //thisFrame.dispose();
             new GameFrame(charPanel1.getSelection() , charPanel2.getSelection()); 
             thisFrame.dispose();
             
@@ -208,9 +214,12 @@ class CharSelect extends JFrame{
         }
         
         public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                new GameFrame(charPanel1.getSelection() , charPanel2.getSelection()); 
+                thisFrame.dispose();
+            }
             charPanel1.update(e.getKeyCode());
             charPanel2.update(e.getKeyCode());
-            System.out.println("test");
         }
     }
     
