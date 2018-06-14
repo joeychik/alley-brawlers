@@ -159,7 +159,8 @@ class GameFrame extends JFrame {
      */
     public void paintComponent(Graphics g) {
       
-      Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
+      Font font = new Font("Arial", Font.BOLD, (int)(scaleRatio * 48));
+      Font font2 = new Font("Arial", Font.BOLD, (int)(scaleRatio * 36));
       super.paintComponent(g); //removed to keep transparent panel
       Image pic = new ImageIcon("resources/background.png").getImage();
       g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
@@ -206,6 +207,18 @@ class GameFrame extends JFrame {
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
       g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player2.getHealth()), (int)(scaleRatio * 1700), (int)(scaleRatio * 100));
+      
+      if (player.stunAvailable()) {
+        g.setFont(font2);
+        g.setColor(Color.YELLOW);
+        g.drawString("Stun Ready!", (int)(scaleRatio * 10), (int)(scaleRatio * 200));
+      }
+      if (player2.stunAvailable()) {
+        g.setFont(font2);
+        g.setColor(Color.YELLOW);
+        g.drawString("Stun Ready!", (int)(scaleRatio * 1700), (int)(scaleRatio * 200));
+      }
+      
       repaint();
       
       

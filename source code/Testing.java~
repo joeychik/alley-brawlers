@@ -8,6 +8,6 @@
 class Testing {
     
     public static void main(String[] args) { 
-        GameWindow game= new GameWindow();  
+        new GameFrame();  
     }
 }
