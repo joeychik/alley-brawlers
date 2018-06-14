@@ -8,14 +8,16 @@
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.SwingUtilities;
 import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
+import java.io.File;
+import javax.sound.sampled.*;
 
 class Menu extends JFrame { 
     
@@ -25,6 +27,7 @@ class Menu extends JFrame {
     private static int buttonWidth;
     private static double scaleRatio;
     private JFrame thisFrame;
+    private Clip music;
     
     /**
      * creates the menu
@@ -32,6 +35,10 @@ class Menu extends JFrame {
     Menu() { 
         super("Start Screen"); // name of window
         this.thisFrame = this;
+        
+        // play music
+        playMusic("SuperSmashBrosMelee.wav");
+        
         // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -71,6 +78,42 @@ class Menu extends JFrame {
         this.setVisible(true);
         
     }
+    
+      /**
+   * plays the music for the battle
+   * @param filename the name of the file
+   */
+  public void playMusic(String filename) {
+    music = null;
+     try {
+      File audioFile = new File("resources/sound/" + filename);
+      AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+      DataLine.Info infoThing = new DataLine.Info(Clip.class, audioStream.getFormat());
+      music = (Clip) AudioSystem.getLine(infoThing);
+      music.addLineListener(new MusicListener());
+      music.open(audioStream);
+      music.start();
+ 
+    }catch (Exception e) {
+      e.printStackTrace();
+       }
+  }
+  
+
+  class MusicListener implements LineListener {
+  /**
+   * closes the music and restarts it when it finishes
+   * @param event the music event
+   */
+    public void update(LineEvent event) {
+      if (event.getType() == LineEvent.Type.STOP) {
+        event.getLine().close();
+        if (music != null) {
+          playMusic("FightForQuiescence.wav");
+        }
+      }
+    }
+  } 
     
     private class DecoratedPanel extends JPanel {
         private String picAddress;

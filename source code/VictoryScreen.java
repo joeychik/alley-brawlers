@@ -23,15 +23,15 @@ class VictoryScreen extends JFrame {
     private static int screenWidth;
     private static double scaleRatio;
     private JFrame thisFrame;
-    private byte playerNum;
+    private String playerName;
     
     /**
      * Creates a victory screen
      * @param playerWin the number of the player that won
      */
-    VictoryScreen(byte playerWin) {
+    VictoryScreen(String playerWin) {
         super("Victory");
-        this.playerNum = playerWin;
+        this.playerName = playerWin;
         
         this.thisFrame = this;
         
@@ -69,7 +69,7 @@ class VictoryScreen extends JFrame {
           g.setFont(font);
           g.setColor(Color.RED);
           g.drawImage(image , 0 , 0 , (int) (scaleRatio * 1920) , (int) (scaleRatio * 1080) , null);
-          g.drawString("PLAYER " + playerNum + " HAS WON!", (int)(scaleRatio * 600), (int)(scaleRatio * 500));
+          g.drawString("PLAYER " + playerName + " HAS WON!", (int)(scaleRatio * 600), (int)(scaleRatio * 500));
           g.drawString("Press Enter to play again", (int)(scaleRatio * 600), (int)(scaleRatio * 700));
           repaint();
         }

@@ -67,8 +67,8 @@ class GameFrame extends JFrame {
     this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/" + player1Name + "/"); //player 1
-    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/" + player2Name + "/"); //player 2
+    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', player1Name); //player 1
+    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', player2Name); //player 2
 
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -84,9 +84,6 @@ class GameFrame extends JFrame {
     
     MyKeyListener keyListener = new MyKeyListener();
     this.addKeyListener(keyListener);
-
-    MyMouseListener mouseListener = new MyMouseListener();
-    this.addMouseListener(mouseListener);
 
     this.requestFocusInWindow(); //make sure the frame has focus   
     
@@ -182,9 +179,9 @@ class GameFrame extends JFrame {
       
       //ends game when someone loses
       if (player.getHealth() <= 0) {
-       endGame((byte)2); 
+       endGame(player.getCharacterName()); 
       } else if (player2.getHealth() <= 0) {
-       endGame((byte)1); 
+       endGame(player2.getCharacterName()); 
       }
       
       //draw players
@@ -232,12 +229,12 @@ class GameFrame extends JFrame {
   /**
    * ends the game and opens up the victory screen
    */
-  public void endGame(byte playerNum) {
+  public void endGame(String playerName) {
     thisFrame.dispose();
     clip.stop();
     clip.close();
     clip = null;
-    new VictoryScreen(playerNum); //CHANGE TO VICTORY SCREEN LATER OKAY
+    new VictoryScreen(playerName); //CHANGE TO VICTORY SCREEN LATER OKAY
   }
   
   

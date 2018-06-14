@@ -24,6 +24,7 @@ class Character extends Physical implements Moveable {
   private Image sprite;
   private Image[] sprites = new Image[4];
   private Image stunnedImage;
+  private String characterName;
   
   private double scaleRatio;
   
@@ -51,13 +52,14 @@ class Character extends Physical implements Moveable {
    this.health = randNum.nextInt(1000)+1000.0;
    this.maxHealth = this.health;
    
+   this.characterName = spriteAddress;
 
    //load sprites
-   this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
-   this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
-   this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
-   this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
-   this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
+   this.sprite = new ImageIcon("resources/characters/" + spriteAddress + "/rest.png").getImage();
+   this.sprites[0] = new ImageIcon("resources/characters/" + spriteAddress + "/rest.png").getImage();
+   this.sprites[1] = new ImageIcon("resources/characters/" + spriteAddress + "/left.png").getImage();
+   this.sprites[2] = new ImageIcon("resources/characters/" + spriteAddress + "/punch.png").getImage();
+   this.sprites[3] = new ImageIcon("resources/characters/" + spriteAddress + "/leftPunch.png").getImage();
    this.stunnedImage = new ImageIcon("resources/stunned.png").getImage();
 
    //randomly generated stats
@@ -182,7 +184,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping && !isStunned()) {
      this.jumping = true;
-     this.ySpeed = -10 * speedStat; //boost speed to jump
+     this.ySpeed = -15 * speedStat; //boost speed to jump
      this.setYPos(getYPos() - 1);
     } 
   }
@@ -206,6 +208,14 @@ class Character extends Physical implements Moveable {
       attackList[n].useAttack(target, (int)getXPos()-this.attackList[n].getWidth()+getWidth(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     }
+  }
+  
+  /**
+   * getter for the name of the character
+   * @return the name of the character's sprite
+   */
+  public String getCharacterName() {
+      return this.characterName;
   }
   
   /**
