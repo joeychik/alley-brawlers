@@ -1,3 +1,9 @@
+/*
+ * VictoryScreen.java
+ * A screen to display the winner of a battle
+ * @author Eric Ke
+ * 6/13/2018
+ */
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

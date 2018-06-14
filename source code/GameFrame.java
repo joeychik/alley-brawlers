@@ -126,9 +126,7 @@ class GameFrame extends JFrame {
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
         event.getLine().close(); 
-        if (clip != null) {
-         playMusic("FightForQuiescence.wav"); 
-        }
+        clip.loop(0);
       }
     }
   } 
@@ -214,9 +212,9 @@ class GameFrame extends JFrame {
    */
   public void endGame(byte playerNum) {
     thisFrame.dispose();
-    this.clip.stop();
-    this.clip.close();
-    this.clip = null;
+    clip.stop();
+    clip.close();
+    clip = null;
     new VictoryScreen(playerNum); //CHANGE TO VICTORY SCREEN LATER OKAY
   }
   
