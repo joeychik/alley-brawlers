@@ -1,8 +1,7 @@
-/*
+/**
  * Floor.java
- * Physical objects can be interacted with by other objects
- * 5/29/2018
- * @author Eric Ke
+ * The physical object that characters stand on
+ * @author Eric Ke, Joey Chik
  */
 
 import java.awt.Rectangle;

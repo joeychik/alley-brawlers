@@ -1,6 +1,7 @@
 /*
  * Character.java
  * Characters in the game that fight each other and are controlled by the player
+ * Have randomly generated stats
  * 6/1/2018
  * @author Eric Ke, Joey Chik
  */

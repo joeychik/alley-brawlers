@@ -1,6 +1,7 @@
 /**
 * GameFrame.java
-* Frame that runs the actual game
+* Main game
+* A game where two players control characters to fight each other
 * Based on the template provided by Mr. Mangat
 * @author Eric Ke, Joey Chik
 **/

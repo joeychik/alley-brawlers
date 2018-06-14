@@ -28,7 +28,7 @@ abstract class Physical {
   this.height = (int) (scaleRatio * h);
   this.width = (int) (scaleRatio * w);
   this.scaleRatio = scaleRatio;
-  boundingBox = new Rectangle((int)xPos, (int)yPos, w, h);
+  boundingBox = new Rectangle((int)xPos, (int)yPos, w, h); //gives it a hitbox
  }
  
  /**
