@@ -80,6 +80,18 @@ class Character extends Physical implements Moveable {
   }
   
   /**
+   * checks whether the character is stunned or not
+   * @return if the user is stunned
+   */
+  public boolean stunAvailable() {
+    if (((BigAttack)attackList[1]).getCooldown() <= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
    * Stuns the user for a short duration, preventing them from moving
    * @param duration the duration they are stunned for
    */
