@@ -91,6 +91,7 @@ class VictoryScreen extends JFrame {
       public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
           thisFrame.dispose();
+          thisFrame = null;
           new Menu();
         }
       }

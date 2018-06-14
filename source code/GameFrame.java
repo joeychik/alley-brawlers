@@ -102,15 +102,15 @@ class GameFrame extends JFrame {
    * @param filename the name of the file
    */
   public void playMusic(String filename) {
+    clip = null;
      try {
       File audioFile = new File("resources/sound/" + filename);
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
       DataLine.Info infoThing = new DataLine.Info(Clip.class, audioStream.getFormat());
-      this.clip = (Clip) AudioSystem.getLine(infoThing);
-      this.clip.addLineListener(new MusicListener());
-      this.clip.open(audioStream);
-      this.clip.start();
-      
+      clip = (Clip) AudioSystem.getLine(infoThing);
+      clip.addLineListener(new MusicListener());
+      clip.open(audioStream);
+      clip.start();
  
     }catch (Exception e) {
       e.printStackTrace();
@@ -125,8 +125,10 @@ class GameFrame extends JFrame {
    */
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
-        event.getLine().close(); 
-        clip.loop(0);
+        event.getLine().close();
+        if (clip != null) {
+          playMusic("FightForQuiescence.wav");
+        }
       }
     }
   } 
