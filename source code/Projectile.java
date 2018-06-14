@@ -26,7 +26,7 @@ class Projectile extends Physical implements Moveable {
    * @param facing the direction of travel
    */
   Projectile(int x, int y, double scaleRatio, Character target, char facing) {
-    super(x,y,(int)(75*scaleRatio), (int)(75*scaleRatio), scaleRatio); 
+    super(x,y,75, 75, scaleRatio); 
     this.target = target;
     sprite = new ImageIcon("resources/projectile.png").getImage();
     if (facing == 'l') {
