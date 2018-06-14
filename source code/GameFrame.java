@@ -67,8 +67,8 @@ class GameFrame extends JFrame {
     this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/");
-    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/");
+    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/"); //player 1
+    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/"); //player 2
 
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
@@ -164,10 +164,12 @@ class GameFrame extends JFrame {
       Image pic = new ImageIcon("resources/background.png").getImage();
       g.drawImage(pic,0,0, (int)(scaleRatio * 1920), (int)(scaleRatio * 1080), null);     
       setDoubleBuffered(true);
+      //update things
       clock.update();
       player.update(clock.getElapsedTime());
       player2.update(clock.getElapsedTime());
       
+      //floor collision detection
       if (player.getBoundingBox().intersects(ground.getBoundingBox())){
         player.setYSpeed(0);
         player.setJumping(false);
@@ -184,6 +186,7 @@ class GameFrame extends JFrame {
        endGame((byte)1); 
       }
       
+      //draw players
       player.draw(g);
       player2.draw(g);
       g.setFont(font);

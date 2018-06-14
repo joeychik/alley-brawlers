@@ -1,6 +1,7 @@
 /*
  * MeleeAttack.java
  * Used by characters to deal damage to other characters
+ * Standard melee attack
  * Eric Ke
  * 6/5/2018
  */
@@ -14,7 +15,7 @@ class MeleeAttack extends Attack {
    * constructs the attack, setting
    */ 
   MeleeAttack(double multiplier){
-    super(25, 20,100, 150, multiplier);
+    super(25, 20,100, 175, multiplier);
   }
   
   /**
@@ -27,7 +28,7 @@ class MeleeAttack extends Attack {
     this.attackBox = new Rectangle(x,y,getWidth(),getHeight());
     playSound("attackweak.wav");
     
-    if (attackBox.intersects(target.getBoundingBox())) {
+    if (attackBox.intersects(target.getBoundingBox())) { //deals damage if it hits target
      target.changeHealth(-(this.getDamage())); 
      playSound("hitweak.wav");
      setDamageDealt(true);

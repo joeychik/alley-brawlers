@@ -1,6 +1,7 @@
 /*
  * BigAttack.java
  * Used by characters to deal damage to other characters
+ * Big attack that stuns the enemy
  * @author Eric Ke
  * 6/5/2018
  */
@@ -18,7 +19,7 @@ class BigAttack extends Attack {
    * @param multiplier the user's damage multiplier
    */
   BigAttack(double multiplier){
-    super(50, 100,100, 150, multiplier);
+    super(50, 100,100, 175, multiplier);
     cooldown = 0;
   }
   
@@ -41,8 +42,8 @@ class BigAttack extends Attack {
       setDuration(100); 
       attackBox = new Rectangle(x,y,getWidth(),getHeight());
       playSound("shatter.wav");
-      this.cooldown = 1000;
-      if (attackBox.intersects(target.getBoundingBox())) {
+      this.cooldown = 1000; //attack has a cooldown, can't be used during it
+      if (attackBox.intersects(target.getBoundingBox())) { //deals damage, stuns target if it hits them
         target.changeHealth(-(this.getDamage())); 
         setDamageDealt(true);
         playSound("bighit.wav");
