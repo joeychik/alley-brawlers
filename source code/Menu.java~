@@ -1,14 +1,15 @@
 /** 
- * this template can be used for a start menu
- * for your final project
+ * Menu.java
+ * class for menu screen
+ * @author Eric Ke, Joey Chik
  **/
 
-
-//Imports
+//imports
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.SwingUtilities;
 import java.awt.Toolkit;
 import java.awt.Graphics;
@@ -25,7 +26,7 @@ class Menu extends JFrame {
     private static double scaleRatio;
     
     Menu() { 
-        super("Start Screen");
+        super("Start Screen"); // name of window
         
         // get the size of the screen
         screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -38,7 +39,7 @@ class Menu extends JFrame {
         this.setLocationRelativeTo(null); //start the frame in the center of the screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        //Create a Panel for stuff
+        // create a panel for stuff
         DecoratedPanel mainPanel = new DecoratedPanel("resources/menu/menu.png");
         mainPanel.setLayout(null);
         
