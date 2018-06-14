@@ -1,8 +1,6 @@
 /*
  * Character.java
- * Characters in the game that fight each other and are controlled by the player
- * Have randomly generated stats
- * 6/1/2018
+ * Characters in the game that fight each other and stuff
  * @author Eric Ke, Joey Chik
  */
 
@@ -16,8 +14,7 @@ import javax.swing.ImageIcon;
 class Character extends Physical implements Moveable {
   
   private double xSpeed, ySpeed;
-  private double speedStat;
-  private double health, maxHealth;
+  private double health;
   private double attackStrength;
   private double size;
   private char facing;
@@ -33,22 +30,12 @@ class Character extends Physical implements Moveable {
   
   private Attack[] attackList = new Attack[3];
   
-  /**
-   * Constructs a character, giving it random stat values in the process
-   * @param x the initial x position of the character
-   * @param y the initial y position of the character
-   * @param h the height of the character
-   * @param w the width of the character
-   * @param scaleRatio the ratio of the screen
-   * @param facing the initial facing direction of the character
-   * @param spriteAddress the sprite's name for the character
-   */
+  
   public Character(int x,int y,int h, int w, double scaleRatio, char facing, String spriteAddress) {
    super(x,y,h,w,scaleRatio);
    Random randNum = new Random();
    this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
-   this.maxHealth = this.health;
 
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
@@ -57,7 +44,6 @@ class Character extends Physical implements Moveable {
    this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
 
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
-   this.speedStat = Math.random() + 0.5;
    this.jumping = true;
    this.xSpeed = 0;
    this.ySpeed = 0;
@@ -67,10 +53,6 @@ class Character extends Physical implements Moveable {
    this.attackList[2] = new ProjectileAttack(attackStrength);
   }
   
-  /**
-   * checks whether the character is stunned or not
-   * @return if the user is stunned
-   */
   public boolean isStunned() {
     if (stunTime > 0) {
       return true;
@@ -79,67 +61,52 @@ class Character extends Physical implements Moveable {
     }
   }
   
-  /**
-   * Stuns the user for a short duration, preventing them from moving
-   * @param duration the duration they are stunned for
-   */
   public void stun(double duration) {
    stunTime = duration; 
   }
   
-  /**
-   * updates the content
-   * @param elapsedTime amount of time passed
-   */
   public void update(double elapsedTime){
    //update the content
-    setXPos(getXPos()+xSpeed*elapsedTime*100);
+    this.facing = this.facing;
+   setXPos(getXPos()+xSpeed*elapsedTime*100);
    setYPos(getYPos()+ySpeed*elapsedTime*100);//d = d0 + vt
    
-   //updates attacks, cooldowns, etc.
    ((BigAttack)attackList[1]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).update(elapsedTime);
    ((ProjectileAttack)attackList[2]).setDirection(this.facing);
    if (stunTime > 0) {
-    xSpeed = 0; //stops user from moving when stunned
+    xSpeed = 0; 
     stunTime -= 100*elapsedTime;
    } 
    
-   //prevents out of bounds
    if(getXPos() < 0) {
     setXPos(0); 
    } else if (getXPos() > scaleRatio * 1920-getWidth()) {
      setXPos(scaleRatio * 1920-getWidth()); 
    } 
    
-   //double check floor
-   if(getYPos() > scaleRatio*880) {
-    setXPos(scaleRatio*880); 
+   if(getYPos() > 880) {
+    setXPos(880); 
    }
    
-   
-   //gravity
-   //if user jumps they will fall
    if(jumping) {
-     this.ySpeed += 50*elapsedTime; 
+    this.ySpeed += 50*elapsedTime; 
    }
    
-   //removes the attack hitbox right after so chain instakills don't happen
-   if (attackRemainingTime > 0) {
-     this.attacking = true;
-     this.xSpeed = 0;
-     this.attackRemainingTime -= 100*elapsedTime; 
-     for(int i = 0; i > attackList.length; i++) {
+      if (attackRemainingTime > 0) {
+      this.attacking = true;
+      this.xSpeed = 0;
+      this.attackRemainingTime -= 100*elapsedTime; 
+      for(int i = 0; i > attackList.length; i++) {
        attackList[i].removeRectangle(); 
-     }
-   } else {
-     attacking = false;
-   }
+      }
+    } else {
+      attacking = false;
+    }
    
-   //move hitbox
+   
    setBoxPosition(getXPos(), getYPos());
    
-   //change sprite depending on action and direction
    if (attacking == false) {
      if (facing == 'r') {
        this.sprite = this.sprites[0]; 
@@ -155,151 +122,82 @@ class Character extends Physical implements Moveable {
    }
   }
   
-  /**
-   * jump
-   * Makes the character jump by giving it upwards speed
-   * 
-   */
   public void jump() {
-    if(!jumping && !isStunned()) {
+    if(!jumping) {
      this.jumping = true;
-     this.ySpeed = -20 * speedStat; //boost speed to jump
+     this.ySpeed = -20;
      this.setYPos(getYPos() - 1);
     } 
   }
   
-  /**
-   * attack
-   * Makes the character use an attack
-   * @param n an integer representing the selection of the attack
-   * @param target the Character being targeted by the attack
-   */
-  public void attack(int n, Character target) {
-    //projectile attacks will spawn right on character
-    if(attackList[n] instanceof ProjectileAttack && !isStunned()) {
-      attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
-      this.attackRemainingTime = attackList[n].getDuration();
-    }
-      else if(this.facing == 'r' && !isStunned()) { //so it casts in the right direction
-      attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
-      this.attackRemainingTime = attackList[n].getDuration();
+  public void attack(int n, Character c) {
+    if(this.facing == 'r' && !isStunned()) {
+      attackList[n].useAttack(c, (int)getXPos()+this.getWidth(), (int)getYPos());
     } else if (this.facing == 'l' && !isStunned()) {
-      attackList[n].useAttack(target, (int)getXPos()-this.attackList[n].getWidth()+getWidth(), (int)getYPos());
-      this.attackRemainingTime = attackList[n].getDuration();
+      attackList[n].useAttack(c, (int)getXPos()-this.attackList[n].getWidth(), (int)getYPos());
     }
+   
+   this.attackRemainingTime = attackList[n].getDuration();
   }
   
-  /**
-   * getter for the X speed
-   * @return the character's X speed
-   */
   public double getXSpeed() {
    return this.xSpeed; 
   }
   
-  /**
-   * getter for the Y speed
-   * @return the character's Y speed
-   */
   public double getYSpeed() {
    return this.ySpeed; 
   }
   
-  /**
-   * changes the user's health
-   * @param x the change given to the user
-   */
   public void changeHealth(double x) {
    this.health += x; 
   }
   
-  /**
-   * moves the user toward the right
-   */
   public void moveRight() {
     if(!isStunned()) {
-      this.xSpeed = 14 * speedStat; 
+      this.xSpeed = 14; 
     }
   }
   
-  /**
-   * stops the user from moving
-   */
   public void stopMoving() {
     this.xSpeed = 0; 
   }
   
-  /**
-   * moves user left
-   */
   public void moveLeft() {
     if(!isStunned()) {
-      this.xSpeed = -14 * speedStat; 
+      this.xSpeed = -14; 
     }
   }
   
-  /**
-   * sets the x speed to a certain value
-   * @param s the value to set the speed to
-   */
   public void setXSpeed(double s) {
    this.xSpeed = s; 
   }
-   /**
-   * sets the y speed to a certain value
-   * @param s the value to set the speed to
-   */
+  
   public void setYSpeed(double s) {
    this.ySpeed = s; 
   }
   
-  /**
-   * sets the direction that the character is facing
-   * @param direction The direction that the character is facing
-   */
   public void setDirection(char direction) {
    this.facing = direction; 
   }
   
-  /**
-   * sets the jumping state
-   * @param jump whether the user is jumping or not
-   */
   public void setJumping(boolean jump) { 
     this.jumping = jump;
   }
   
-  /**
-   * gets the attacking state of the user
-   * @return whether the user is attacking or not
-   */
   public boolean getAttacking() {
    return this.attacking; 
   }
   
-  /**
-   * gets amount of health the user has
-   * @return user's health
-   */
   public double getHealth() {
    return this.health; 
   }
   
-  /**
-   * gets amount of max health the user has
-   * @return user's max health
-   */
-  public double getMaxHealth() {
-   return this.maxHealth; 
-  }
-  
-  /**
-   * Draws the character on the screen
-   * @param g the graphics
-   */
   public void draw(Graphics g) { 
+    //System.out.println((int)getXPos()+", "+(int)getYPos()+", "+getWidth()+", "+getHeight());
+    try{
     g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
-    
+    } catch (Exception e) {
+    }
     try {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}
