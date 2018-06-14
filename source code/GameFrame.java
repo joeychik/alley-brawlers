@@ -58,7 +58,7 @@ class GameFrame extends JFrame {
    /**
     * Starts the game
     */
-  GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
+  GameFrame(String player1Name , String player2Name) {                      // IMPORTANT     add in extra parameters for selected characters.
     super("My Game"); 
     this.playMusic("FightForQuiescence.wav");//               this is how we get the character selection from the players
     // Set the frame to full screen 
@@ -67,8 +67,8 @@ class GameFrame extends JFrame {
     this.thisFrame = this;
     this.scaleRatio = (double) Toolkit.getDefaultToolkit().getScreenSize().height / 1080;
     
-    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/patrick/"); //player 1
-    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/lisa/"); //player 2
+    this.player = new Character(200,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'r', "resources/characters/" + player1Name + "/"); //player 1
+    this.player2 = new Character(1600,779 - CHARACTER_SIZE_Y, CHARACTER_SIZE_Y, CHARACTER_SIZE_X, scaleRatio, 'l', "resources/characters/" + player2Name + "/"); //player 2
 
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));

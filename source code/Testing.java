@@ -9,6 +9,6 @@
 class Testing {
     
     public static void main(String[] args) { 
-        new GameFrame();  
+        new GameFrame("steve" , "steve");  
     }
 }

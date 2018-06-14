@@ -7,11 +7,13 @@
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -59,11 +61,14 @@ class VictoryScreen extends JFrame {
          * @param g the graphics
          */
         public void paintComponent(Graphics g) { 
+          Image image = new ImageIcon("resources/victory_screen.png").getImage();
+            
           Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 72));
           super.paintComponent(g);
           setDoubleBuffered(true);
           g.setFont(font);
           g.setColor(Color.RED);
+          g.drawImage(image , 0 , 0 , (int) (scaleRatio * 1920) , (int) (scaleRatio * 1080) , null);
           g.drawString("PLAYER " + playerNum + " HAS WON!", (int)(scaleRatio * 600), (int)(scaleRatio * 500));
           g.drawString("Press Enter to play again", (int)(scaleRatio * 600), (int)(scaleRatio * 700));
           repaint();

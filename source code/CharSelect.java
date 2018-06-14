@@ -8,11 +8,8 @@
 //Imports
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,7 +32,6 @@ class CharSelect extends JFrame{
     private int screenHeight;
     private int screenWidth;
     static double scaleRatio;
-    JLabel character;
     private String[] charList;
     CharPanel charPanel1;
     CharPanel charPanel2;
@@ -197,7 +193,7 @@ class CharSelect extends JFrame{
         public void actionPerformed(ActionEvent event)  {  
             System.out.println("Starting new Game");
             //thisFrame.dispose();
-            new GameFrame(); 
+            new GameFrame(charPanel1.getSelection() , charPanel2.getSelection()); 
             thisFrame.dispose();
             
         }
@@ -214,6 +210,7 @@ class CharSelect extends JFrame{
         public void keyPressed(KeyEvent e) {
             charPanel1.update(e.getKeyCode());
             charPanel2.update(e.getKeyCode());
+            System.out.println("test");
         }
     }
     
