@@ -121,23 +121,25 @@ class Character extends Physical implements Moveable {
    //gravity
    //if user jumps they will fall
    if(jumping) {
-    this.ySpeed += 50*elapsedTime; 
+     this.ySpeed += 50*elapsedTime; 
    }
    
-      if (attackRemainingTime > 0) {
-      this.attacking = true;
-      this.xSpeed = 0;
-      this.attackRemainingTime -= 100*elapsedTime; 
-      for(int i = 0; i > attackList.length; i++) {
+   //removes the attack hitbox right after so chain instakills don't happen
+   if (attackRemainingTime > 0) {
+     this.attacking = true;
+     this.xSpeed = 0;
+     this.attackRemainingTime -= 100*elapsedTime; 
+     for(int i = 0; i > attackList.length; i++) {
        attackList[i].removeRectangle(); 
-      }
-    } else {
-      attacking = false;
-    }
+     }
+   } else {
+     attacking = false;
+   }
    
    //move hitbox
    setBoxPosition(getXPos(), getYPos());
    
+   //change sprite depending on action and direction
    if (attacking == false) {
      if (facing == 'r') {
        this.sprite = this.sprites[0]; 
