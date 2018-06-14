@@ -128,24 +128,9 @@ class CharSelect extends JFrame{
     
     //INNER CLASS - Overide Paint Component for JPANEL    
     private class DecoratedPanel extends JPanel {
-        private String picAddress;
-        private Image pic;
-        
-        DecoratedPanel(String picAddress) {
-            super();
-            this.picAddress = picAddress;
-            this.pic = new ImageIcon(picAddress).getImage();
         }
         
-        public void paintComponent(Graphics g) { 
-            super.paintComponent(g);
-            Image pic = new ImageIcon(picAddress).getImage();
-            g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
-        }
         
-        public Image getImage() {
-            return this.pic;
-        }
     }
     
     private class CharPanel extends JPanel{

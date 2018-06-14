@@ -32,6 +32,14 @@ class BigAttack extends Attack {
   }
   
   /**
+   * gets the cooldown
+   * @return cooldown remaining on the skill
+   */
+  public double getCooldown() {
+   return this.cooldown; 
+  }
+  
+  /**
    * uses the attack
    * @param target the character to be targeted
    * @param x the x coordinate of the attack
