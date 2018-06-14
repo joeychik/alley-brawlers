@@ -13,6 +13,7 @@ class MeleeAttack extends Attack {
   private Rectangle attackBox;
   /**
    * constructs the attack, setting
+   * @param multiplier damage multiplier from the character
    */ 
   MeleeAttack(double multiplier){
     super(25, 20,100, 175, multiplier);

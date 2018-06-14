@@ -17,6 +17,7 @@ class ProjectileAttack extends Attack {
   /**
    * Constructor for projectile attack
    * Sets the damage and duration for the attack
+   * @param multiplier damage multiplier from user
    */
   ProjectileAttack(double multiplier){
     super(25, 20,100, 175, multiplier);
