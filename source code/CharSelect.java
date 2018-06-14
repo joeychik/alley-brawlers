@@ -36,6 +36,12 @@ class CharSelect extends JFrame{
     CharPanel charPanel1;
     CharPanel charPanel2;
     
+    
+    /**
+     * Reads the list of characters from a text file
+     * @param filename The name of the file of characters
+     * @return an array filled with the characters
+     */
     private String[] readCharList(String filename) throws Exception{
         String[] characters;
         int i = 0;
@@ -60,7 +66,9 @@ class CharSelect extends JFrame{
     }
     
     
-    //Constructor - this runs first
+    /**
+     * Creates a character select
+     */
     CharSelect() { 
         super("Character Selection");
         try{
@@ -72,7 +80,7 @@ class CharSelect extends JFrame{
         
         this.screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         this.screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        this.scaleRatio = (double) screenHeight / 1080;
+        this.scaleRatio = (double)screenHeight / 1080;
         
         //configure the window
         this.setSize(this.screenWidth, this.screenHeight);    
@@ -123,35 +131,54 @@ class CharSelect extends JFrame{
         this.setVisible(true);
     }
     
-    //INNER CLASS - Overide Paint Component for JPANEL    
+    
     private class DecoratedPanel extends JPanel {
-        private String picAddress;
-        private Image pic;
-        
-        DecoratedPanel(String picAddress) {
-            super();
-            this.picAddress = picAddress;
-            this.pic = new ImageIcon(picAddress).getImage();
-        }
-        
-        public void paintComponent(Graphics g) { 
-            super.paintComponent(g);
-            Image pic = new ImageIcon(picAddress).getImage();
-            g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
-        }
-        
-        public Image getImage() {
-            return this.pic;
+      private String picAddress;
+      private Image pic;
+      
+      /**
+       * Creates a panel for character select
+       * @param picAddress the picture's address 
+       */
+      DecoratedPanel(String picAddress) {
+        super();
+        this.picAddress = picAddress;
+        this.pic = new ImageIcon(picAddress).getImage();
+      }
+      
+      /**
+       * draws the graphics on the screen
+       * @param g the graphics
+       */
+      public void paintComponent(Graphics g) { 
+        super.paintComponent(g);
+        Image pic = new ImageIcon(picAddress).getImage();
+        g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
+      }
+      
+      /**
+     * Gets the image of the panel
+     * @return the image
+     */
+      public Image getImage() {
+        return this.pic;
         }
     }
     
     private class CharPanel extends JPanel{
+      
         private String[] imageString;
         private Image[] images;
         private int selection;
         private CharPanel charPanel;
         private int keyCode1 , keyCode2;
         
+        /**
+         * panel for the character
+         * @param imageString array of image names
+         * @param key1 a key to switch character
+         * @param key2 a key to switch character
+         */
         CharPanel(String[] imageString , int key1 , int key2) {
             super();
             this.selection = 0;
@@ -164,6 +191,10 @@ class CharSelect extends JFrame{
             }
         }
         
+        /**
+         * Updates the character image on screen
+         * @param keyCode the key inputted
+         */
         public void update(int keyCode) {
             if (keyCode == KeyEvent.VK_ESCAPE || keyCode == KeyEvent.VK_BACK_SPACE) {
                 thisFrame.dispose();
@@ -182,6 +213,10 @@ class CharSelect extends JFrame{
             }
         }
         
+        /**
+       * draws the graphics on the screen
+       * @param g the graphics
+       */
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
             g.setColor(Color.BLACK);
@@ -190,6 +225,11 @@ class CharSelect extends JFrame{
             repaint();
         }
         
+        
+        /**
+         * gets the current selection
+         * @return the current character selection
+         */
         public String getSelection() {
             return imageString[selection];
         }        
@@ -213,6 +253,10 @@ class CharSelect extends JFrame{
         public void keyReleased(KeyEvent e) {
         }
         
+        /**
+         * makes the players do actions when specific keys are pressed
+         * @param e the key pressed
+         */
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 new GameFrame(charPanel1.getSelection() , charPanel2.getSelection()); 

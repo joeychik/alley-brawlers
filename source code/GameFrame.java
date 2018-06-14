@@ -57,6 +57,8 @@ class GameFrame extends JFrame {
    
    /**
     * Starts the game
+    * @param player1Name name of the first character
+    * @param player2Name name of second character
     */
   GameFrame(String player1Name , String player2Name) {                      // IMPORTANT     add in extra parameters for selected characters.
     super("My Game"); 
@@ -78,9 +80,7 @@ class GameFrame extends JFrame {
     this.setBackground(new Color(0, 0, 0, 0));    
     
     //Set up the game panel (where we put our graphics)
-    
     this.add(new GameAreaPanel());
-
     
     MyKeyListener keyListener = new MyKeyListener();
     this.addKeyListener(keyListener);
@@ -88,11 +88,11 @@ class GameFrame extends JFrame {
     this.requestFocusInWindow(); //make sure the frame has focus   
     
     this.setVisible(true);
-  
+    
   } //End of Constructor
   
   public static double getScaleRatio() {
-   return scaleRatio; 
+    return scaleRatio; 
   }
   
   /**
@@ -228,6 +228,7 @@ class GameFrame extends JFrame {
   
   /**
    * ends the game and opens up the victory screen
+   * @param playerNum the number of the player that won
    */
   public void endGame(String playerName) {
     thisFrame.dispose();
