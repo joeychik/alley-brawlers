@@ -176,6 +176,7 @@ class GameFrame extends JFrame {
         player2.setJumping(false);
       }
       
+      //ends game when someone loses
       if (player.getHealth() <= 0) {
        endGame((byte)2); 
       } else if (player2.getHealth() <= 0) {
@@ -186,6 +187,7 @@ class GameFrame extends JFrame {
       player2.draw(g);
       g.setFont(font);
       
+      //health bars
       g.setColor(Color.BLACK);
       g.fillRect(0,(int)(scaleRatio*30),(int)(scaleRatio*300),(int)(scaleRatio*100));
       g.setColor(Color.RED);
@@ -195,6 +197,7 @@ class GameFrame extends JFrame {
       g.setColor(Color.RED);
       g.fillRect(1920-((int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth()))),(int)(scaleRatio*30),(int)((scaleRatio*300)*(player2.getHealth()/player2.getMaxHealth())),(int)(scaleRatio*100));
       
+      //display player health
       g.setColor(Color.WHITE);
       g.drawString("HP: " + String.valueOf((int)player.getHealth()), (int)(scaleRatio * 10), (int)(scaleRatio * 100));
       g.setColor(Color.WHITE);
