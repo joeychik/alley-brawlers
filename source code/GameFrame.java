@@ -239,7 +239,7 @@ class GameFrame extends JFrame {
   
   
   // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
-  class MyKeyListener implements KeyListener {
+  private class MyKeyListener implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
     /**
