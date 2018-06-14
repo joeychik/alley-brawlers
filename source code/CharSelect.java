@@ -116,7 +116,7 @@ class CharSelect extends JFrame{
         decPanel.add(charPanel1);
         decPanel.add(charPanel2);
         this.add(decPanel);
-        this.addKeyListener(new SelectionListener(charPanel1 , charPanel2));
+        this.addKeyListener(new SelectionListener());
         
         startButton.setBounds((int) (960 * scaleRatio - sbWidth / 2) , (int) (950 * scaleRatio) , sbWidth , sbHeight);
         charPanel1.setBounds((int) (scaleRatio * 150) , (int) (scaleRatio * 270) , (int) (scaleRatio * 320) , (int) (scaleRatio * 485));
@@ -128,9 +128,24 @@ class CharSelect extends JFrame{
     
     //INNER CLASS - Overide Paint Component for JPANEL    
     private class DecoratedPanel extends JPanel {
+        private String picAddress;
+        private Image pic;
+        
+        DecoratedPanel(String picAddress) {
+            super();
+            this.picAddress = picAddress;
+            this.pic = new ImageIcon(picAddress).getImage();
         }
         
+        public void paintComponent(Graphics g) { 
+            super.paintComponent(g);
+            Image pic = new ImageIcon(picAddress).getImage();
+            g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
+        }
         
+        public Image getImage() {
+            return this.pic;
+        }
     }
     
     private class CharPanel extends JPanel{
@@ -189,15 +204,7 @@ class CharSelect extends JFrame{
         
     }
     
-    private class SelectionListener implements KeyListener {
-        private CharPanel charPanel1;
-        private CharPanel charPanel2;
-        
-        SelectionListener(CharPanel first , CharPanel second) {
-            this.charPanel1 = first;
-            this.charPanel2 = second;
-        }
-        
+    private class SelectionListener implements KeyListener {        
         public void keyTyped(KeyEvent e) {
         }
         
