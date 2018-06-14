@@ -204,6 +204,9 @@ class Menu extends JFrame {
         
         public void mouseClicked(MouseEvent e) {
             thisFrame.dispose();
+            music.stop();
+            music.close();
+            music = null;
             new CharSelect();
         }
     }
