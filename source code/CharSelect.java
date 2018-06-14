@@ -176,8 +176,6 @@ class CharSelect extends JFrame{
   //This is an inner class that is used to detect a button press
  class StartButtonListener implements ActionListener {  //this is the required class definition
     public void actionPerformed(ActionEvent event)  {  
-      System.out.println("Starting new Game");
-      thisFrame.dispose();
       new GameFrame(); //create a new FunkyFrame (another file that extends JFrame)
       thisFrame.dispose();
 

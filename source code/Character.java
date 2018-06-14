@@ -177,10 +177,10 @@ class Character extends Physical implements Moveable {
       this.attackRemainingTime = attackList[n].getDuration();
     }
       else if(this.facing == 'r' && !isStunned()) {
-      attackList[n].useAttack(target, (int)getXPos()+this.getWidth(), (int)getYPos());
+      attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     } else if (this.facing == 'l' && !isStunned()) {
-      attackList[n].useAttack(target, (int)getXPos()-this.attackList[n].getWidth(), (int)getYPos());
+      attackList[n].useAttack(target, (int)getXPos()-this.attackList[n].getWidth()+getWidth(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     }
   }

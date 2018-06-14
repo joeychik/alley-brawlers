@@ -14,7 +14,7 @@ class MeleeAttack extends Attack {
    * constructs the attack, setting
    */ 
   MeleeAttack(double multiplier){
-    super(25, 20,100, 100, multiplier);
+    super(25, 20,100, 150, multiplier);
   }
   
   /**

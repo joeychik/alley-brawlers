@@ -36,7 +36,7 @@ class ProjectileAttack extends Attack {
     if (ball != null) {
       ball.update(elapsedTime);
       if (ball.collision()) {
-        ball.attack(getDamage());
+        ball.attack(getDamage()); //ball deals damage when colliding with stuff
         ball = null; 
       }
       
