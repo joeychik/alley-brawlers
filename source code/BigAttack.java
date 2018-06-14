@@ -13,7 +13,10 @@ class BigAttack extends Attack {
   private Character target;
   private double cooldown;
   
-  
+  /**
+   * Constructs the attack, giving it damage, duration, range, etc.
+   * @param multiplier the user's damage multiplier
+   */
   BigAttack(double multiplier){
     super(50, 100,100, 150, multiplier);
     cooldown = 0;

@@ -20,6 +20,7 @@ class ProjectileAttack extends Attack {
    */
   ProjectileAttack(double multiplier){
     super(25, 20,100, 175, multiplier);
+    
   }
   
   public void setDirection(char d){
@@ -38,6 +39,8 @@ class ProjectileAttack extends Attack {
       if (ball.collision()) {
         ball.attack(getDamage()); //ball deals damage when colliding with stuff
         ball = null; 
+      } else if (ball.getXPos()-startX > 1400 || ball.getXPos()-startX < -1400) {
+       ball = null; 
       }
       
     }

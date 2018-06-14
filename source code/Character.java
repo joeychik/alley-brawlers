@@ -172,11 +172,12 @@ class Character extends Physical implements Moveable {
    * @param target the Character being targeted by the attack
    */
   public void attack(int n, Character target) {
+    //projectile attacks will spawn right on character
     if(attackList[n] instanceof ProjectileAttack && !isStunned()) {
       attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     }
-      else if(this.facing == 'r' && !isStunned()) {
+      else if(this.facing == 'r' && !isStunned()) { //so it casts in the right direction
       attackList[n].useAttack(target, (int)getXPos(), (int)getYPos());
       this.attackRemainingTime = attackList[n].getDuration();
     } else if (this.facing == 'l' && !isStunned()) {
