@@ -179,9 +179,9 @@ class GameFrame extends JFrame {
       
       //ends game when someone loses
       if (player.getHealth() <= 0) {
-       endGame(player.getCharacterName()); 
-      } else if (player2.getHealth() <= 0) {
        endGame(player2.getCharacterName()); 
+      } else if (player2.getHealth() <= 0) {
+       endGame(player.getCharacterName()); 
       }
       
       //draw players
@@ -249,7 +249,7 @@ class GameFrame extends JFrame {
      */
     public void keyPressed(KeyEvent e) {
       if (!player2.getAttacking()) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  //If 'D' is pressed
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {  
           player2.moveRight();
           player2.setDirection('r');
         } 
@@ -266,12 +266,12 @@ class GameFrame extends JFrame {
         if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {  
           player2.attack(1, player);
         }
-        if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {  
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {  
           player2.attack(2, player);
         }
       }
       if (!player.getAttacking()) {
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {  //If 'D' is pressed
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) { 
           player.moveRight();
           player.setDirection('r');
         } 
@@ -285,10 +285,10 @@ class GameFrame extends JFrame {
         if (KeyEvent.getKeyText(e.getKeyCode()).equals("F")) {  
           player.attack(0, player2);
         }
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("R")) {  
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("G")) {  
           player.attack(1, player2);
         } 
-        if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {  
+        if (KeyEvent.getKeyText(e.getKeyCode()).equals("H")) {  
           player.attack(2, player2);
         }
       }
