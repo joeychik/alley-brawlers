@@ -15,15 +15,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 class InstructionScreen extends JFrame {
-  
     private static int screenHeight;
     private static int screenWidth;
     private static double scaleRatio;
     private InstructionScreen thisFrame;
     
-    /**
-     * constructs an instructions screen
-     */
     InstructionScreen() {
         super("Instructions");
         
@@ -53,11 +49,6 @@ class InstructionScreen extends JFrame {
             this.picAddress = picAddress;
         }
         
-        /**
-         * paintComponent
-         * draws the graphics on the screen
-         * @param g the graphics
-         */
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
             Image pic = new ImageIcon(picAddress).getImage();
@@ -66,30 +57,15 @@ class InstructionScreen extends JFrame {
     }
     
     private class ExitListener implements KeyListener {
-      
-      /**
-       * keyTyped
-       * does nothing
-       */
-      public void keyTyped(KeyEvent e) {
-      }
-      
-      /**
-       * keyReleased
-       * does nothing
-       */
-      public void keyReleased(KeyEvent e) {
-      }
-      
-      /**
-       * keyPressed
-       * goes back to menu when escape or backspace are pressed
-       * @param e the key being pressed
-       */
+        public void keyTyped(KeyEvent e) {
+        }
+        
+        public void keyReleased(KeyEvent e) {
+        }
+        
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                 thisFrame.dispose();
-                new Menu();
             }
         }
     }
