@@ -1,4 +1,4 @@
-/**
+/*
  * SoundPlayer.java
  * plays sound
  * @author Eric Ke

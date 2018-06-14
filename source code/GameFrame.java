@@ -57,6 +57,8 @@ class GameFrame extends JFrame {
    
    /**
     * Starts the game
+    * @param player1Name name of the first character
+    * @param player2Name name of second character
     */
   GameFrame(String player1Name , String player2Name) {                      // IMPORTANT     add in extra parameters for selected characters.
     super("My Game"); 
@@ -228,6 +230,7 @@ class GameFrame extends JFrame {
   
   /**
    * ends the game and opens up the victory screen
+   * @param playerNum the number of the player that won
    */
   public void endGame(byte playerNum) {
     thisFrame.dispose();
