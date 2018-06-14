@@ -60,8 +60,8 @@ class Menu extends JFrame {
             mainPanel.add(menuButtons[i]);
         }
         
-        buttonWidth = menuButtons[0].getWidth();
-        buttonHeight = menuButtons[0].getHeight();
+        buttonWidth = (int) (menuButtons[0].getWidth() * scaleRatio);
+        buttonHeight = (int) (menuButtons[0].getHeight() * scaleRatio);
         
         for (int i = 0; i < 3; i++) {
             menuButtons[i].setBounds((int) (960 * scaleRatio - buttonWidth / 2) , (int) (540 * scaleRatio + buttonHeight * i) , buttonWidth , buttonHeight);
