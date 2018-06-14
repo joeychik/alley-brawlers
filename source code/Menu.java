@@ -188,10 +188,18 @@ class Menu extends JFrame {
         public void mouseClicked(MouseEvent e) {
         }
         
+        /**
+         * gets panel height
+         * @return the height
+         */
         public int getHeight() {
             return this.height;
         }
         
+        /**
+         * gets panel width
+         * @return the width
+         */
         public int getWidth() {
             return this.width;
         }
@@ -202,6 +210,10 @@ class Menu extends JFrame {
             super(picAddress);
         }
         
+        /**
+         * exits game and stops music upon leaving, going to character select
+         * @param e when the button is clicked
+         */
         public void mouseClicked(MouseEvent e) {
             thisFrame.dispose();
             music.stop();
