@@ -23,6 +23,7 @@ class Character extends Physical implements Moveable {
   private char facing;
   private Image sprite;
   private Image[] sprites = new Image[4];
+  private Image stunnedImage;
   
   private double scaleRatio;
   
@@ -49,19 +50,25 @@ class Character extends Physical implements Moveable {
    this.scaleRatio = scaleRatio;
    this.health = randNum.nextInt(1000)+1000.0;
    this.maxHealth = this.health;
+   
 
+   //load sprites
    this.sprite = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[0] = new ImageIcon(spriteAddress + "rest.png").getImage();
    this.sprites[1] = new ImageIcon(spriteAddress + "left.png").getImage();
    this.sprites[2] = new ImageIcon(spriteAddress + "punch.png").getImage();
    this.sprites[3] = new ImageIcon(spriteAddress + "leftPunch.png").getImage();
+   this.stunnedImage = new ImageIcon("resources/stunned.png").getImage();
 
+   //randomly generated stats
    this.attackStrength = (randNum.nextInt(500)+1500)/1000.0;
    this.speedStat = Math.random() + 0.5;
    this.jumping = true;
    this.xSpeed = 0;
    this.ySpeed = 0;
    this.facing = facing;
+   
+   //attacks
    this.attackList[0] = new MeleeAttack(attackStrength);
    this.attackList[1] = new BigAttack(attackStrength);
    this.attackList[2] = new ProjectileAttack(attackStrength);
@@ -306,15 +313,20 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * Draws the character on the screen
+   * Draws the character and projectile on the screen
+   * 
    * @param g the graphics
    */
   public void draw(Graphics g) { 
-    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
+    g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null);
     
     try {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}
+    
+    if(isStunned()) {
+     g.drawImage(stunnedImage, (int)(getXPos()), (int)getYPos() + (int)(scaleRatio*25), (int)(scaleRatio*75), (int)(scaleRatio*75), null);
+    }
     
   }
 }
