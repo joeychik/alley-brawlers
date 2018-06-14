@@ -43,6 +43,11 @@ class VictoryScreen extends JFrame {
           super();
         }
         
+        
+        /**
+         * draws the graphics on the screen
+         * @param g the graphics
+         */
         public void paintComponent(Graphics g) { 
           Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 72));
           super.paintComponent(g);
@@ -55,18 +60,29 @@ class VictoryScreen extends JFrame {
         }
         
     }
+    
     private class ExitListener implements KeyListener {
-        public void keyTyped(KeyEvent e) {
+      /**
+       * does nothing
+       */
+      public void keyTyped(KeyEvent e) {
+      }
+      
+      /**
+       * does nothing
+       */
+      public void keyReleased(KeyEvent e) {
+      }
+      
+      /**
+       * goes back to menu when escape or backspace are pressed
+       * @param e the key being pressed
+       */
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+          thisFrame.dispose();
+          new Menu();
         }
-        
-        public void keyReleased(KeyEvent e) {
-        }
-        
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                thisFrame.dispose();
-                new Menu();
-            }
-        }
+      }
     }
 }

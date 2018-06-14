@@ -1,7 +1,7 @@
 /*
  * Clock.java
  * Gives elapsed time for speed and stuff
- * 
+ * @author Eric Ke
  */
 
 class Clock {

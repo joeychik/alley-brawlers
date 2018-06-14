@@ -26,6 +26,9 @@ class Menu extends JFrame {
     private static double scaleRatio;
     private JFrame thisFrame;
     
+    /**
+     * creates the menu
+     */
     Menu() { 
         super("Start Screen"); // name of window
         this.thisFrame = this;
@@ -73,18 +76,30 @@ class Menu extends JFrame {
         private String picAddress;
         private Image pic;
         
+        /**
+         * Creates a panel
+         * @param picAddress the picture's address
+         */
         DecoratedPanel(String picAddress) {
             super();
             this.picAddress = picAddress;
             this.pic = new ImageIcon(picAddress).getImage();
         }
         
+        /**
+         * draws the graphics on the screen
+         * @param g the graphics
+         */
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
             Image pic = new ImageIcon(picAddress).getImage();
             g.drawImage(pic , 0 , 0 , screenWidth , screenHeight , null); 
         }
         
+        /**
+         * gets the image
+         * @return the image
+         */
         public Image getImage() {
             return this.pic;
         }
@@ -94,6 +109,10 @@ class Menu extends JFrame {
         private int height;
         private int width;
         
+        /**
+         * creates a menu button
+         * @param picAddress the name of the picture
+         */
         MenuButton(String picAddress) {
             super(picAddress);
             addMouseListener(this);
@@ -102,29 +121,28 @@ class Menu extends JFrame {
             this.setOpaque(false);
         }
         
+        /**
+         * draws the graphics on the screen
+         * @param g the graphics
+         */
         public void paintComponent(Graphics g) { 
             super.paintComponent(g);
             g.drawImage(this.getImage() , 0 , 0 , this.width , this.height , null); 
         }
         
         public void mousePressed(MouseEvent e) {
-            System.out.println("pressed");
         }
         
         public void mouseReleased(MouseEvent e) {
-            System.out.println("released");
         }
         
         public void mouseEntered(MouseEvent e) {
-            System.out.println("entered");
         }
         
         public void mouseExited(MouseEvent e) {
-            System.out.println("exited");
         }
         
         public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
         }
         
         public int getHeight() {
@@ -142,7 +160,6 @@ class Menu extends JFrame {
         }
         
         public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
             thisFrame.dispose();
             new CharSelect();
         }
@@ -154,7 +171,6 @@ class Menu extends JFrame {
         }
         
         public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
             thisFrame.dispose();
             new InstructionScreen();
         }
@@ -166,7 +182,6 @@ class Menu extends JFrame {
         }
         
         public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
             System.exit(0);
         }
     }

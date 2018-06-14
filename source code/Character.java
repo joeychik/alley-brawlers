@@ -32,7 +32,16 @@ class Character extends Physical implements Moveable {
   
   private Attack[] attackList = new Attack[3];
   
-  
+  /**
+   * Constructs a character, giving it random stat values in the process
+   * @param x the initial x position of the character
+   * @param y the initial y position of the character
+   * @param h the height of the character
+   * @param w the width of the character
+   * @param scaleRatio the ratio of the screen
+   * @param facing the initial facing direction of the character
+   * @param spriteAddress the sprite's name for the character
+   */
   public Character(int x,int y,int h, int w, double scaleRatio, char facing, String spriteAddress) {
    super(x,y,h,w,scaleRatio);
    Random randNum = new Random();
@@ -57,7 +66,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * isStunned
    * checks whether the character is stunned or not
    * @return if the user is stunned
    */
@@ -70,7 +78,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * stun
    * Stuns the user for a short duration, preventing them from moving
    * @param duration the duration they are stunned for
    */
@@ -79,7 +86,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * update
    * updates the content
    * @param elapsedTime amount of time passed
    */
@@ -109,6 +115,9 @@ class Character extends Physical implements Moveable {
     setXPos(scaleRatio*880); 
    }
    
+   
+   //gravity
+   //if user jumps they will fall
    if(jumping) {
     this.ySpeed += 50*elapsedTime; 
    }
@@ -124,7 +133,7 @@ class Character extends Physical implements Moveable {
       attacking = false;
     }
    
-   
+   //move hitbox
    setBoxPosition(getXPos(), getYPos());
    
    if (attacking == false) {
@@ -150,7 +159,7 @@ class Character extends Physical implements Moveable {
   public void jump() {
     if(!jumping && !isStunned()) {
      this.jumping = true;
-     this.ySpeed = -20 * speedStat;
+     this.ySpeed = -20 * speedStat; //boost speed to jump
      this.setYPos(getYPos() - 1);
     } 
   }
@@ -176,7 +185,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * getXSpeed
    * getter for the X speed
    * @return the character's X speed
    */
@@ -185,7 +193,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * getYSpeed
    * getter for the Y speed
    * @return the character's Y speed
    */
@@ -194,16 +201,14 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * changeHealth
    * changes the user's health
-   * @param the change given to the user
+   * @param x the change given to the user
    */
   public void changeHealth(double x) {
    this.health += x; 
   }
   
   /**
-   * moveRight
    * moves the user toward the right
    */
   public void moveRight() {
@@ -213,7 +218,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * stopMoving
    * stops the user from moving
    */
   public void stopMoving() {
@@ -221,7 +225,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * moveLeft
    * moves user left
    */
   public void moveLeft() {
@@ -231,7 +234,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * setXspeed
    * sets the x speed to a certain value
    * @param s the value to set the speed to
    */
@@ -239,7 +241,6 @@ class Character extends Physical implements Moveable {
    this.xSpeed = s; 
   }
    /**
-   * setYspeed
    * sets the y speed to a certain value
    * @param s the value to set the speed to
    */
@@ -248,7 +249,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * setDirection
    * sets the direction that the character is facing
    * @param direction The direction that the character is facing
    */
@@ -257,7 +257,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * setJumping
    * sets the jumping state
    * @param jump whether the user is jumping or not
    */
@@ -266,7 +265,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * getAttacking
    * gets the attacking state of the user
    * @return whether the user is attacking or not
    */
@@ -275,7 +273,6 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * getHealth
    * gets amount of health the user has
    * @return user's health
    */
@@ -284,15 +281,12 @@ class Character extends Physical implements Moveable {
   }
   
   /**
-   * draw
    * Draws the character on the screen
-   * @param the graphics
+   * @param g the graphics
    */
   public void draw(Graphics g) { 
-    try{
     g.drawImage(sprite, (int)(getXPos() - getWidth() * 0.5), (int)getYPos(), getWidth() * 2, getHeight(), null); //notice the y is a variable that we control from our animate method 
-    } catch (Exception e) {
-    }
+    
     try {
     ((ProjectileAttack)attackList[2]).getBall().draw(g);
     } catch (Exception e) {}

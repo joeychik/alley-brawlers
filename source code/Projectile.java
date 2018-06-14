@@ -17,6 +17,14 @@ class Projectile extends Physical implements Moveable {
   Character target;
   SoundPlayer audioPlayer = new SoundPlayer();
   
+  /**
+   * Constructs a projectile and makes it fly
+   * @param x the initial x position
+   * @param y the initial y position
+   * @param scaleRatio the screen ratio
+   * @param target the target of the projectile
+   * @param facing the direction of travel
+   */
   Projectile(int x, int y, double scaleRatio, Character target, char facing) {
     super(x,y,(int)(75*scaleRatio), (int)(75*scaleRatio), scaleRatio); 
     this.target = target;
@@ -29,7 +37,6 @@ class Projectile extends Physical implements Moveable {
  }
   
   /**
-   * update
    * updates the projectile
    * @param elapsedTime amount of time passed
    */
@@ -40,7 +47,6 @@ class Projectile extends Physical implements Moveable {
   }
   
   /**
-   * moveRight
    * sets the projectile to move right
    * 
    */
@@ -49,7 +55,6 @@ class Projectile extends Physical implements Moveable {
   }
   
   /**
-   * moveLeft
    * sets the projectile to move left
    */
   public void moveLeft() {
@@ -57,7 +62,6 @@ class Projectile extends Physical implements Moveable {
   }
   
   /**
-   * draw
    * draws the projectile on the screen
    * @param g the graphics
    */
@@ -66,7 +70,6 @@ class Projectile extends Physical implements Moveable {
   }
   
   /**
-   * attack
    * deals damage to the target
    * @param damage amount of damage dealt
    */
@@ -76,7 +79,6 @@ class Projectile extends Physical implements Moveable {
   }
   
   /**
-   * collision
    * detects whether the projectile intersects with the target
    * @return if it collides or not
    */

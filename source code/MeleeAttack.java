@@ -10,13 +10,14 @@ import java.awt.Rectangle;
 class MeleeAttack extends Attack {
   
   private Rectangle attackBox;
-  
+  /**
+   * constructs the attack, setting
+   */ 
   MeleeAttack(double multiplier){
     super(25, 20,100, 100, multiplier);
   }
   
   /**
-   * useAttack
    * uses the attack
    * @param target the character to be targeted
    * @param x the x coordinate of the attack

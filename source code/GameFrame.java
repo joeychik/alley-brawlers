@@ -44,7 +44,7 @@ class GameFrame extends JFrame {
    static double x, y;
    static double scaleRatio;
    static GameAreaPanel gamePanel;
-   Clip clip;
+   Clip clip; //soundclip for music
    
    GameFrame thisFrame;
    // constants
@@ -52,9 +52,11 @@ class GameFrame extends JFrame {
    private static int CHARACTER_SIZE_Y = CHARACTER_SIZE_X * 2;
    
    Floor ground;
-   Character player, player2;
+   Character player, player2; //players
    
-  //Constructor - this runs first
+   /**
+    * Starts the game
+    */
   GameFrame() {                      // IMPORTANT     add in extra parameters for selected characters.
     super("My Game"); 
     this.playMusic("FightForQuiescence.wav");//               this is how we get the character selection from the players
@@ -70,7 +72,6 @@ class GameFrame extends JFrame {
     gamePanel = new GameAreaPanel();
     gamePanel.setBackground(new Color(0, 0, 0, 0));
     
-   // this.setLocationRelativeTo(null); //start the frame in the center of the screen
     this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
     this.setUndecorated(true);  //Set to true to remove title bar
     this.setBackground(new Color(0, 0, 0, 0));    
@@ -97,7 +98,6 @@ class GameFrame extends JFrame {
   }
   
   /**
-   * playMusic
    * plays the music for the battle
    * @param filename the name of the file
    */
@@ -120,7 +120,6 @@ class GameFrame extends JFrame {
 
   class MusicListener implements LineListener {
   /**
-   * update
    * closes the music and restarts it when it finishes
    * @param event the music event
    */
@@ -144,13 +143,19 @@ class GameFrame extends JFrame {
   private class GameAreaPanel extends JPanel {
     Clock clock;
     
-    
+    /**
+     * creates a floor and a clock
+     */
     GameAreaPanel() {
       //notice the x,y variables that we control from our animate method      
       ground = new Floor(scaleRatio);
       clock = new Clock(); 
     }
     
+    /**
+     * draws the graphics on the screen
+     * @param g the graphics
+     */
     public void paintComponent(Graphics g) {
       
       Font font = new Font("Arial", Font.PLAIN, (int)(scaleRatio * 48));
@@ -199,7 +204,6 @@ class GameFrame extends JFrame {
   }
   
   /**
-   * endGame
    * ends the game and opens up the victory screen
    */
   public void endGame(byte playerNum) {
@@ -216,7 +220,6 @@ class GameFrame extends JFrame {
     public void keyTyped(KeyEvent e) {
     }
     /**
-     * keyPressed
      * makes the players do actions when specific keys are pressed
      * @param e the key pressed
      */
@@ -271,7 +274,6 @@ class GameFrame extends JFrame {
     }   
     
     /**
-     * keyReleased
      * makes the players stop doing stuff when keys are released
      * @param e the key released
      */
@@ -289,8 +291,7 @@ class GameFrame extends JFrame {
   private class MyMouseListener implements MouseListener {
     
     public void mouseClicked(MouseEvent e) {
-      System.out.println("Mouse Clicked");
-      System.out.println("X:"+e.getX() + " y:"+e.getY());
+     
     }
     
     public void mousePressed(MouseEvent e) {

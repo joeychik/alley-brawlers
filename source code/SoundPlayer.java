@@ -18,7 +18,6 @@ class SoundPlayer {
   }
   
   /**
-   * playSound
    * plays a sound
    * @param filename the name of the file to be played
    */
@@ -38,13 +37,18 @@ class SoundPlayer {
        }
   } 
  class SoundListener implements LineListener {
+   
+   /**
+    * closes the sound when it is finished 
+    * @param event the sound
+    */
     public void update(LineEvent event) {
       if (event.getType() == LineEvent.Type.STOP) {
         event.getLine().close(); 
         
       }
-    
- 
-}
+      
+      
+    }
  }
 }

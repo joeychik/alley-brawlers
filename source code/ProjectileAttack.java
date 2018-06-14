@@ -14,6 +14,10 @@ class ProjectileAttack extends Attack {
   private char direction;
   private Projectile ball;
   
+  /**
+   * Constructor for projectile attack
+   * Sets the damage and duration for the attack
+   */
   ProjectileAttack(double multiplier){
     super(25, 20,100, 175, multiplier);
   }
@@ -23,7 +27,6 @@ class ProjectileAttack extends Attack {
   }
   
   /**
-   * update
    * updates the projectile
    * @param elapsedTime amount of time passed
    */
@@ -42,7 +45,6 @@ class ProjectileAttack extends Attack {
   }
   
   /**
-   * getBall
    * gets the projectile of the attack
    * @return the projectile object
    */
@@ -51,7 +53,6 @@ class ProjectileAttack extends Attack {
   }
   
   /**
-   * useAttack
    * uses the attack
    * @param target the character to be targeted
    * @param x the x coordinate of the attack

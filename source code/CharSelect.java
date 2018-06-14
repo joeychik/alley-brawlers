@@ -161,6 +161,10 @@ class CharSelect extends JFrame{
       this.setBackground(new Color(0,0,0,0));
     }
     
+    /**
+     * draws the graphics on the screen
+     * @param g the graphics
+     */
     public void paintComponent(Graphics g) { 
         super.paintComponent(g);     
         Image pic = new ImageIcon("resources/charSelectBG.png").getImage();

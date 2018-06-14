@@ -15,12 +15,11 @@ class BigAttack extends Attack {
   
   
   BigAttack(double multiplier){
-    super(50, 100,100, 100, multiplier);
+    super(50, 100,100, 175, multiplier);
     cooldown = 0;
   }
   
   /**
-   * update
    * updates the cooldown
    * @param elapsedTime amount of time passed
    */
@@ -29,7 +28,6 @@ class BigAttack extends Attack {
   }
   
   /**
-   * useAttack
    * uses the attack
    * @param target the character to be targeted
    * @param x the x coordinate of the attack

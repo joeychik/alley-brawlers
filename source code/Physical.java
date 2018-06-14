@@ -24,7 +24,6 @@ abstract class Physical {
  }
  
  /**
-  * getXPos
   * gets the x position of the object
   * @return x position
   */
@@ -69,7 +68,6 @@ abstract class Physical {
  }
  
  /**
-  * setYPos
   * sets the x position of the object
   * @param x the x coordinate
   */
@@ -78,7 +76,6 @@ abstract class Physical {
  }
  
  /**
-  * setYPos
   * sets the y position of the object
   * @param y the y coordinate
   */
@@ -87,7 +84,6 @@ abstract class Physical {
  }
  
  /**
-  * setBoxPosition
   * sets the position of the bounding box
   * @param x the x coordinate
   * @param y the y coordinate
